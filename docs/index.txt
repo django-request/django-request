@@ -78,3 +78,13 @@ To get started using the ``django-request`` app, follow these steps:
 	#. Run ``manage.py syncdb`` so that Django will create the database tables.
 	
 	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE_CLASSES``
+
+Settings
+========
+
+``REQUEST_IGNORE_AJAX``
+-----------------------
+
+Default: False
+
+If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more infomation.
