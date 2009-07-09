@@ -105,3 +105,20 @@ Any requests from a IP Address in this list will be ignored.
 Default: None
 
 Any requests from users in this list will be ignored.
+
+django-admin.py
+===============
+
+purgerequests
+-------------
+
+This command can be used to purge old requests, it takes two arguments amount and duration. Example:
+
+.. code-block:: bash
+
+    $ python manage.py purgerequests 1 month
+    $ python manage.py purgerequests 2 weeks
+
+It also has a option called ``--noinput``, if this is supplied, it will not ask you to confirm. With this option you can use this command in a cron.
+
+Valid durations: ``days(s)``, ``week(s)``, ``month(s)``, ``year(s)``

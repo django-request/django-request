@@ -1,0 +1,53 @@
+from datetime import timedelta, datetime
+from optparse import make_option
+from django.core.management.base import BaseCommand
+from request.models import Request
+
+DURATION_OPTIONS = {
+    'hours': lambda amount: datetime.now() - timedelta(hours=amount),
+    'days': lambda amount: datetime.now() - timedelta(days=amount),
+    'weeks': lambda amount: datetime.now() - timedelta(weeks=amount),
+    'months': lambda amount: datetime.now() - timedelta(days=(30*amount)), # 30-day month
+    'years': lambda amount: datetime.now() - timedelta(weeks=(52*amount)), # 364-day year
+}
+
+class Command(BaseCommand):
+    option_list = BaseCommand.option_list + (
+        make_option('--noinput', action='store_false', dest='interactive', default=True,
+            help='Tells Django to NOT prompt the user for input of any kind.'),
+    )
+    help = ""
+    args = '[amount duration]'
+    
+    def handle(self, amount, duration, **options):
+        # Check we have the correct values
+        try:
+            amount = int(amount)
+        except ValueError:
+            print 'Amount must be a number'
+            return
+        
+        if duration[-1] != 's': # If its not plural, make it plural
+            duration_plural = '%ss' % duration
+        else:
+            duration_plural = duration
+        
+        if not duration in DURATION_OPTIONS:
+            print 'Amount must be %s' % ', '.join(DURATION_OPTIONS)
+            return
+        
+        if options.get('interactive'):
+            confirm = raw_input("""
+You have requested a database reset.
+This will IRREVERSIBLY DESTROY any
+requests created before %d %s ago.
+Are you sure you want to do this?
+
+Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration))
+        else:
+            confirm = 'yes'
+        
+        if confirm == 'yes':
+            Request.objects.filter(time__lte=DURATION_OPTIONS[duration_plural](amount)).delete()
+        else:
+            'Purge cancelled'
