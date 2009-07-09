@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES
 
 class Request(models.Model):
@@ -23,6 +24,8 @@ class Request(models.Model):
     referer = models.URLField(verify_exists=False, blank=True, null=True)
     user_agent = models.CharField(max_length=255, blank=True, null=True)
     language = models.CharField(max_length=25, blank=True, null=True)
+    
+    objects = RequestManager()
     
     class Meta:
         ordering = ('-time',)
