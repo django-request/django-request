@@ -69,8 +69,6 @@ Quick start guide
 =================
 
 To get started using the ``django-request`` app, follow these steps:
-
-    #. Make sure ``request`` is on your ``PYTHONPATH``.
     
 	#. Install the blog app by adding ``'request'`` to
 	   ``INSTALLED_APPS``.
@@ -78,6 +76,11 @@ To get started using the ``django-request`` app, follow these steps:
 	#. Run ``manage.py syncdb`` so that Django will create the database tables.
 	
 	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE_CLASSES``
+
+
+.. note:
+
+    If you use django.contrib.auth, it is important that the you place ``request.middleware.RequestMiddleware`` after ``django.contrib.auth.middleware.AuthenticationMiddleware``
 
 Settings
 ========
@@ -87,4 +90,18 @@ Settings
 
 Default: False
 
-If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more infomation.
+If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
+
+``REQUEST_IGNORE_IP``
+---------------------
+
+Default: None
+
+Any requests from a IP Address in this list will be ignored.
+
+``REQUEST_IGNORE_USERNAME``
+---------------------------
+
+Default: None
+
+Any requests from users in this list will be ignored.

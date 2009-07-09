@@ -44,8 +44,9 @@ class Request(models.Model):
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')
         
-        if request.user.is_authenticated():
-            self.user = request.user
+        if getattr(request, 'user', False):
+            if request.user.is_authenticated():
+                self.user = request.user
         
         if response:
             self.response = response.status_code
