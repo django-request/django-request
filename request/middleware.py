@@ -1,9 +1,9 @@
-from django.conf import settings
 from request.models import Request
+from request import settings
 
 class RequestMiddleware(object):
     def process_response(self, request, response):
-        if request.is_ajax() and getattr(settings, 'REQUEST_IGNORE_AJAX', False):
+        if request.is_ajax() and settings.REQUEST_IGNORE_AJAX:
             return response
         
         r = Request()
