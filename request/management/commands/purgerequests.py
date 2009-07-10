@@ -32,8 +32,15 @@ class Command(BaseCommand):
         else:
             duration_plural = duration
         
-        if not duration in DURATION_OPTIONS:
+        if not duration_plural in DURATION_OPTIONS:
             print 'Amount must be %s' % ', '.join(DURATION_OPTIONS)
+            return
+        
+        qs = Request.objects.filter(time__lte=DURATION_OPTIONS[duration_plural](amount))
+        count = qs.count()
+        
+        if count == 0:
+            print "There are no requests to delete."
             return
         
         if options.get('interactive'):
@@ -41,13 +48,14 @@ class Command(BaseCommand):
 You have requested a database reset.
 This will IRREVERSIBLY DESTROY any
 requests created before %d %s ago.
+That is a total of %d requests.
 Are you sure you want to do this?
 
-Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration))
+Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration, count))
         else:
             confirm = 'yes'
         
         if confirm == 'yes':
-            Request.objects.filter(time__lte=DURATION_OPTIONS[duration_plural](amount)).delete()
+            qs.delete()
         else:
             'Purge cancelled'
