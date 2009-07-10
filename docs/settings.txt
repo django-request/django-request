@@ -1,0 +1,26 @@
+.. _settings:
+
+========
+Settings
+========
+
+``REQUEST_IGNORE_AJAX``
+=======================
+
+Default: False
+
+If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
+
+``REQUEST_IGNORE_IP``
+=====================
+
+Default: None
+
+Any requests from a IP Address in this list will be ignored.
+
+``REQUEST_IGNORE_USERNAME``
+===========================
+
+Default: None
+
+Any requests from users in this list will be ignored.

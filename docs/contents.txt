@@ -8,3 +8,6 @@ django-request
     :maxdepth: 2
     
     index
+    settings
+    install
+    templatetags

@@ -4,71 +4,17 @@ django-request
 
 django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
 
-Installing django-request
-=========================
+First steps
+-----------
 
-You can install django-request from the following;
-
-Via tar.gz / zip archive
-------------------------
-
-You can download the latest version in a archive created directly from the git repository via the following links:
-
-    * tar.gz: http://github.com/kylef/django-request/tarball/master
-    * zip: http://github.com/kylef/django-request/zipball/master
-
-Once you have downloaded and extracted django-request, you can use the following command to install.
-
-.. code-block:: bash
-
-    $ python setup.py install
-
-Via git repository
-------------------
-
-Git is one of the best ways to download django-request, it allows you to easily pull the latest version, just by typing ``git pull`` within the django-request directory. To download git or how to use it. See: http://git-scm.com/ .
-
-You can use the following command to clone the git repository:
-
-.. code-block:: bash
-
-    $ git clone git://github.com/kylef/lithium.git
-    $ ln -s django-request/request <PYTHONPATH>
-
-.. note:
-
-    In the last command you will need to change <PYTHONPATH> to a path in your PYTHONPATH, a path which Python has recognized to have python modules within.
-
-Using a package-management tool
--------------------------------
-
-This is one of the easiest ways to install django-request. There are two different package-management tools which you could use:
-
-pip
-~~~
-
-pip is one of the more popular package-management systems for python. You can find documentation, and how to install `pip itself here`_.  Once you have pip installed and running, simply type:
-
-.. code-block:: bash
-
-    $ pip install django-request
-
-easy_install
-~~~~~~~~~~~~
-
-Another option is to use easy_install, first you need to install easy_install. You can find documentation and how to install `easy_install here`_. Once you have easy_install up and running, just type:
-
-.. code-block:: bash
-
-    $ easy_install django-request
-
-.. _pip itself here: http://pypi.python.org/pypi/pip/
-.. _easy_install here: http://peak.telecommunity.com/DevCenter/EasyInstall
+    * :ref:`Installation <install>`
+    * :ref:`Settings <settings>`
+    * :ref:`Template tags <templatetags>`
 
 Quick start guide
 =================
 
-To get started using the ``django-request`` app, follow these steps:
+Once you have installed ``django-request`` you can add it to a django project by following these steps;
     
 	#. Install the blog app by adding ``'request'`` to
 	   ``INSTALLED_APPS``.
@@ -81,30 +27,6 @@ To get started using the ``django-request`` app, follow these steps:
 .. note:
 
     If you use django.contrib.auth, it is important that the you place ``request.middleware.RequestMiddleware`` after ``django.contrib.auth.middleware.AuthenticationMiddleware``
-
-Settings
-========
-
-``REQUEST_IGNORE_AJAX``
------------------------
-
-Default: False
-
-If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
-
-``REQUEST_IGNORE_IP``
----------------------
-
-Default: None
-
-Any requests from a IP Address in this list will be ignored.
-
-``REQUEST_IGNORE_USERNAME``
----------------------------
-
-Default: None
-
-Any requests from users in this list will be ignored.
 
 django-admin.py
 ===============
@@ -122,33 +44,3 @@ This command can be used to purge old requests, it takes two arguments amount an
 It also has a option called ``--noinput``, if this is supplied, it will not ask you to confirm. With this option you can use this command in a cron.
 
 Valid durations: ``days(s)``, ``week(s)``, ``month(s)``, ``year(s)``
-
-Template tags
-=============
-
-active_users
-------------
-
-This template tag will get a list of active users based on time,
-if you do not supply a time to the tag, the default of 15 minutes
-will be used. With the 'as' clause you can supply what context
-variable you want the user list to be. There is also a 'in' clause,
-after in you would specify a amount and a duration. Such as 2 hours,
-of 10 minutes.
-
-.. code-block:: html+django
-
-    {% active_users in [amount] [duration] as [varname] %}
-    {% active_users as [varname] %}
-    {% active_users %}
-
-Example usage:
-~~~~~~~~~~~~~~
-
-.. code-block:: html+django
-
-    {% load request_tag %}
-    {% active_users in 10 minutes as user_list %}
-    {% for user in user_list %}
-        {{ user.username }}
-    {% endfor %}
