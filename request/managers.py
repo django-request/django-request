@@ -23,12 +23,4 @@ class RequestManager(models.Manager):
         
         requests = qs.select_related('user').only('user')
         
-        users = []
-        done = []
-        
-        for request in requests:
-            if not (request.user.pk in done):
-                done.append(request.user.pk)
-                users.append(request.user)
-        
-        return users
+        return set([request.user for request in requests])
