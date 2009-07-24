@@ -16,7 +16,10 @@ class RequestAdmin(admin.ModelAdmin):
     )
     
     def request_from(self, obj):
-        return obj.user or obj.ip
+        if obj.user:
+            return '<a href="?user__username=%s" title="Show only requests from this user.">%s</a>' % (obj.user.username, obj.user)
+        return '<a href="?ip=%s" title="Show only requests from this IP address.">%s</a>' % (obj.ip, obj.ip)
     request_from.short_description = 'From'
+    request_from.allow_tags = True
 
 admin.site.register(Request, RequestAdmin)
