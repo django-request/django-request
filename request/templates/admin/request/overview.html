@@ -1,0 +1,71 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+        <a href="../../">{% trans "Request" %}</a> &rsaquo;
+        {% trans "Overview" %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="module" style="float: left; width: 40%;">
+    <table summary="{% trans "Last 5 requests" %}" style="width: 100%">
+        <caption>{% trans "Last 5 requests" %}:</caption>
+        <tr>
+            <th>{% trans "Path" %}</th>
+            <th>{% trans "From" %}</th>
+            <th>{% trans "Response" %}</th>
+            <th>{% trans "Time" %}</th>
+        </tr>
+        {% for request in lastrequests %}
+            <tr>
+                <td>{{ request.path }}</td>
+                <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
+                <td>{{ request.response }}</td>
+                <td>{{ request.time|date:"H:i d-m-Y" }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <div class="module" style="float: left; margin-left: 15px; width: 45%">
+    <table summary="{% trans "Traffic information" %}" style="width: 100%">
+        <caption>{% trans "Traffic information" %}:</caption>
+        <tr>
+            <td>&nbsp;</td>
+            <th>{% trans "Today" %}</th>
+            <th>{% trans "This week" %}</th>
+            <th>{% trans "This month" %}</th>
+            <th>{% trans "This year" %}</th>
+            <th>{% trans "Alltime" %}</th>
+        <tr>
+        <tr>
+            <th>{% trans "Unique visitors" %}</th>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <th>{% trans "Unique visits" %}
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <th>{% trans "Hits" %}</th>
+            <td>{{ hits.today }}</td>
+            <td>{{ hits.week }}</td>
+            <td>{{ hits.month }}</td>
+            <td>{{ hits.year }}</td>
+            <td>{{ hits.all }}</td>
+        </tr>
+
+    </table>
+    </div>
+{% endblock %}
