@@ -51,11 +51,11 @@
         </tr>
         <tr>
             <th>{% trans "Unique visits" %}
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
+            <td>{{ visits.today }}</td>
+            <td>{{ visits.week }}</td>
+            <td>{{ visits.month }}</td>
+            <td>{{ visits.year }}</td>
+            <td>{{ visits.all }}</td>
         </tr>
         <tr>
             <th>{% trans "Hits" %}</th>
