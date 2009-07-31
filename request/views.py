@@ -37,4 +37,11 @@ def overview(request):
         'today': requests_today.aggregate(Count('ip', distinct=True))['ip__count'],
     }
     
-    return render_to_response('admin/request/overview.html', {'lastrequests': lastrequests, 'title': 'Request overview', 'hits': hits, 'visits': visits, 'visitors': visitors,}) 
+    # Example code for the graph, this could be changed to something far better.
+    # This piece of code calculates amount of hits per day.
+    days = 30 # Timespan from today to amount of days specified here.
+    hits_coordinates = ""
+    for x in range(days):
+        hits_coordinates += "[%d,%d]," % (int((datetime.date(datetime.now()-timedelta(days=x))).strftime("%s"))*1000, Request.objects.filter(time__range=(datetime.date(datetime.now()-timedelta(days=x+1)),datetime.date(datetime.now()-timedelta(days=x)))).count())
+    
+    return render_to_response('admin/request/overview.html', {'lastrequests': lastrequests, 'title': 'Request overview', 'hits': hits, 'visits': visits, 'visitors': visitors, 'hits_coordinates': hits_coordinates}) 
