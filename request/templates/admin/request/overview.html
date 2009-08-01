@@ -38,7 +38,7 @@ $(document).ready(function(){
             <tr>
                 <td>{{ request.path }}</td>
                 <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
-                <td>{{ request.response }}</td>
+                <td>{{ request.get_response_display }}</td>
                 <td>{{ request.time|date:"H:i d-m-Y" }}</td>
             </tr>
           {% endfor %}

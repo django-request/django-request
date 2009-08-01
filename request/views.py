@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render_to_response
 from django.db.models import Count
 from django.contrib.sites.models import Site
+from django.utils.translation import ugettext_lazy as _
 
 from request.models import Request
 
@@ -15,19 +16,19 @@ def overview(request):
     base_url = 'http://%s' % Site.objects.get_current().domain
     
     info_table = (
-        ('Unique visitors', (
+        (_('Unique visitors'), (
             requests_today.aggregate(Count('ip', distinct=True))['ip__count'],
             requests_week.aggregate(Count('ip', distinct=True))['ip__count'],
             requests_month.aggregate(Count('ip', distinct=True))['ip__count'],
             requests_year.aggregate(Count('ip', distinct=True))['ip__count'],
             requests_all.aggregate(Count('ip', distinct=True))['ip__count']
-        )), ('Unique visits', (
+        )), (_('Unique visits'), (
             requests_today.exclude(referer__startswith=base_url).count(),
             requests_week.exclude(referer__startswith=base_url).count(),
             requests_month.exclude(referer__startswith=base_url).count(),
             requests_year.exclude(referer__startswith=base_url).count(),
             requests_all.exclude(referer__startswith=base_url).count(),
-        )), ('Hits', (
+        )), (_('Hits'), (
             requests_today.count(),
             requests_week.count(),
             requests_month.count(),
@@ -44,7 +45,7 @@ def overview(request):
         hits_coordinates += "[%d,%d]," % (int((datetime.date(datetime.now()-timedelta(days=x))).strftime("%s"))*1000, Request.objects.filter(time__range=(datetime.date(datetime.now()-timedelta(days=x+1)),datetime.date(datetime.now()-timedelta(days=x)))).count())
     
     return render_to_response('admin/request/overview.html', {
-        'title': 'Request overview',
+        'title': _('Request overview'),
         'lastest_requests': Request.objects.all()[:5],
         'hits_coordinates': hits_coordinates,
         'info_table': info_table
