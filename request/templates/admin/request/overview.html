@@ -5,6 +5,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
 <script src="http://media.krisje8.com/flot/jquery.flot.js" type="text/javascript"></script>
 <!--[if IE]><script src="http://media.krisje8.com/flot/excanvas.min.js" type="text/javascript"></script><![endif]-->
+
 <script type="text/javascript">
 $(document).ready(function(){
     $.plot($("#trafficgraph"), [
@@ -23,66 +24,58 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block content %}
-    <div class="module" style="float: left; width: 45%;">
-    <table summary="{% trans "Last 5 requests" %}" style="width: 100%;">
-        <caption>{% trans "Last 5 requests" %}:</caption>
-        <tr>
-            <th>{% trans "Path" %}</th>
-            <th>{% trans "From" %}</th>
-            <th>{% trans "Response" %}</th>
-            <th>{% trans "Time" %}</th>
-        </tr>
-        {% for request in lastrequests %}
+<div style="width:920px;">
+    <div class="module" style="float: left; width: 450px;">
+        <table summary="{% trans "Last 5 requests" %}" style="width: 100%;">
+            <caption>{% trans "Last 5 requests" %}</caption>
+            <tr>
+                <th>{% trans "Path" %}</th>
+                <th>{% trans "From" %}</th>
+                <th>{% trans "Response" %}</th>
+                <th>{% trans "Time" %}</th>
+            </tr>
+          {% for request in lastest_requests %}
             <tr>
                 <td>{{ request.path }}</td>
                 <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
                 <td>{{ request.response }}</td>
                 <td>{{ request.time|date:"H:i d-m-Y" }}</td>
             </tr>
-        {% endfor %}
-    </table>
+          {% endfor %}
+      </table>
     </div>
 
-    <div class="module" style="float: left; margin-left: 15px; width: 45%;">
-    <table summary="{% trans "Traffic information" %}" style="width: 100%;">
-        <caption>{% trans "Traffic information" %}:</caption>
-        <tr>
-            <td>&nbsp;</td>
-            <th>{% trans "Today" %}</th>
-            <th>{% trans "This week" %}</th>
-            <th>{% trans "This month" %}</th>
-            <th>{% trans "This year" %}</th>
-            <th>{% trans "Alltime" %}</th>
-        <tr>
-        <tr>
-            <th>{% trans "Unique visitors" %}</th>
-            <td>{{ visitors.today }}</td>
-            <td>{{ visitors.week }}</td>
-            <td>{{ visitors.month }}</td>
-            <td>{{ visitors.year }}</td>
-            <td>{{ visitors.all }}</td>
-        </tr>
-        <tr>
-            <th>{% trans "Unique visits" %}
-            <td>{{ visits.today }}</td>
-            <td>{{ visits.week }}</td>
-            <td>{{ visits.month }}</td>
-            <td>{{ visits.year }}</td>
-            <td>{{ visits.all }}</td>
-        </tr>
-        <tr>
-            <th>{% trans "Hits" %}</th>
-            <td>{{ hits.today }}</td>
-            <td>{{ hits.week }}</td>
-            <td>{{ hits.month }}</td>
-            <td>{{ hits.year }}</td>
-            <td>{{ hits.all }}</td>
-        </tr>
-    </table>
+    <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+        <table summary="{% trans "Traffic information" %}" style="width: 100%;">
+            <caption>{% trans "Traffic information" %}</caption>
+            <tr>
+                <td>&nbsp;</td>
+                <th>{% trans "Today" %}</th>
+                <th>{% trans "This week" %}</th>
+                <th>{% trans "This month" %}</th>
+                <th>{% trans "This year" %}</th>
+                <th>{% trans "Alltime" %}</th>
+            <tr>
+            
+          {% for key,value in info_table %}
+            <tr>
+                <th>{{ key }}</th>
+              {% for item in value %}
+                <td>{{ item }}</td>
+              {% endfor %}
+            <tr>
+          {% endfor %}
+        </table>
     </div>
-
-    <div class="module" style="clear: both; width: 930px;">
-        <table style="width: 100%;"><caption>{% trans "Traffic graph" %}:</caption></table>
-        <div style="padding: 15px;"><div id="trafficgraph" style="width: 900px; height: 250px;"></div></div>
+    
+    <div class="module" style="clear: both;">
+        <table style="width: 100%;">
+            <caption>{% trans "Traffic graph" %}</caption>
+        </table>
+        
+        <div style="padding: 15px;">
+            <div id="trafficgraph" style="width: 900px; height: 250px;"></div>
+        </div>
     </div>
+</div>
 {% endblock %}
