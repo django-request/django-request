@@ -8,9 +8,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $.plot($("#trafficgraph"), [
-        { data: [ {{ hits_coordinates }} ], label: "Hits" }
-    ], { xaxis: { mode: "time" }} );
+    $.plot($("#trafficgraph"), {{ traffic_graph|safe }}, { xaxis: { mode: "time" }} );
 });
 </script>
 {% endblock %}

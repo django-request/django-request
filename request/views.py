@@ -1,9 +1,10 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from django.shortcuts import render_to_response
 from django.db.models import Count
 from django.contrib.sites.models import Site
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils import simplejson
 
 from request.models import Request
 
@@ -32,18 +33,19 @@ def overview(request):
         ))
     )
     
-    # Example code for the graph, this could be changed to something far better.
-    # This piece of code calculates amount of hits per day.
-    days = 30 # Timespan from today to amount of days specified here.
-    hits_coordinates = ""
-    for x in range(days):
-        hits_coordinates += "[%d,%d]," % (int((datetime.date(datetime.now()-timedelta(days=x))).strftime("%s"))*1000, Request.objects.filter(time__range=(datetime.date(datetime.now()-timedelta(days=x+1)),datetime.date(datetime.now()-timedelta(days=x)))).count())
+    days = [date.today()-timedelta(day) for day in range(30)]
     
     return render_to_response('admin/request/overview.html', {
         'title': _('Request overview'),
         'lastest_requests': Request.objects.all()[:5],
         'info_table': info_table,
-        'hits_coordinates': hits_coordinates,
+        
+        'traffic_graph': simplejson.dumps([
+            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).aggregate(Count('ip', distinct=True))['ip__count']) for day in days], 'label':ugettext('Unique visitors')},
+            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).exclude(referer__startswith=base_url).count()) for day in days], 'label':ugettext('Unique visits')},
+            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).count()) for day in days], 'label':ugettext('Hits')}
+        ]),
+        
         'top_paths': Request.objects.paths(count=True, limit=10),
         
         'requests_url': '/admin/request/request/'
