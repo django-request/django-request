@@ -77,5 +77,21 @@ $(document).ready(function(){
             <div id="trafficgraph" style="width: 900px; height: 250px;"></div>
         </div>
     </div>
+    
+    <div class="module" style="float: left; width: 450px;">
+        <table summary="{% trans "Top paths" %}" style="width: 100%;">
+            <caption>{% trans "Top paths" %}</caption>
+            <tr>
+                <th>{% trans "Path" %}</th>
+                <th>{% trans "Hits" %}</th>
+            </tr>
+          {% for path,hits in top_paths %}
+            <tr>
+                <td><a href="{{ requests_url }}?path={{ path }}">{{ path }}</a></td>
+                <td>{{ hits }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+    </div>
 </div>
 {% endblock %}

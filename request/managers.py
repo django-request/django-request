@@ -26,6 +26,32 @@ class RequestManager(models.Manager):
         
         return set([request.user for request in requests])
     
+    def paths(self, unique=True, count=False, qs=None, limit=None):
+        if not qs:
+            qs = self.all()
+        
+        if count: unique = False
+        
+        if unique:
+            paths = set([request.path for request in qs.only('path')])
+        else:
+            paths = [request.path for request in qs.only('path')]
+        
+        if count:
+            path_count = {}
+            for path in paths:
+                path_count[path] = len([None for x in paths if path == x])
+            
+            paths = [(v, k) for k, v in path_count.iteritems()]
+            paths.sort()
+            paths.reverse()
+            paths = [(k, v) for v, k in paths]
+        
+        if limit:
+            paths = paths[:limit]
+        
+        return paths
+    
     def year(self, year):
         return self.filter(time__year=year)
     

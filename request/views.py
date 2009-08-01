@@ -44,4 +44,7 @@ def overview(request):
         'lastest_requests': Request.objects.all()[:5],
         'info_table': info_table,
         'hits_coordinates': hits_coordinates,
+        'top_paths': Request.objects.paths(count=True, limit=10),
+        
+        'requests_url': '/admin/request/request/'
     }) 
