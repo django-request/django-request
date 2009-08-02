@@ -46,7 +46,8 @@ def overview(request):
             {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).count()) for day in days], 'label':ugettext('Hits')}
         ]),
         
-        'top_paths': Request.objects.paths(count=True, limit=10),
+        'top_paths': Request.objects.paths(count=True, limit=10, qs=Request.objects.exclude(response=404).exclude(response=500)),
+        'top_error_paths': Request.objects.paths(count=True, limit=10, qs=(Request.objects.filter(response=404)|Request.objects.filter(response=500))),
         
         'requests_url': '/admin/request/request/'
     }) 
