@@ -1,10 +1,12 @@
 from datetime import datetime, timedelta, date
 
 from django.shortcuts import render_to_response
+from django.template.loader import render_to_string
 from django.db.models import Count
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import simplejson
+from django.http import HttpResponse
 
 from request.models import Request
 
@@ -50,3 +52,9 @@ def overview(request):
         
         'requests_url': '/admin/request/request/'
     }) 
+
+def render_template(template, content_type='text/javascript'):
+    def wrap(request):
+        jquery = render_to_string(template)
+        return HttpResponse(jquery, content_type=content_type)
+    return wrap
