@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, url
 from django.utils.translation import ugettext_lazy as _
 
 from request.models import Request
-from request.views import overview
+from request.views import overview, render_template
 
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'path', 'response', 'method', 'request_from')
@@ -27,10 +27,12 @@ class RequestAdmin(admin.ModelAdmin):
     request_from.allow_tags = True
     
     def get_urls(self):
-        urls = super(RequestAdmin, self).get_urls()
-        my_urls = patterns('',
+        urls = patterns('',
             url(r'^overview/$', overview),
+            url(r'^jquery-1.3.2.min.js$', render_template('request/js/jquery-1.3.2.min.js'), name='request_jquery_js'),
+            url(r'^jquery.flot.js$', render_template('request/js/jquery.flot.js'), name='request_jquery_flot_js'),
+            url(r'^excanvas.min.js$', render_template('request/js/excanvas.min.js'), name='request_jquery_excanvas_flot_js'),
         )
-        return my_urls + urls
+        return urls + super(RequestAdmin, self).get_urls()
 
 admin.site.register(Request, RequestAdmin)
