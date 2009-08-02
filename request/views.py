@@ -3,16 +3,13 @@ from datetime import datetime, timedelta, date
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db.models import Count
-from django.contrib.sites.models import Site
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.utils import simplejson
+from django.utils.translation import ugettext_lazy as _
+from django.utils import simplejson, importlib
 
 from request.models import Request
 from request import settings
 
 def overview(request):
-    base_url = 'http://%s' % Site.objects.get_current().domain
-    
     info_table = (
         (_('Unique visitors'), (
             Request.objects.today().aggregate(Count('ip', distinct=True))['ip__count'],
@@ -21,11 +18,11 @@ def overview(request):
             Request.objects.this_year().aggregate(Count('ip', distinct=True))['ip__count'],
             Request.objects.aggregate(Count('ip', distinct=True))['ip__count']
         )), (_('Unique visits'), (
-            Request.objects.today().exclude(referer__startswith=base_url).count(),
-            Request.objects.this_week().exclude(referer__startswith=base_url).count(),
-            Request.objects.this_month().exclude(referer__startswith=base_url).count(),
-            Request.objects.this_year().exclude(referer__startswith=base_url).count(),
-            Request.objects.exclude(referer__startswith=base_url).count(),
+            Request.objects.today().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
+            Request.objects.this_week().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
+            Request.objects.this_month().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
+            Request.objects.this_year().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
+            Request.objects.exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
         )), (_('Hits'), (
             Request.objects.today().count(),
             Request.objects.this_week().count(),
@@ -41,13 +38,7 @@ def overview(request):
         'title': _('Request overview'),
         'lastest_requests': Request.objects.all()[:5],
         'info_table': info_table,
-        
-        'traffic_graph': simplejson.dumps([
-            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).aggregate(Count('ip', distinct=True))['ip__count']) for day in days], 'label':ugettext('Unique visitors')},
-            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).exclude(referer__startswith=base_url).count()) for day in days], 'label':ugettext('Unique visits')},
-            {'data': [(int(day.strftime("%s"))*1000, Request.objects.day(date=day).count()) for day in days], 'label':ugettext('Hits')}
-        ]),
-        
+        'traffic_graph': simplejson.dumps([getattr(importlib.import_module(module_path[:module_path.rindex('.')]), module_path[module_path.rindex('.')+1:], None)(days) for module_path in settings.REQUEST_TRAFFIC_GRAPH_MODULES]),
         'top_paths': Request.objects.paths(count=True, limit=10, qs=Request.objects.filter(response__lt=400)),
         'top_error_paths': Request.objects.paths(count=True, limit=10, qs=(Request.objects.filter(response__gte=400))),
         

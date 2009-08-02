@@ -7,31 +7,46 @@ Settings
 ``REQUEST_IGNORE_AJAX``
 =======================
 
-Default: False
+Default: ``False``
 
 If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
 
 ``REQUEST_IGNORE_IP``
 =====================
 
-Default: None
+Default: ``None``
 
 Any requests from a IP Address in this list will be ignored.
 
 ``REQUEST_IGNORE_USERNAME``
 ===========================
 
-Default: None
+Default: ``None``
 
 Any requests from users in this list will be ignored.
 
 ``REQUEST_USE_HOSTED_MEDIA``
 ============================
 
-Default: True
+Default: ``True``
 
 Whether django-request should use google for the js, or MEDIA_URL, if set to False, make sure you place /js/jquery-1.3.2.min.js, /js/jquery.flot.js and /js/excanvas.min.js on your MEDIA_PATH. You can find these files at: 
 
 - http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js
 - http://flot.googlecode.com/svn/trunk/jquery.flot.js
 - http://flot.googlecode.com/svn/trunk/excanvas.min.js
+
+``REQUEST_TRAFFIC_GRAPH_MODULES``
+=================================
+
+Default: 
+
+.. code-block:: python
+
+	(
+    	'request.traffic_module.unique_visitors',
+    	'request.traffic_module.unique_visits',
+    	'request.traffic_module.hits',
+	)
+
+These are all the items in the traffic graph on the overview page. If you wish to remove or add a item you can override this setting and set what you want to see. Including in django-request is also  'request.traffic_module.errors' which will show the amount of error requests.
