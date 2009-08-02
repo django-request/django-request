@@ -98,5 +98,21 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
+
+    <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+        <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
+            <caption>{% trans "Top error-returning paths" %}</caption>
+            <tr>
+                <th>{% trans "Path" %}</th>
+                <th>{% trans "Hits" %}</th>
+            </tr>
+          {% for path,hits in top_error_paths %}
+            <tr>
+                <td><a href="{{ requests_url }}?path={{ path }}">{{ path }}</a></td>
+                <td>{{ hits }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+    </div>
 </div>
 {% endblock %}
