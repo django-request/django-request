@@ -68,7 +68,7 @@ $(document).ready(function(){
               {% for item in value %}
                 <td>{{ item }}</td>
               {% endfor %}
-            <tr>
+            </tr>
           {% endfor %}
         </table>
     </div>
@@ -101,7 +101,7 @@ $(document).ready(function(){
 
     <div class="module" style="float: left; margin-left: 16px; width: 450px;">
         <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
-            <caption>{% trans "Top error-returning paths" %}</caption>
+            <caption>{% trans "Top error-returning paths" %} <a href="{{ requests_url }}?response__gte=400">({% trans "more" %})</a></caption>
             <tr>
                 <th>{% trans "Path" %}</th>
                 <th>{% trans "Hits" %}</th>
