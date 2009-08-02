@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta, date
 
 from django.shortcuts import render_to_response
-from django.template.loader import render_to_string
+from django.template import RequestContext
 from django.db.models import Count
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import simplejson
-from django.http import HttpResponse
 
 from request.models import Request
+from request import settings
 
 def overview(request):
     base_url = 'http://%s' % Site.objects.get_current().domain
@@ -50,11 +50,6 @@ def overview(request):
         
         'top_paths': Request.objects.paths(count=True, limit=10),
         
-        'requests_url': '/admin/request/request/'
-    }) 
-
-def render_template(template, content_type='text/javascript'):
-    def wrap(request):
-        jquery = render_to_string(template)
-        return HttpResponse(jquery, content_type=content_type)
-    return wrap
+        'requests_url': '/admin/request/request/',
+        'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
+    }, context_instance=RequestContext(request)) 
