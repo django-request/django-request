@@ -14,7 +14,7 @@ class ActiveUserNode(template.Node):
         if (len(tokens) == 5) and (tokens[0] == 'in'):
             tokens.pop(0) # pop 'in' of tokens
             try:
-                self.kwargs = {str(tokens.pop(0)): int(tokens.pop(0))}
+                self.kwargs[str(tokens.pop(0))] = int(tokens.pop(0))
             except ValueError:
                 raise template.TemplateSyntaxError('Invalid arguments for %r template tag.' % tag_name)
         else:
