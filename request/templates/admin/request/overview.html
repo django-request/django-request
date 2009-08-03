@@ -18,36 +18,32 @@ $(document).ready(function(){
     var plot = $.plot($("#trafficgraph"), {{ traffic_graph|safe }}, { xaxis: { mode: "time" }, points: { show: true }, lines: { show: true }, grid: { hoverable: true } } );
 
     function showTooltip(x, y, contents) {
+        $("#tooltip").remove();
+        
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',
             display: 'none',
             top: y + 5,
             left: x + 5,
-            border: '1px solid #fdd',
-            padding: '2px',
-            'background-color': '#fee',
+            border: '1px solid #ccc',
+            padding: '5px',
+            'background-color': '#7CA0C7',
+            'color': '#fff',
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
     
     var previousPoint = null;
     var date = new Date();
-    $("#trafficgraph").bind("plothover", function (event, pos, item) {
-        $("#x").text(pos.x.toFixed(2));
-        $("#y").text(pos.y.toFixed(2));
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     
+    $("#trafficgraph").bind("plothover", function (event, pos, item) {
         if (item) {
             if (previousPoint != item.datapoint) {
                 previousPoint = item.datapoint;
                 
-                $("#tooltip").remove();
-                var x = item.datapoint[0],
-                    y = item.datapoint[1];
-
-                date.setTime(x).toString;
-                
-                showTooltip(item.pageX, item.pageY,
-                            item.series.label + " on " + date + " = " + y);
+                date.setTime(item.datapoint[0]).toString;
+                showTooltip(item.pageX, item.pageY, item.series.label + ' on ' + monthNames[date.getMonth()] + ' ' + date.getDate() + ' is ' + item.datapoint[1]);
             }
         }
         else {
