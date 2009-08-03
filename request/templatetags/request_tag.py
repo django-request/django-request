@@ -7,6 +7,7 @@ class ActiveUserNode(template.Node):
     def __init__(self, parser, token):
         tokens = token.contents.split()
         tag_name = tokens.pop(0)
+        self.kwargs = {}
         
         if not ((len(tokens) == 5) or (len(tokens) == 2) or (len(tokens) == 0)):
             raise template.TemplateSyntaxError("Incorrect amount of arguments in the tag %r" % tag_name)
@@ -18,7 +19,7 @@ class ActiveUserNode(template.Node):
             except ValueError:
                 raise template.TemplateSyntaxError('Invalid arguments for %r template tag.' % tag_name)
         else:
-            self.kwargs = {'minutes': 15}
+            self.kwargs['minutes'] = 15
         
         if (len(tokens) == 2 and (tokens[0] == 'as')):
             self.as_varname = tokens[1]
