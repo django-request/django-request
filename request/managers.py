@@ -52,6 +52,34 @@ class RequestManager(models.Manager):
         
         return paths
     
+    def referrers(self, unique=True, count=False, qs=None, limit=None):
+        # There is a slight misspelling here, referer should be referrer,
+        # but even the http headers misspell it so I'll leave it here.
+        if not qs:
+            qs = self.all()
+        
+        if count: unique = False
+        
+        if unique:
+            referers = set([request.referer for request in qs.only('referer')])
+        else:
+            referers = [request.referer for request in qs.only('referer')]
+        
+        if count:
+            referer_count = {}
+            for referer in referers:
+                referer_count[referer] = len([None for x in referers if referer == x])
+            
+            referers = [(v, k) for k, v in referer_count.iteritems()]
+            referers.sort()
+            referers.reverse()
+            referers = [(k, v) for v, k in referers]
+        
+        if limit:
+            referers = referers[:limit]
+        
+        return referers
+    
     def year(self, year):
         return self.filter(time__year=year)
     

@@ -41,6 +41,7 @@ def overview(request):
         'traffic_graph': simplejson.dumps([getattr(importlib.import_module(module_path[:module_path.rindex('.')]), module_path[module_path.rindex('.')+1:], None)(days) for module_path in settings.REQUEST_TRAFFIC_GRAPH_MODULES]),
         'top_paths': Request.objects.paths(count=True, limit=10, qs=Request.objects.filter(response__lt=400)),
         'top_error_paths': Request.objects.paths(count=True, limit=10, qs=(Request.objects.filter(response__gte=400))),
+        'top_referrers': Request.objects.referrers(count=True, limit=10, qs=Request.objects.exclude(referer__startswith=settings.REQUEST_BASE_URL).exclude(referer='')),
         
         'requests_url': '/admin/request/request/',
         'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA

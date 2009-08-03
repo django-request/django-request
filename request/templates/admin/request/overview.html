@@ -149,5 +149,22 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
+
+    <div class="module" style="clear: both; float: left; width: 450px;">
+        <table summary="{% trans "Top referrers" %}" style="width: 100%;">
+            <caption>{% trans "Top referrers" %}</caption>
+            <tr>
+                <th>{% trans "Referrer" %}</th>
+                <th>{% trans "Hits" %}</th>
+            </tr>
+          {% for referrer,hits in top_referrers %}
+            <tr>
+                <td><a href="{{ referrer }}">{{ referrer }}</a></td>
+                <td>{{ hits }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+    </div>
+
 </div>
 {% endblock %}

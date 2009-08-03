@@ -32,7 +32,7 @@ Once you have installed ``django-request`` you can add it to a django project by
 
 .. note #2:
     Make sure that you got your domain name right in the Sites model.
-    If it's not, the unique visits will not be calculated right.
+    If it's not, the unique visits will not be calculated right, and top referers will not be shown correctly.
 
 django-admin.py
 ===============
