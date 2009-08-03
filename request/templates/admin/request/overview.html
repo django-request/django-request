@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
+{% load request_admin %}
 
 {% block extrahead %}
 {% if use_hosted_media %}
@@ -159,7 +160,7 @@ $(document).ready(function(){
             </tr>
           {% for referrer,hits in top_referrers %}
             <tr>
-                <td><a href="{{ referrer }}">{{ referrer }}</a></td>
+                <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"70" }}</a></td>
                 <td>{{ hits }}</td>
             </tr>
           {% endfor %}
