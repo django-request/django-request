@@ -1,6 +1,6 @@
 import re
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db.models import Count
 from django.utils.translation import string_concat
 
@@ -45,7 +45,7 @@ class Modules(object):
         return [(module.verbose_name_plural, [module.count(qs) for qs in queries]) for module in self.modules]
     
     def graph(self, days):
-        return [{'data':[(int(day.strftime("%s"))*1000, module.count(qs)) for day, qs in days], 'label':_(module.verbose_name_plural)} for module in self.modules]
+        return [{'data':[(int(day.strftime("%s"))*1000, module.count(qs)) for day, qs in days], 'label':ugettext(module.verbose_name_plural)} for module in self.modules]
 
 modules = Modules()
 
@@ -54,7 +54,7 @@ class Module(object):
         self.module_name = self.__class__.__name__
         
         if not hasattr(self, 'verbose_name'):
-            self.verbose_name = get_verbose_name(self.module_name)
+            self.verbose_name = _(get_verbose_name(self.module_name))
         if not hasattr(self, 'verbose_name_plural'):
             self.verbose_name_plural = string_concat(self.verbose_name, 's')
 
@@ -76,8 +76,14 @@ class Hit(Module):
     def count(self, qs):
         return qs.count()
 
+class Search(Module):
+    verbose_name_plural = _('Searches')
+    
+    def count(self, qs):
+        return qs.search().count()
+
 class Secure(Module):
-    verbose_name_plural = 'Secure'
+    verbose_name_plural = _('Secure')
     
     def count(self, qs):
         return qs.filter(is_secure=True).count()
