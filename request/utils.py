@@ -109,3 +109,9 @@ browsers = patterns(('Unknown', {}),
     (r'Apple-PubSub', 'Apple-PubSub'),
     (r'Python-urllib', 'Python'),
 )
+
+engines = patterns(None,
+    (r'^https?:\/\/([\.\w]+)?yahoo.*(?:&|\?)p=(?P<keywords>[\+-_\w]+)', 'Yahoo'),
+    (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
+    (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
+)

@@ -168,6 +168,22 @@ $(document).ready(function(){
     </div>
     
     <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+        <table summary="{% trans "Top search phrases" %}" style="width: 100%;">
+            <caption>{% trans "Top search phrases" %}</caption>
+            <tr>
+                <th>{% trans "Phrase" %}</th>
+                <th>{% trans "Visits" %}</th>
+            </tr>
+          {% for phrase,visits in top_search_phrases %}
+            <tr>
+                <td>{{ phrase|trunc:"60" }}</td>
+                <td>{{ visits }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+    </div>
+    
+    <div class="module" style="clear: both; float: left; width: 450px;">
         <h2>{% trans "Top browsers" %}</h2>
         <img src="{{ top_browsers }}" />
     </div>

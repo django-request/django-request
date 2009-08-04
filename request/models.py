@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
-from request.utils import HTTP_STATUS_CODES, browsers
+from request.utils import HTTP_STATUS_CODES, browsers, engines
 
 class Request(models.Model):
     # Response infomation
@@ -66,9 +66,18 @@ class Request(models.Model):
         if not self.user_agent:
             return
         
-        if hasattr(self, '_browser'):
-            return self._browser[0]
-        
-        self._browser = browsers.resolve(self.user_agent)
+        if not hasattr(self, '_browser'):
+            self._browser = browsers.resolve(self.user_agent)
         return self._browser[0]
     browser = property(browser)
+    
+    #@property
+    def keywords(self):
+        if not self.referer:
+            return
+        
+        if not hasattr(self, '_keywords'):
+            self._keywords = engines.resolve(self.referer)
+        if self._keywords:
+            return ' '.join(self._keywords[1]['keywords'].split('+'))
+    keywords = property(keywords)

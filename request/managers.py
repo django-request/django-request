@@ -10,7 +10,7 @@ try: # For python <= 2.3
 except NameError:
     from sets import Set as set
 
-QUERYSET_PROXY_METHODS = ('year', 'month', 'week', 'day', 'today', 'this_week', 'this_month', 'this_year', 'unique_visits', 'attr_list')
+QUERYSET_PROXY_METHODS = ('year', 'month', 'week', 'day', 'today', 'this_week', 'this_month', 'this_year', 'unique_visits', 'attr_list', 'search')
 
 class RequestQuerySet(models.query.QuerySet):
     def year(self, year):
@@ -86,6 +86,9 @@ class RequestQuerySet(models.query.QuerySet):
     
     def attr_list(self, name):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
+    
+    def search(self):
+        return self.filter(referer__contains='google')|self.filter(referer__contains='yahoo')|self.filter(referer__contains='bing')
 
 class RequestManager(models.Manager):
     def __getattr__(self, *args, **kwargs):
