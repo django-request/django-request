@@ -65,3 +65,47 @@ HTTP_STATUS_CODES = (
     (509, _('Bandwidth Limit Exceeded')),
     (510, _('Not Extended')),
 )
+
+from request.router import patterns
+
+browsers = patterns(('Unknown', {}),
+    # Browsers
+    (r'AOL (?P<version>[\d+\.\d+]+)', 'AOL'),
+    (r'Camino/(?P<version>[-.\w]+)', 'Camino'),
+    (r'Chrome/(?P<version>[-.\w]+)', 'Google Chrome'),
+    (r'Firefox(/(?P<version>[-.\w]+)?)', 'Firefox'),
+    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<version>[-.\w]+);( ?)( ?)(Win|Mac)', 'Internet Explorer'),
+    (r'Konqueror/(?P<version>[-.\w]+)', 'Konqueror'),
+    (r'Opera( |/)(?P<version>[-.\w]+)', 'Opera'),
+    (r'OmniWeb(/(?P<version>[-.\w]+)?)', 'OmniWeb'),
+    (r'Safari/(?P<version>[-.\w]+)', 'Safari'),
+    (r'(Netscape([\d]?)|Navigator)/(?P<version>[-.\w]+)', 'Netscape'),
+    
+    (r'Minefield(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox nightly trunk builds
+    (r'Shiretoko(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox testing browser
+    (r'GranParadiso(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox testing browser
+    (r'Iceweasel(/(?P<version>[-.\w]+)?)', 'Firefox'), # Debian re-branded firefox
+    
+    # RSS Reader
+    (r'(NetNewsWire|NewsGatorOnline)/(?P<version>[-.\w]+)', 'NetNewsWire'),
+    (r'Feedfetcher-Google', 'Google Reader'),
+    
+    # Bots
+    (r'Googlebot', 'Google'),
+    (r'Yahoo! Slurp', 'Yahoo'),
+    (r'msnbot', 'MSN Bot'),
+    (r'(Baiduspider|BaiduImagespider)', 'Baiduspider'),
+    (r'Ask Jeeves', 'Ask Jeeves'),
+    (r'FollowSite', 'FollowSite'),
+    (r'WebAlta Crawler', 'WebAlta Crawler'),
+    (r'ScoutJet', 'ScoutJet'),
+    (r'SurveyBot', 'domaintools.com'),
+    (r'Gigabot', 'Gigabot'),
+    (r'Speedy Spider', 'entireweb'),
+    (r'discobot', 'Discovery Engine'),
+    
+    # Other
+    (r'Mediapartners-Google', 'Google Ads'),
+    (r'Apple-PubSub', 'Apple-PubSub'),
+    (r'Python-urllib', 'Python'),
+)

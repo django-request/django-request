@@ -80,6 +80,29 @@ class RequestManager(models.Manager):
         
         return referers
     
+    def browsers(self, unique=True, count=False, qs=None):
+        if not qs:
+            qs = self.all()
+        
+        if count: unique = False
+        
+        if unique:
+            browsers = set([request.browser for request in qs.only('user_agent') if request.browser])
+        else:
+            browsers = [request.browser for request in qs.only('user_agent') if request.browser]
+        
+        if count:
+            browser_count = {}
+            for browser in browsers:
+                browser_count[browser] = len([None for x in browsers if browser == x])
+            
+            browsers = [(v, k) for k, v in browser_count.iteritems()]
+            browsers.sort()
+            browsers.reverse()
+            browsers = [(k,v) for v,k in browsers]
+        
+        return browsers
+    
     def year(self, year):
         return self.filter(time__year=year)
     
