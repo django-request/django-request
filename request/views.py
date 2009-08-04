@@ -12,6 +12,7 @@ from request import settings
 def set_count(items):
     item_count = {}
     for item in items:
+        if not item: continue
         if not item_count.has_key(item): item_count[item] = 0
         item_count[item] += 1
     
@@ -23,6 +24,7 @@ def set_count(items):
 
 def overview(request):
     days = [date.today()-timedelta(day) for day in range(30)]
+    browsers = set_count(Request.objects.attr_list('browser'))[:5]
     
     return render_to_response('admin/request/overview.html', {
         'title': _('Request overview'),
@@ -37,6 +39,7 @@ def overview(request):
         'top_paths': set_count(Request.objects.filter(response__lt=400).values_list('path', flat=True))[:10],
         'top_error_paths': set_count(Request.objects.filter(response__gte=400).values_list('path', flat=True))[:10],
         'top_referrers': set_count(Request.objects.unique_visits().values_list('path', flat=True))[:10],
+        'top_browsers': 'http://chart.apis.google.com/chart?cht=p3&chd=t:%s&chs=440x190&chl=%s' % (','.join([str(browser[1]) for browser in browsers]), '|'.join([browser[0] for browser in browsers])),
         
         'requests_url': '/admin/request/request/',
         'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
