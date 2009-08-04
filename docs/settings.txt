@@ -36,7 +36,7 @@ Whether django-request should use google for the js, or MEDIA_URL, if set to Fal
 - http://flot.googlecode.com/svn/trunk/jquery.flot.js
 - http://flot.googlecode.com/svn/trunk/excanvas.min.js
 
-``REQUEST_TRAFFIC_GRAPH_MODULES``
+``REQUEST_TRAFFIC_MODULES``
 =================================
 
 Default: 
@@ -44,9 +44,26 @@ Default:
 .. code-block:: python
 
 	(
-    	'request.traffic_module.unique_visitors',
-    	'request.traffic_module.unique_visits',
-    	'request.traffic_module.hits',
+    	'request.traffic.UniqueVisitors',
+    	'request.traffic.UniqueVisit',
+    	'request.traffic.Hit',
 	)
 
-These are all the items in the traffic graph on the overview page. If you wish to remove or add a item you can override this setting and set what you want to see. Including in django-request is also  'request.traffic_module.errors' which will show the amount of error requests.
+These are all the items in the traffic graph and table on the overview page. If you wish to remove or add a item you can override this setting and set what you want to see. There are also many more options you can add from the following list;
+
+- ``'request.traffic.Ajax'``: To show the amount of requests made from javascript.
+- ``'request.traffic.Error'``: To show the amount of error's, this includes error 500 and page not found.
+- ``'request.traffic.Error404'``: To show the amount of page not found.
+- ``'request.traffic.Hit'``: To show the total amount of requests.
+- ``'request.traffic.Secure'``: To show the amount of requests over SSL.
+- ``'request.traffic.UniqueVisit'``: To show visits based from outsider referrals.
+- ``'request.traffic.UniqueVisitor'``: To show the amount of requests made from unique visitors based upon IP address.
+- ``'request.traffic.User'``: To show the amount of requests made from a valid user account.
+- ``'request.traffic.UniqueUser'``: To show the amount of users.
+
+``REQUEST_BASE_URL``
+====================
+
+Default: ``'http://%s' % Site.objects.get_current().domain``
+
+This setting should only be set if you use SSL or do not use django.contrib.sites. This is the base url for detecting referral from within the same site.

@@ -91,9 +91,9 @@ class RequestQuerySet(models.query.QuerySet):
         return self.filter(referer__contains='google')|self.filter(referer__contains='yahoo')|self.filter(referer__contains='bing')
 
 class RequestManager(models.Manager):
-    def __getattr__(self, *args, **kwargs):
-        if args[0] in QUERYSET_PROXY_METHODS:
-            return getattr(self.get_query_set(), args[0], None)
+    def __getattr__(self, attr):
+        if attr in QUERYSET_PROXY_METHODS:
+            return getattr(self.get_query_set(), attr, None)
         super(RequestManager, self).__getattr__(*args, **kwargs)
     
     def get_query_set(self):

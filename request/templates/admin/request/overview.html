@@ -98,7 +98,7 @@ $(document).ready(function(){
                 <th>{% trans "Alltime" %}</th>
             <tr>
             
-          {% for key,value in info_table %}
+          {% for key,value in traffic_table %}
             <tr>
                 <th>{{ key }}</th>
               {% for item in value %}
@@ -185,7 +185,7 @@ $(document).ready(function(){
     
     <div class="module" style="clear: both; float: left; width: 450px;">
         <h2>{% trans "Top browsers" %}</h2>
-        <img src="{{ top_browsers }}" />
+        <img src="{% pie_chart top_browsers 440 150 %}" />
     </div>
 </div>
 {% endblock %}
