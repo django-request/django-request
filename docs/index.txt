@@ -16,10 +16,7 @@ Quick start guide
 
 Once you have installed ``django-request`` you can add it to a django project by following these steps;
     
-	#. Install the blog app by adding ``'request'`` to
-	   ``INSTALLED_APPS``.
-           Put it before django.contrib.admin, otherwise you will not see the
-           additional links in the admin panel.
+	#. Install the blog app by adding ``'request'`` to ``INSTALLED_APPS``.
 	
 	#. Run ``manage.py syncdb`` so that Django will create the database tables.
 	

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, date
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
+from django.utils.functional import update_wrapper
 from django.template import RequestContext
 from django.contrib import admin
 from django.utils import simplejson
@@ -59,8 +60,16 @@ class RequestAdmin(admin.ModelAdmin):
     
     def get_urls(self):
         from django.conf.urls.defaults import patterns, url
+        
+        def wrap(view):
+            def wrapper(*args, **kwargs):
+                return self.admin_site.admin_view(view)(*args, **kwargs)
+            return update_wrapper(wrapper, view)
+        
+        info = self.model._meta.app_label, self.model._meta.module_name
+        
         urls = patterns('',
-            url(r'^overview/$', self.overview),
+            url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
         )
         return urls + super(RequestAdmin, self).get_urls()
     
@@ -68,7 +77,7 @@ class RequestAdmin(admin.ModelAdmin):
         days = [date.today() - timedelta(day) for day in range(30)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
         
-        return render_to_response('admin/request/overview.html', {
+        return render_to_response('admin/request/request/overview.html', {
             'title': _('Request overview'),
             
             'traffic_table': modules.table(INFO_TABLE_QUERIES),
@@ -82,7 +91,6 @@ class RequestAdmin(admin.ModelAdmin):
             'top_browsers': set_count(Request.objects.only('user_agent').attr_list('browser'))[:5],
             'top_search_phrases': set_count(Request.objects.search().only('referer').attr_list('keywords'))[:10],
             
-            'requests_url': '/admin/request/request/',
             'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
         }, context_instance=RequestContext(request))
 

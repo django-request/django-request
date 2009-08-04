@@ -60,6 +60,7 @@ $(document).ready(function(){
     <div class="breadcrumbs">
         <a href="../../../">{% trans "Home" %}</a> &rsaquo;
         <a href="../../">{% trans "Request" %}</a> &rsaquo;
+        <a href="../">{% trans "Request" %}</a> &rsaquo;
         {% trans "Overview" %}
     </div>
 {% endblock %}
@@ -128,7 +129,7 @@ $(document).ready(function(){
             </tr>
           {% for path,hits in top_paths %}
             <tr>
-                <td><a href="{{ requests_url }}?path={{ path }}">{{ path }}</a></td>
+                <td><a href="../?path={{ path }}">{{ path }}</a></td>
                 <td>{{ hits }}</td>
             </tr>
           {% endfor %}
@@ -137,14 +138,14 @@ $(document).ready(function(){
 
     <div class="module" style="float: left; margin-left: 16px; width: 450px;">
         <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
-            <caption>{% trans "Top error-returning paths" %} <a href="{{ requests_url }}?response__gte=400">({% trans "more" %})</a></caption>
+            <caption>{% trans "Top error-returning paths" %} <a href="../?response__gte=400">({% trans "more" %})</a></caption>
             <tr>
                 <th>{% trans "Path" %}</th>
                 <th>{% trans "Visits" %}</th>
             </tr>
           {% for path,hits in top_error_paths %}
             <tr>
-                <td><a href="{{ requests_url }}?path={{ path }}">{{ path }}</a></td>
+                <td><a href="../?path={{ path }}">{{ path }}</a></td>
                 <td>{{ hits }}</td>
             </tr>
           {% endfor %}
