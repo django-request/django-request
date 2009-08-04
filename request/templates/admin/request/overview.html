@@ -124,7 +124,7 @@ $(document).ready(function(){
             <caption>{% trans "Top paths" %}</caption>
             <tr>
                 <th>{% trans "Path" %}</th>
-                <th>{% trans "Hits" %}</th>
+                <th>{% trans "Visits" %}</th>
             </tr>
           {% for path,hits in top_paths %}
             <tr>
@@ -140,7 +140,7 @@ $(document).ready(function(){
             <caption>{% trans "Top error-returning paths" %} <a href="{{ requests_url }}?response__gte=400">({% trans "more" %})</a></caption>
             <tr>
                 <th>{% trans "Path" %}</th>
-                <th>{% trans "Hits" %}</th>
+                <th>{% trans "Visits" %}</th>
             </tr>
           {% for path,hits in top_error_paths %}
             <tr>
@@ -156,11 +156,11 @@ $(document).ready(function(){
             <caption>{% trans "Top referrers" %}</caption>
             <tr>
                 <th>{% trans "Referrer" %}</th>
-                <th>{% trans "Hits" %}</th>
+                <th>{% trans "Visits" %}</th>
             </tr>
           {% for referrer,hits in top_referrers %}
             <tr>
-                <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"70" }}</a></td>
+                <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"60" }}</a></td>
                 <td>{{ hits }}</td>
             </tr>
           {% endfor %}
