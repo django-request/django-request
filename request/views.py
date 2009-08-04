@@ -38,7 +38,7 @@ def overview(request):
         
         'top_paths': set_count(Request.objects.filter(response__lt=400).values_list('path', flat=True))[:10],
         'top_error_paths': set_count(Request.objects.filter(response__gte=400).values_list('path', flat=True))[:10],
-        'top_referrers': set_count(Request.objects.unique_visits().values_list('path', flat=True))[:10],
+        'top_referrers': set_count(Request.objects.unique_visits().values_list('referer', flat=True))[:10],
         'top_browsers': 'http://chart.apis.google.com/chart?cht=p3&chd=t:%s&chs=440x190&chl=%s' % (','.join([str(browser[1]) for browser in browsers]), '|'.join([browser[0] for browser in browsers])),
         
         'requests_url': '/admin/request/request/',
