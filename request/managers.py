@@ -3,106 +3,16 @@ import datetime, time
 from django.db import models
 from django.contrib.auth.models import User
 
-class RequestManager(models.Manager):
-    def active_users(self, **options):
-        """
-        Returns a list of active users.
-        
-        Any arguments passed to this method will be
-        given to timedelta for time filtering.
-        
-        Example:
-        >>> Request.object.active_users(minutes=15)
-        [<User: kylef>, <User: krisje8>]
-        """
-        
-        qs = self.filter(user__isnull=False)
-        
-        if options:
-            time = datetime.datetime.now() - datetime.timedelta(**options)
-            qs = qs.filter(time__gte=time)
-        
-        requests = qs.select_related('user').only('user')
-        
-        return set([request.user for request in requests])
-    
-    def paths(self, unique=True, count=False, qs=None, limit=None):
-        if not qs:
-            qs = self.all()
-        
-        if count: unique = False
-        
-        if unique:
-            paths = set([request.path for request in qs.only('path')])
-        else:
-            paths = [request.path for request in qs.only('path')]
-        
-        if count:
-            path_count = {}
-            for path in paths:
-                path_count[path] = len([None for x in paths if path == x])
-            
-            paths = [(v, k) for k, v in path_count.iteritems()]
-            paths.sort()
-            paths.reverse()
-            paths = [(k, v) for v, k in paths]
-        
-        if limit:
-            paths = paths[:limit]
-        
-        return paths
-    
-    def referrers(self, unique=True, count=False, qs=None, limit=None):
-        # There is a slight misspelling here, referer should be referrer,
-        # but even the http headers misspell it so I'll leave it here.
-        if not qs:
-            qs = self.all()
-        
-        if count: unique = False
-        
-        if unique:
-            referers = set([request.referer for request in qs.only('referer')])
-        else:
-            referers = [request.referer for request in qs.only('referer')]
-        
-        if count:
-            referer_count = {}
-            for referer in referers:
-                referer_count[referer] = len([None for x in referers if referer == x])
-            
-            referers = [(v, k) for k, v in referer_count.iteritems()]
-            referers.sort()
-            referers.reverse()
-            referers = [(k, v) for v, k in referers]
-        
-        if limit:
-            referers = referers[:limit]
-        
-        return referers
-    
-    def browsers(self, unique=True, count=False, qs=None):
-        if not qs:
-            qs = self.all()
-        
-        if count: unique = False
-        
-        if unique:
-            browsers = set([request.browser for request in qs.only('user_agent') if request.browser])
-        else:
-            browsers = [request.browser for request in qs.only('user_agent') if request.browser]
-        
-        if count:
-            browser_count = {}
-            for browser in browsers:
-                browser_count[browser] = len([None for x in browsers if browser == x])
-            
-            browsers = [(v, k) for k, v in browser_count.iteritems()]
-            browsers.sort()
-            browsers.reverse()
-            browsers = [(k,v) for v,k in browsers]
-        
-        return browsers
-    
+from request import settings
+
+try: # For python <= 2.3
+    set()
+except NameError:
+    from sets import Set as set
+
+QUERYSET_PROXY_METHODS = ('year', 'month', 'week', 'day', 'today', 'this_week', 'this_month', 'this_year', 'unique_visits', 'attr_list')
+
+class RequestQuerySet(models.query.QuerySet):
     def year(self, year):
         return self.filter(time__year=year)
     
@@ -170,3 +80,40 @@ class RequestManager(models.Manager):
     def this_week(self):
         today = datetime.date.today()
         return self.week(str(today.year), str(today.isocalendar()[1]-1))
+    
+    def unique_visits(self):
+        return self.exclude(referer__startswith=settings.REQUEST_BASE_URL)
+    
+    def attr_list(self, name):
+        return [getattr(item, name, None) for item in self if hasattr(item, name)]
+
+class RequestManager(models.Manager):
+    def __getattr__(self, *args, **kwargs):
+        if args[0] in QUERYSET_PROXY_METHODS:
+            return getattr(self.get_query_set(), args[0], None)
+        super(RequestManager, self).__getattr__(*args, **kwargs)
+    
+    def get_query_set(self):
+        return RequestQuerySet(self.model)
+    
+    def active_users(self, **options):
+        """
+        Returns a list of active users.
+        
+        Any arguments passed to this method will be
+        given to timedelta for time filtering.
+        
+        Example:
+        >>> Request.object.active_users(minutes=15)
+        [<User: kylef>, <User: krisje8>]
+        """
+        
+        qs = self.filter(user__isnull=False)
+        
+        if options:
+            time = datetime.datetime.now() - datetime.timedelta(**options)
+            qs = qs.filter(time__gte=time)
+        
+        requests = qs.select_related('user').only('user')
+        
+        return set([request.user for request in requests])

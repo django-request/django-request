@@ -9,39 +9,34 @@ from django.utils import simplejson, importlib
 from request.models import Request
 from request import settings
 
-def overview(request):
-    info_table = (
-        (_('Unique visitors'), (
-            Request.objects.today().aggregate(Count('ip', distinct=True))['ip__count'],
-            Request.objects.this_week().aggregate(Count('ip', distinct=True))['ip__count'],
-            Request.objects.this_month().aggregate(Count('ip', distinct=True))['ip__count'],
-            Request.objects.this_year().aggregate(Count('ip', distinct=True))['ip__count'],
-            Request.objects.aggregate(Count('ip', distinct=True))['ip__count']
-        )), (_('Unique visits'), (
-            Request.objects.today().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
-            Request.objects.this_week().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
-            Request.objects.this_month().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
-            Request.objects.this_year().exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
-            Request.objects.exclude(referer__startswith=settings.REQUEST_BASE_URL).count(),
-        )), (_('Hits'), (
-            Request.objects.today().count(),
-            Request.objects.this_week().count(),
-            Request.objects.this_month().count(),
-            Request.objects.this_year().count(),
-            Request.objects.count(),
-        ))
-    )
+def set_count(items):
+    item_count = {}
+    for item in items:
+        if not item_count.has_key(item): item_count[item] = 0
+        item_count[item] += 1
     
+    items = [(v, k) for k, v in item_count.iteritems()]
+    items.sort()
+    items.reverse()
+    
+    return [(k, v) for v, k in items]
+
+def overview(request):
     days = [date.today()-timedelta(day) for day in range(30)]
     
     return render_to_response('admin/request/overview.html', {
         'title': _('Request overview'),
         'lastest_requests': Request.objects.all()[:5],
-        'info_table': info_table,
+        'info_table': (
+            (_('Unique visitors'), [getattr(Request.objects.all(), x, None)().aggregate(Count('ip', distinct=True))['ip__count'] for x in 'today', 'this_week', 'this_month', 'this_year', 'all']),
+            (_('Unique visits'), [getattr(Request.objects.unique_visits(), x, None)().count() for x in 'today', 'this_week', 'this_month', 'this_year', 'all']),
+            (_('Hits'), [getattr(Request.objects.all(), x, None)().count() for x in 'today', 'this_week', 'this_month', 'this_year', 'all'])
+        ),
         'traffic_graph': simplejson.dumps([getattr(importlib.import_module(module_path[:module_path.rindex('.')]), module_path[module_path.rindex('.')+1:], None)(days) for module_path in settings.REQUEST_TRAFFIC_GRAPH_MODULES]),
-        'top_paths': Request.objects.paths(count=True, limit=10, qs=Request.objects.filter(response__lt=400)),
-        'top_error_paths': Request.objects.paths(count=True, limit=10, qs=(Request.objects.filter(response__gte=400))),
-        'top_referrers': Request.objects.referrers(count=True, limit=10, qs=Request.objects.exclude(referer__startswith=settings.REQUEST_BASE_URL).exclude(referer='')),
+        
+        'top_paths': set_count(Request.objects.filter(response__lt=400).values_list('path', flat=True))[:10],
+        'top_error_paths': set_count(Request.objects.filter(response__gte=400).values_list('path', flat=True))[:10],
+        'top_referrers': set_count(Request.objects.unique_visits().values_list('path', flat=True))[:10],
         
         'requests_url': '/admin/request/request/',
         'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
