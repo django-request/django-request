@@ -30,11 +30,7 @@ Any requests from users in this list will be ignored.
 
 Default: ``True``
 
-Whether django-request should use google for the js, or MEDIA_URL, if set to False, make sure you place /js/jquery-1.3.2.min.js, /js/jquery.flot.js and /js/excanvas.min.js on your MEDIA_PATH. You can find these files at: 
-
-- http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js
-- http://flot.googlecode.com/svn/trunk/jquery.flot.js
-- http://flot.googlecode.com/svn/trunk/excanvas.min.js
+Whether django-request should use google for the media, or use your MEDIA_URL. If this is set to False, make sure you copy django-request/media to your MEDIA_PATH.
 
 ``REQUEST_TRAFFIC_MODULES``
 =================================
