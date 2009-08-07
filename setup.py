@@ -9,7 +9,7 @@ setup(
     author='Kyle Fuller',
     author_email='inbox@kylefuller.co.uk',
     url='http://kylefuller.co.uk/projects/django-request/',
-    download_url='http://github.com/kylef/django-request/zipball/master',
+    download_url='http://github.com/kylef/django-request/zipball/%s' % request.__version__,
     packages=['request', 'request.templatetags'],
     package_data={'request': ['templates/admin/request/*.html', 'templates/admin/request/request/*.html']},
     license='BSD',
