@@ -10,7 +10,8 @@ setup(
     author_email='inbox@kylefuller.co.uk',
     url='http://kylefuller.co.uk/projects/django-request/',
     download_url='http://github.com/kylef/django-request/zipball/master',
-    packages=['request'],
+    packages=['request', 'request.templatetags'],
+    package_data={'request': ['templates/admin/request/*.html', 'templates/admin/request/request/*.html']},
     license='BSD',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
