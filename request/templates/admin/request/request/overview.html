@@ -91,7 +91,7 @@ $(document).ready(function(){
     
     <div class="module" style="float: left; width: 450px;">
         <table summary="{% trans "Top paths" %}" style="width: 100%;">
-            <caption>{% trans "Top paths" %}</caption>
+            <caption>{% trans "Top paths" %} ({% trans "this month" %})</caption>
             <tr>
                 <th>{% trans "Path" %}</th>
                 <th>{% trans "Visits" %}</th>
@@ -107,7 +107,7 @@ $(document).ready(function(){
 
     <div class="module" style="float: left; margin-left: 16px; width: 450px;">
         <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
-            <caption>{% trans "Top error-returning paths" %} <a href="../?response__gte=400">({% trans "more" %})</a></caption>
+            <caption>{% trans "Top error-returning paths" %} ({% trans "this month" %}) <a href="../?response__gte=400">({% trans "more" %})</a></caption>
             <tr>
                 <th>{% trans "Path" %}</th>
                 <th>{% trans "Visits" %}</th>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 
     <div class="module" style="clear: both; float: left; width: 450px;">
         <table summary="{% trans "Top referrers" %}" style="width: 100%;">
-            <caption>{% trans "Top referrers" %}</caption>
+            <caption>{% trans "Top referrers" %} ({% trans "this month" %})</caption>
             <tr>
                 <th>{% trans "Referrer" %}</th>
                 <th>{% trans "Visits" %}</th>
@@ -139,7 +139,7 @@ $(document).ready(function(){
     
     <div class="module" style="float: left; margin-left: 16px; width: 450px;">
         <table summary="{% trans "Top search phrases" %}" style="width: 100%;">
-            <caption>{% trans "Top search phrases" %}</caption>
+            <caption>{% trans "Top search phrases" %} ({% trans "this month" %})</caption>
             <tr>
                 <th>{% trans "Phrase" %}</th>
                 <th>{% trans "Visits" %}</th>
@@ -154,7 +154,7 @@ $(document).ready(function(){
     </div>
     
     <div class="module" style="clear: both; float: left; width: 450px;">
-        <h2>{% trans "Top browsers" %}</h2>
+        <h2>{% trans "Top browsers" %} ({% trans "this month" %})</h2>
         <img src="{% pie_chart top_browsers 440 150 %}" />
     </div>
 </div>

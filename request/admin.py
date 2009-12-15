@@ -85,11 +85,11 @@ class RequestAdmin(admin.ModelAdmin):
             
             'lastest_requests': Request.objects.all()[:5],
             
-            'top_paths': set_count(Request.objects.filter(response__lt=400).values_list('path', flat=True))[:10],
-            'top_error_paths': set_count(Request.objects.filter(response__gte=400).values_list('path', flat=True))[:10],
-            'top_referrers': set_count(Request.objects.unique_visits().values_list('referer', flat=True))[:10],
-            'top_browsers': set_count(Request.objects.only('user_agent').attr_list('browser'))[:5],
-            'top_search_phrases': set_count(Request.objects.search().only('referer').attr_list('keywords'))[:10],
+            'top_paths': set_count(Request.objects.this_month().filter(response__lt=400).values_list('path', flat=True))[:10],
+            'top_error_paths': set_count(Request.objects.this_month().filter(response__gte=400).values_list('path', flat=True))[:10],
+            'top_referrers': set_count(Request.objects.this_month().unique_visits().values_list('referer', flat=True))[:10],
+            'top_browsers': set_count(Request.objects.this_month().only('user_agent').attr_list('browser'))[:5],
+            'top_search_phrases': set_count(Request.objects.this_month().search().only('referer').attr_list('keywords'))[:10],
             
             'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
         }, context_instance=RequestContext(request))
