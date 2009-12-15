@@ -64,3 +64,10 @@ These are all the items in the traffic graph and table on the overview page. If 
 Default: ``'http://%s' % Site.objects.get_current().domain``
 
 This setting should only be set if you use SSL or do not use django.contrib.sites. This is the base url for detecting referral from within the same site.
+
+``REQUEST_ONLY_ERRORS``
+=====================================
+
+Default: ``False``
+
+If this is set to True, django-request will ONLY store error returning request/responses. This can be useful to use django-request purely as a error detection system.
