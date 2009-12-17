@@ -28,7 +28,7 @@ Once you have installed ``django-request`` you can add it to a django project by
 	
 	#. Run ``manage.py syncdb`` so that Django will create the database tables.
 	
-	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE_CLASSES``. If you use django.contrib.auth, place RequestMiddleware after it.
+	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE_CLASSES``. If you use django.contrib.auth, place RequestMiddleware after it. If you use django.contrib.flatpages place ``request.middleware.RequestMiddleware`` before it else flatpages will be marked as error pages in the admin panel.
 	
 	#. Make sure that the domain name in django.contrib.sites admin is correct. This is used to calculate unique visitors and top referrers.
 
