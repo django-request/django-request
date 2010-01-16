@@ -71,6 +71,7 @@ from request.router import patterns
 browsers = patterns(('Unknown', {}),
     # Browsers
     (r'AOL (?P<version>[\d+\.\d+]+)', 'AOL'),
+    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<msie_version>[-.\w]+);( ?)( ?)America Online Browser (?P<version>[-.\w]+);', 'AOL'),
     (r'Camino/(?P<version>[-.\w]+)', 'Camino'),
     (r'Chrome/(?P<version>[-.\w]+)', 'Google Chrome'),
     (r'Firefox(/(?P<version>[-.\w]+)?)', 'Firefox'),
@@ -80,6 +81,7 @@ browsers = patterns(('Unknown', {}),
     (r'OmniWeb(/(?P<version>[-.\w]+)?)', 'OmniWeb'),
     (r'Safari/(?P<version>[-.\w]+)', 'Safari'),
     (r'(Netscape([\d]?)|Navigator)/(?P<version>[-.\w]+)', 'Netscape'),
+    (r'Wget/(?P<version>[-.\w]+)', 'Wget'),
     
     (r'Minefield(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox nightly trunk builds
     (r'Shiretoko(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox testing browser
@@ -103,6 +105,13 @@ browsers = patterns(('Unknown', {}),
     (r'Gigabot', 'Gigabot'),
     (r'Speedy Spider', 'entireweb'),
     (r'discobot', 'Discovery Engine'),
+    (r'Purebot(/(?P<version>[-.\w]+)?);', 'Purity search'),
+    (r'Yandex(/(?P<version>[-.\w]+)?)', 'Yandex'),
+    (r'PostRank(/(?P<version>[-.\w]+)?)', 'PostRank'),
+    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; DotBot/(?P<version>[-.\w]+); http://www.dotnetdotcom.org/, crawler@dotnetdotcom.org\)', 'Dotbot'),
+    (r'IrssiUrlLog(/(?P<version>[-.\w]+)?)', 'irssi'),
+    (r'Linguee Bot \(http://www.linguee.com/bot; bot@linguee.com\)', 'Linguee'),
+    (r'Sphider', 'Sphider'),
     
     # Other
     (r'Mediapartners-Google', 'Google Ads'),
