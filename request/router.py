@@ -16,7 +16,10 @@ class patterns(object):
         self.unknown = unknown
         
         for pattern in args:
-            self.patterns.append(RegexPattern(*pattern))
+            if pattern.__class__ == str:
+                self.patterns.append(RegexPattern(pattern))
+            else:
+                self.patterns.append(RegexPattern(*pattern))
     
     def resolve(self, name):
         for pattern in self.patterns:

@@ -10,7 +10,7 @@ class RequestMiddleware(object):
             return response
         
         ignore = patterns(False, *settings.REQUEST_IGNORE_PATHS)
-        if ignore.resolve(request.path):
+        if ignore.resolve(request.path[1:]):
             return response
         
         if request.is_ajax() and settings.REQUEST_IGNORE_AJAX:
