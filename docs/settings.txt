@@ -25,6 +25,21 @@ Default: ``None``
 
 Any requests from users in this list will be ignored.
 
+``REQUEST_IGNORE_PATHS``
+===========================
+
+Default: ``None``
+
+Any requests which match these paths will be ignored. This setting should be a tuple filled with regex paths.
+
+Example:
+
+.. code-block:: python
+
+    REQUEST_IGNORE_PATHS = (
+        r'^admin/'
+    )
+
 ``REQUEST_USE_HOSTED_MEDIA``
 ============================
 
