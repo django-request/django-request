@@ -1,9 +1,16 @@
+from django.core.urlresolvers import get_callable
+
 from request.models import Request
 from request import settings
+from request.router import patterns
 
 class RequestMiddleware(object):
     def process_response(self, request, response):
         if response.status_code < 400 and settings.REQUEST_ONLY_ERRORS:
+            return response
+        
+        ignore = patterns(False, *settings.REQUEST_IGNORE_PATHS)
+        if ignore.resolve(request.path):
             return response
         
         if request.is_ajax() and settings.REQUEST_IGNORE_AJAX:

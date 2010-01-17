@@ -1,7 +1,7 @@
 import re
 
 class RegexPattern(object):
-    def __init__(self, regex, name):
+    def __init__(self, regex, name=''):
         self.regex = re.compile(regex, re.UNICODE)
         self.name = name
     
