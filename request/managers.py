@@ -3,8 +3,6 @@ import datetime, time
 from django.db import models
 from django.contrib.auth.models import User
 
-from request import settings
-
 try: # For python <= 2.3
     set()
 except NameError:
@@ -82,6 +80,7 @@ class RequestQuerySet(models.query.QuerySet):
         return self.week(str(today.year), str(today.isocalendar()[1]-1))
     
     def unique_visits(self):
+        from request import settings
         return self.exclude(referer__startswith=settings.REQUEST_BASE_URL)
     
     def attr_list(self, name):
