@@ -24,7 +24,7 @@ class Request(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     referer = models.URLField(_('referer'), verify_exists=False, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
-    language = models.CharField(_('language'), max_length=25, blank=True, null=True)
+    language = models.CharField(_('language'), max_length=255, blank=True, null=True)
     
     objects = RequestManager()
     
@@ -45,8 +45,8 @@ class Request(models.Model):
         # User infomation
         self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')
-        self.user_agent = request.META.get('HTTP_USER_AGENT', '')
-        self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')
+        self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
+        self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
         
         if getattr(request, 'user', False):
             if request.user.is_authenticated():
