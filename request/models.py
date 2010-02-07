@@ -22,7 +22,7 @@ class Request(models.Model):
     # User infomation
     ip = models.IPAddressField(_('ip address'))
     user = models.ForeignKey(User, blank=True, null=True)
-    referer = models.URLField(_('referer'), verify_exists=False, blank=True, null=True)
+    referer = models.URLField(_('referer'), verify_exists=False, max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
     
@@ -44,7 +44,7 @@ class Request(models.Model):
         
         # User infomation
         self.ip = request.META.get('REMOTE_ADDR', '')
-        self.referer = request.META.get('HTTP_REFERER', '')
+        self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
         
