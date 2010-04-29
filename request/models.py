@@ -1,4 +1,5 @@
 from datetime import datetime
+from socket import gethostbyaddr
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -81,3 +82,11 @@ class Request(models.Model):
         if self._keywords:
             return ' '.join(self._keywords[1]['keywords'].split('+'))
     keywords = property(keywords)
+    
+    #@property
+    def hostname(self):
+        try:
+            return gethostbyaddr(self.ip)[0]
+        except Exception: # socket.gaierror, socket.herror, etc
+            return self.ip
+    hostname = property(hostname)
