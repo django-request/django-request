@@ -63,11 +63,13 @@ Default:
 These are all the items in the traffic graph and table on the overview page. If you wish to remove or add a item you can override this setting and set what you want to see. There are also many more options you can add from the following list;
 
 - ``'request.traffic.Ajax'``: To show the amount of requests made from javascript.
+- ``'request.traffic.NotAjax'``: To show the amount of requests that are NOT made from javascript.
 - ``'request.traffic.Error'``: To show the amount of error's, this includes error 500 and page not found.
 - ``'request.traffic.Error404'``: To show the amount of page not found.
 - ``'request.traffic.Hit'``: To show the total amount of requests.
 - ``'request.traffic.Search'``: To display requests from search engines.
 - ``'request.traffic.Secure'``: To show the amount of requests over SSL.
+- ``'request.traffic.Unsecure'``: To show the amount of requests NOT over SSL.
 - ``'request.traffic.UniqueVisit'``: To show visits based from outsider referrals.
 - ``'request.traffic.UniqueVisitor'``: To show the amount of requests made from unique visitors based upon IP address.
 - ``'request.traffic.User'``: To show the amount of requests made from a valid user account.
