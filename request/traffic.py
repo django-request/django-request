@@ -66,6 +66,12 @@ class Ajax(Module):
     def count(self, qs):
         return qs.filter(is_ajax=True).count()
 
+class NotAjax(Module):
+    verbose_name_plural = 'Not Ajax'
+    
+    def count(self, qs):
+        return qs.filter(is_ajax=False).count()
+
 class Error(Module):
     def count(self, qs):
         return qs.filter(response__gte=400).count()
@@ -89,6 +95,12 @@ class Secure(Module):
     
     def count(self, qs):
         return qs.filter(is_secure=True).count()
+
+class Unsecure(Module):
+    verbose_name_plural = _('Unsecure')
+    
+    def count(self, qs):
+        return qs.filter(is_secure=False).count()
 
 class UniqueVisit(Module):
     def count(self, qs):
