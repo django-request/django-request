@@ -37,7 +37,7 @@ Example:
 .. code-block:: python
 
     REQUEST_IGNORE_PATHS = (
-        r'^admin/'
+        r'^admin/',
     )
 
 ``REQUEST_USE_HOSTED_MEDIA``
@@ -55,7 +55,7 @@ Default:
 .. code-block:: python
 
 	(
-    	'request.traffic.UniqueVisitors',
+    	'request.traffic.UniqueVisitor',
     	'request.traffic.UniqueVisit',
     	'request.traffic.Hit',
 	)
