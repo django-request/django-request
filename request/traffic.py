@@ -61,59 +61,84 @@ class Module(object):
             self.verbose_name_plural = string_concat(self.verbose_name, 's')
 
 class Ajax(Module):
-    verbose_name_plural = 'Ajax'
+    verbose_name_plural = _('Ajax')
     
     def count(self, qs):
         return qs.filter(is_ajax=True).count()
 
 class NotAjax(Module):
-    verbose_name_plural = 'Not Ajax'
+    verbose_name = _('Not Ajax')
+    verbose_name_plural = _('Not Ajax')
     
     def count(self, qs):
         return qs.filter(is_ajax=False).count()
 
 class Error(Module):
+    verbose_name = _('Error')
+    verbose_name_plural = _('Errors')
+
     def count(self, qs):
         return qs.filter(response__gte=400).count()
 
 class Error404(Module):
+    verbose_name = _('Error 404')
+    verbose_name_plural = _('Errors 404')
+
     def count(self, qs):
         return qs.filter(response=404).count()
 
 class Hit(Module):
+    verbose_name = _('Hit')
+    verbose_name_plural = _('Hits')
+
     def count(self, qs):
         return qs.count()
 
 class Search(Module):
+    verbose_name = _('Search')
     verbose_name_plural = _('Searches')
     
     def count(self, qs):
         return qs.search().count()
 
 class Secure(Module):
+    verbose_name = _('Secure')
     verbose_name_plural = _('Secure')
     
     def count(self, qs):
         return qs.filter(is_secure=True).count()
 
 class Unsecure(Module):
+    verbose_name = _('Unsecure')
     verbose_name_plural = _('Unsecure')
     
     def count(self, qs):
         return qs.filter(is_secure=False).count()
 
 class UniqueVisit(Module):
+    verbose_name = _('Unique Visit')
+    verbose_name_plural = _('Unique Visits')
+
     def count(self, qs):
         return qs.exclude(referer__startswith=settings.REQUEST_BASE_URL).count()
 
 class UniqueVisitor(Module):
+    verbose_name = _('Unique Visitor')
+    verbose_name_plural = _('Unique Visitor')
+
     def count(self, qs):
         return qs.aggregate(Count('ip', distinct=True))['ip__count']
 
 class User(Module):
+    verbose_name = _('User')
+    verbose_name_plural = _('User')
+
     def count(self, qs):
         return qs.exclude(user__isnull=False).count()
 
 class UniqueUser(Module):
+    verbose_name = _('Unique User')
+    verbose_name_plural = _('Unique User')
+
     def count(self, qs):
         return qs.aggregate(Count('user', distinct=True))['user__count']

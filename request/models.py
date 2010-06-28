@@ -22,7 +22,7 @@ class Request(models.Model):
     
     # User infomation
     ip = models.IPAddressField(_('ip address'))
-    user = models.ForeignKey(User, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('user'))
     referer = models.URLField(_('referer'), verify_exists=False, max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
