@@ -91,7 +91,8 @@ class RequestAdmin(admin.ModelAdmin):
             'top_browsers': set_count(Request.objects.this_month().only('user_agent').attr_list('browser'))[:5],
             'top_search_phrases': set_count(Request.objects.this_month().search().only('referer').attr_list('keywords'))[:10],
             
-            'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA
+            'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA,
+            'request_media_prefix': settings.REQUEST_MEDIA_PREFIX,
         }, context_instance=RequestContext(request))
 
 admin.site.register(Request, RequestAdmin)

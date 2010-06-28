@@ -40,12 +40,20 @@ Example:
         r'^admin/',
     )
 
+``REQUEST_MEDIA_PREFIX``
+============================
+
+Default: ``MEDIA_URL``
+
+The URL prefix to use when refering to the request media files, used when ``REQUEST_USE_HOSTED_MEDIA`` is set to ``False``.
+
 ``REQUEST_USE_HOSTED_MEDIA``
 ============================
 
 Default: ``True``
 
-Whether django-request should use google for the media, or use your MEDIA_URL. If this is set to False, make sure you copy django-request/media to your MEDIA_PATH.
+Whether django-request should use google for the media, or use your ``REQUEST_MEDIA_PREFIX`` (which defaults to ``MEDIA_URL``). If this is set to False, make sure you copy django-request/media to the directory behind
+``REQUEST_MEDIA_PREFIX``.
 
 ``REQUEST_TRAFFIC_MODULES``
 =================================

@@ -8,6 +8,7 @@ REQUEST_IGNORE_USERNAME = getattr(settings, 'REQUEST_IGNORE_USERNAME', tuple())
 REQUEST_IGNORE_PATHS = getattr(settings, 'REQUEST_IGNORE_PATHS', tuple())
 
 REQUEST_USE_HOSTED_MEDIA = getattr(settings, 'REQUEST_USE_HOSTED_MEDIA', True)
+REQUEST_MEDIA_PREFIX = getattr(settings, 'REQUEST_MEDIA_PREFIX', MEDIA_URL)
 
 REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.UniqueVisitor',

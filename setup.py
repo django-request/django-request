@@ -18,7 +18,11 @@ setup(
     url=request.__URL__,
     download_url='http://github.com/kylef/django-request/zipball/%s' % request.__version__,
     packages=['request', 'request.templatetags', 'request.management', 'request.management.commands'],
-    package_data={'request': ['templates/admin/request/*.html', 'templates/admin/request/request/*.html']},
+    package_data={'request': [
+        'templates/admin/request/*.html',
+        'templates/admin/request/request/*.html',
+        'media/request/js/*.js',
+    ]},
     license=request.__licence__,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
