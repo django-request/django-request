@@ -112,7 +112,7 @@ class UniqueVisitor(Module):
 
 class User(Module):
     def count(self, qs):
-        return qs.exclude(user='').count()
+        return qs.exclude(user__isnull=False).count()
 
 class UniqueUser(Module):
     def count(self, qs):
