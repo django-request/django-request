@@ -30,6 +30,8 @@ class Request(models.Model):
     objects = RequestManager()
     
     class Meta:
+        verbose_name = _('request')
+        verbose_name_plural = _('requests')
         ordering = ('-time',)
     
     def __unicode__(self):

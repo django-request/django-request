@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-request\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-28 12:30+0200\n"
+"POT-Creation-Date: 2010-06-29 11:24+0200\n"
 "PO-Revision-Date: 2010-06-28 12:10+0200\n"
 "Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
 "Language-Team: German <de@li.org>\n"
@@ -84,6 +84,14 @@ msgstr "User Agent"
 #: models.py:28
 msgid "language"
 msgstr "Sprache"
+
+#: models.py:33
+msgid "request"
+msgstr "Anfrage"
+
+#: models.py:34
+msgid "requests"
+msgstr "Anfragen"
 
 #: traffic.py:64
 msgid "Ajax"
