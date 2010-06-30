@@ -134,3 +134,9 @@ class TopBrowsers(Plugin):
         return {
             'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
         }
+
+class ActiveUsers(Plugin):
+    def template_context(self):
+        return {
+            'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
+        }

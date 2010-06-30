@@ -109,6 +109,7 @@ These are all the plugins you can see on the overview page. If you wish to remov
 - ``'request.plugins.TopReferrers'``: Shows a list of top referrals to your site.
 - ``'request.plugins.TopSearchPhrases'``: Shows a list of all the search phrases used to find your site.
 - ``'request.plugins.TopBrowsers'``: Shows a graph of the top browsers accessing your site.
+- ``'ActiveUsers'``: Show a list of active users in the last 5 minutes. This may not be a good idea to use on a large website with lots of active users as it will generate a long list.
 
 ``REQUEST_BASE_URL``
 ====================
