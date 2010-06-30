@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $.getJSON('{% url admin:request_request_traffic %}', function(data) {
+    $.getJSON('traffic.json', function(data) {
         trafficGraph($("#trafficgraph"), data);
     });
 });
