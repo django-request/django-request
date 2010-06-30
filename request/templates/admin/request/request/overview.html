@@ -18,10 +18,20 @@
 {% endif %}
 
 <script type="text/javascript">
-$(document).ready(function(){
-    $.getJSON('traffic.json', function(data) {
+function loadTrafficGraph(days) {
+    if (days == undefined) {
+        path = "traffic.json";
+    } else {
+        path = "traffic.json?days=" + days;
+    }
+    
+    $.getJSON(path, function(data) {
         trafficGraph($("#trafficgraph"), data);
     });
+}
+
+$(document).ready(function(){
+    loadTrafficGraph();
 });
 </script>
 {% endblock %}
@@ -39,7 +49,7 @@ $(document).ready(function(){
 <div style="width:920px;">
     <div class="module" style="clear: both;">
         <table style="width: 100%;">
-            <caption>{% trans "Traffic graph" %}</caption>
+            <caption>{% trans "Traffic graph" %} ( <a href="javascript:loadTrafficGraph(7);">{% trans "Week" %}</a> | <a href="javascript:loadTrafficGraph(30);">{% trans "Month" %}</a> | <a href="javascript:loadTrafficGraph(365);">{% trans "Year" %}</a> )</caption>
         </table>
         
         <div style="padding: 15px;">
