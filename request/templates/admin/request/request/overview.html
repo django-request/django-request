@@ -37,49 +37,6 @@ $(document).ready(function(){
 
 {% block content %}
 <div style="width:920px;">
-    <div class="module" style="float: left; width: 450px; {% cycle 'clear: both;' 'margin-left: 16px;' as leftright %}">
-        <table summary="{% trans "Last 5 requests" %}" style="width: 100%;">
-            <caption>{% trans "Last 5 requests" %}</caption>
-            <tr>
-                <th>{% trans "Path" %}</th>
-                <th>{% trans "From" %}</th>
-                <th>{% trans "Response" %}</th>
-                <th>{% trans "Time" %}</th>
-            </tr>
-          {% for request in latest_requests %}
-            <tr>
-                <td><a href="../?path={{ request.path }}" title="{{ request.path }}">{{ request.path|trunc:"35" }}</a></td>
-                <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
-                <td>{{ request.get_response_display }}</td>
-                <td><a href="../{{ request.id }}/"><abbr class="relatize" title="{{ request.time }}">{{ request.time|date:"D M d H:i:s O Y" }}</abbr></a></td>
-            </tr>
-          {% endfor %}
-      </table>
-    </div>
-
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <table summary="{% trans "Traffic information" %}" style="width: 100%;">
-            <caption>{% trans "Traffic information" %}</caption>
-            <tr>
-                <td>&nbsp;</td>
-                <th>{% trans "Today" %}</th>
-                <th>{% trans "This week" %}</th>
-                <th>{% trans "This month" %}</th>
-                <th>{% trans "This year" %}</th>
-                <th>{% trans "Alltime" %}</th>
-            <tr>
-            
-          {% for key,value in traffic_table %}
-            <tr>
-                <th>{{ key }}</th>
-              {% for item in value %}
-                <td>{{ item }}</td>
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </table>
-    </div>
-    
     <div class="module" style="clear: both;">
         <table style="width: 100%;">
             <caption>{% trans "Traffic graph" %}</caption>
@@ -90,83 +47,10 @@ $(document).ready(function(){
         </div>
     </div>
     
-    {% if top_paths %}
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <table summary="{% trans "Top paths" %}" style="width: 100%;">
-            <caption>{% trans "Top paths" %} ({% trans "this month" %})</caption>
-            <tr>
-                <th>{% trans "Path" %}</th>
-                <th>{% trans "Visits" %}</th>
-            </tr>
-          {% for path,hits in top_paths %}
-            <tr>
-                <td><a href="../?path={{ path }}" title="{{ path }}">{{ path|trunc:"60" }}</a></td>
-                <td>{{ hits }}</td>
-            </tr>
-          {% endfor %}
-      </table>
-    </div>
-    {% endif %}
-    
-    {% if top_error_paths %}
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
-            <caption>{% trans "Top error-returning paths" %} ({% trans "this month" %}) <a href="../?response__gte=400">({% trans "more" %})</a></caption>
-            <tr>
-                <th>{% trans "Path" %}</th>
-                <th>{% trans "Visits" %}</th>
-            </tr>
-          {% for path,hits in top_error_paths %}
-            <tr>
-                <td><a href="../?path={{ path }}" title="{{ path }}">{{ path|trunc:"60" }}</a></td>
-                <td>{{ hits }}</td>
-            </tr>
-          {% endfor %}
-      </table>
-    </div>
-    {% endif %}
-    
-    {% if top_referrers %}
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <table summary="{% trans "Top referrers" %}" style="width: 100%;">
-            <caption>{% trans "Top referrers" %} ({% trans "this month" %})</caption>
-            <tr>
-                <th>{% trans "Referrer" %}</th>
-                <th>{% trans "Visits" %}</th>
-            </tr>
-          {% for referrer,hits in top_referrers %}
-            <tr>
-                <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"60" }}</a></td>
-                <td>{{ hits }}</td>
-            </tr>
-          {% endfor %}
-      </table>
-    </div>
-    {% endif %}
-    
-    {% if top_search_phrases %}
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <table summary="{% trans "Top search phrases" %}" style="width: 100%;">
-            <caption>{% trans "Top search phrases" %} ({% trans "this month" %})</caption>
-            <tr>
-                <th>{% trans "Phrase" %}</th>
-                <th>{% trans "Visits" %}</th>
-            </tr>
-          {% for phrase,visits in top_search_phrases %}
-            <tr>
-                <td>{{ phrase|trunc:"60" }}</td>
-                <td>{{ visits }}</td>
-            </tr>
-          {% endfor %}
-      </table>
-    </div>
-    {% endif %}
-    
-    {% if top_browsers %}
-    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
-        <h2>{% trans "Top browsers" %} ({% trans "this month" %})</h2>
-        <img src="{% pie_chart top_browsers 440 150 %}" />
-    </div>
-    {% endif %}
+    {% for plugin in plugins %}
+      <div class="module" style="float: left; width: 450px; {% cycle 'clear: both;' 'margin-left: 16px;' %}">
+         {{ plugin.render }}
+      </div>
+    {% endfor %}
 </div>
 {% endblock %}

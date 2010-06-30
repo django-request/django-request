@@ -1,0 +1,21 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% load request_admin %}
+
+{% block table %}
+    <tr>
+        <th>{% trans "Path" %}</th>
+        <th>{% trans "From" %}</th>
+        <th>{% trans "Response" %}</th>
+        <th>{% trans "Time" %}</th>
+    </tr>
+    
+  {% for request in requests %}
+    <tr>
+        <td><a href="../?path={{ request.path }}" title="{{ request.path }}">{{ request.path|trunc:"35" }}</a></td>
+        <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
+        <td>{{ request.get_response_display }}</td>
+        <td><a href="../{{ request.id }}/"><abbr class="relatize" title="{{ request.time }}">{{ request.time|date:"D M d H:i:s O Y" }}</abbr></a></td>
+    </tr>
+  {% endfor %}
+{% endblock %}

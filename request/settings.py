@@ -16,6 +16,17 @@ REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.Hit',
 ))
 
+REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
+    'request.plugins.TrafficInformation',
+    'request.plugins.LatestRequests',
+    
+    'request.plugins.TopPaths',
+    'request.plugins.TopErrorPaths',
+    'request.plugins.TopReferrers',
+    'request.plugins.TopSearchPhrases',
+    'request.plugins.TopBrowsers',
+))
+
 try:
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://%s' % Site.objects.get_current().domain)
 except:

@@ -1,0 +1,6 @@
+{% extends "request/plugins/base.html" %}
+
+{% block plugin %}
+    {% load request_admin %}
+    <img src="{% pie_chart browsers 440 150 %}" />
+{% endblock %}

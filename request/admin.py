@@ -12,31 +12,7 @@ from django.utils import simplejson
 from request import settings
 from request.models import Request
 from request.traffic import modules
-
-INFO_TABLE = ('today', 'this_week', 'this_month', 'this_year', 'all')
-INFO_TABLE_QUERIES = [getattr(Request.objects, query, None)() for query in INFO_TABLE]
-
-def set_count(items):
-    """
-    This is similar to "set", but this just creates a list with values.
-    The list will be ordered from most frequent down.
-    
-    Example:
-        >>> inventory = ['apple', 'lemon', 'apple', 'orange', 'lemon', 'lemon']
-        >>> set_count(inventory)
-        [('lemon', 3), ('apple', 2), ('orange', 1)]
-    """
-    item_count = {}
-    for item in items:
-        if not item: continue
-        if not item_count.has_key(item): item_count[item] = 0
-        item_count[item] += 1
-    
-    items = [(v, k) for k, v in item_count.iteritems()]
-    items.sort()
-    items.reverse()
-    
-    return [(k, v) for v, k in items]
+from request.plugins import *
 
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'path', 'response', 'method', 'request_from')
@@ -75,18 +51,14 @@ class RequestAdmin(admin.ModelAdmin):
         ) + super(RequestAdmin, self).get_urls()
     
     def overview(self, request):
+        qs = Request.objects.this_month()
+        for plugin in plugins.plugins:
+            plugin.qs = qs
+        
         return render_to_response('admin/request/request/overview.html', {
             'title': _('Request overview'),
             
-            'traffic_table': modules.table(INFO_TABLE_QUERIES),
-            
-            'latest_requests': Request.objects.all()[:5],
-            
-            'top_paths': set_count(Request.objects.this_month().filter(response__lt=400).values_list('path', flat=True))[:10],
-            'top_error_paths': set_count(Request.objects.this_month().filter(response__gte=400).values_list('path', flat=True))[:10],
-            'top_referrers': set_count(Request.objects.this_month().unique_visits().values_list('referer', flat=True))[:10],
-            'top_browsers': set_count(Request.objects.this_month().only('user_agent').attr_list('browser'))[:5],
-            'top_search_phrases': set_count(Request.objects.this_month().search().only('referer').attr_list('keywords'))[:10],
+            'plugins': plugins.plugins,
             
             'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA,
             'request_media_prefix': settings.REQUEST_MEDIA_PREFIX,

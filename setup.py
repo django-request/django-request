@@ -21,6 +21,7 @@ setup(
     package_data={'request': [
         'templates/admin/request/*.html',
         'templates/admin/request/request/*.html',
+        'templates/request/plugins/*.html',
         'media/request/js/*.js',
     ]},
     license=request.__licence__,

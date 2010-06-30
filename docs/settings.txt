@@ -83,6 +83,33 @@ These are all the items in the traffic graph and table on the overview page. If 
 - ``'request.traffic.User'``: To show the amount of requests made from a valid user account.
 - ``'request.traffic.UniqueUser'``: To show the amount of users.
 
+``REQUEST_PLUGINS``
+===================
+
+Default: 
+
+.. code-block:: python
+
+	(
+	    'request.plugins.TrafficInformation',
+	    'request.plugins.LatestRequests',
+	    'request.plugins.TopPaths',
+	    'request.plugins.TopErrorPaths',
+	    'request.plugins.TopReferrers',
+	    'request.plugins.TopSearchPhrases',
+	    'request.plugins.TopBrowsers',
+	)
+
+These are all the plugins you can see on the overview page. If you wish to remove or add a plugin you can override this setting and set what you want to see. Here is a list of all the plugins and what they do;
+
+- ``'request.plugins.TrafficInformation'``: This is a plugin to show a table of the traffic modules.
+- ``'request.plugins.LatestRequests'``: The last 5 requests.
+- ``'request.plugins.TopPaths'``: A list of all the paths (not including errors).
+- ``'request.plugins.TopErrorPaths'``: A list of the paths which error, this can be useful for finding bugs.
+- ``'request.plugins.TopReferrers'``: Shows a list of top referrals to your site.
+- ``'request.plugins.TopSearchPhrases'``: Shows a list of all the search phrases used to find your site.
+- ``'request.plugins.TopBrowsers'``: Shows a graph of the top browsers accessing your site.
+
 ``REQUEST_BASE_URL``
 ====================
 

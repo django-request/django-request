@@ -1,0 +1,17 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% load request_admin %}
+
+{% block table %}
+    <tr>
+        <th>{% trans "Path" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    
+  {% for path,hits in paths %}
+    <tr>
+        <td><a href="../?path={{ path }}" title="{{ path }}">{{ path|trunc:"60" }}</a></td>
+        <td>{{ hits }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}

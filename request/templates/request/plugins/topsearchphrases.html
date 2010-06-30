@@ -1,0 +1,17 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% load request_admin %}
+
+{% block table %}
+    <tr>
+        <th>{% trans "Phrase" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    
+  {% for phrase,visits in phrases %}
+    <tr>
+        <td>{{ phrase|trunc:"60" }}</td>
+        <td>{{ visits }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% load request_admin %}
+
+{% block table %}
+    <tr>
+        <th>{% trans "Referrer" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    
+  {% for referrer,hits in referrers %}
+    <tr>
+        <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"60" }}</a></td>
+        <td>{{ hits }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}
