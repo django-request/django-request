@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 {% block content %}
 <div style="width:920px;">
-    <div class="module" style="float: left; width: 450px;">
+    <div class="module" style="float: left; width: 450px; {% cycle 'clear: both;' 'margin-left: 16px;' as leftright %}">
         <table summary="{% trans "Last 5 requests" %}" style="width: 100%;">
             <caption>{% trans "Last 5 requests" %}</caption>
             <tr>
@@ -57,7 +57,7 @@ $(document).ready(function(){
       </table>
     </div>
 
-    <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <table summary="{% trans "Traffic information" %}" style="width: 100%;">
             <caption>{% trans "Traffic information" %}</caption>
             <tr>
@@ -90,7 +90,8 @@ $(document).ready(function(){
         </div>
     </div>
     
-    <div class="module" style="float: left; width: 450px;">
+    {% if top_paths %}
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <table summary="{% trans "Top paths" %}" style="width: 100%;">
             <caption>{% trans "Top paths" %} ({% trans "this month" %})</caption>
             <tr>
@@ -105,8 +106,10 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
-
-    <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+    {% endif %}
+    
+    {% if top_error_paths %}
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <table summary="{% trans "Top error-returning paths" %}" style="width: 100%;">
             <caption>{% trans "Top error-returning paths" %} ({% trans "this month" %}) <a href="../?response__gte=400">({% trans "more" %})</a></caption>
             <tr>
@@ -121,8 +124,10 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
-
-    <div class="module" style="clear: both; float: left; width: 450px;">
+    {% endif %}
+    
+    {% if top_referrers %}
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <table summary="{% trans "Top referrers" %}" style="width: 100%;">
             <caption>{% trans "Top referrers" %} ({% trans "this month" %})</caption>
             <tr>
@@ -137,8 +142,10 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
+    {% endif %}
     
-    <div class="module" style="float: left; margin-left: 16px; width: 450px;">
+    {% if top_search_phrases %}
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <table summary="{% trans "Top search phrases" %}" style="width: 100%;">
             <caption>{% trans "Top search phrases" %} ({% trans "this month" %})</caption>
             <tr>
@@ -153,10 +160,13 @@ $(document).ready(function(){
           {% endfor %}
       </table>
     </div>
+    {% endif %}
     
-    <div class="module" style="clear: both; float: left; width: 450px;">
+    {% if top_browsers %}
+    <div class="module" style="float: left; width: 450px; {% cycle leftright %}">
         <h2>{% trans "Top browsers" %} ({% trans "this month" %})</h2>
         <img src="{% pie_chart top_browsers 440 150 %}" />
     </div>
+    {% endif %}
 </div>
 {% endblock %}
