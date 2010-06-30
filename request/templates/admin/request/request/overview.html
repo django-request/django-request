@@ -19,9 +19,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    trafficGraph($("#trafficgraph"), {{ traffic_graph|safe }});
+    $.getJSON('{% url admin:request_request_traffic %}', function(data) {
+        trafficGraph($("#trafficgraph"), data);
+    });
 });
-
 </script>
 {% endblock %}
 

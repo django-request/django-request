@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.utils.functional import update_wrapper
 from django.template import RequestContext
 from django.contrib import admin
+from django.http import HttpResponse
 from django.utils import simplejson
 
 from request import settings
@@ -68,20 +69,16 @@ class RequestAdmin(admin.ModelAdmin):
         
         info = self.model._meta.app_label, self.model._meta.module_name
         
-        urls = patterns('',
+        return patterns('',
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
-        )
-        return urls + super(RequestAdmin, self).get_urls()
+            url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
+        ) + super(RequestAdmin, self).get_urls()
     
     def overview(self, request):
-        days = [date.today() - timedelta(day) for day in range(30)]
-        days_qs = [(day, Request.objects.day(date=day)) for day in days]
-        
         return render_to_response('admin/request/request/overview.html', {
             'title': _('Request overview'),
             
             'traffic_table': modules.table(INFO_TABLE_QUERIES),
-            'traffic_graph': simplejson.dumps(modules.graph(days_qs)),
             
             'lastest_requests': Request.objects.all()[:5],
             
@@ -94,5 +91,15 @@ class RequestAdmin(admin.ModelAdmin):
             'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA,
             'request_media_prefix': settings.REQUEST_MEDIA_PREFIX,
         }, context_instance=RequestContext(request))
+    
+    def traffic(self, request):
+        try:
+            days = int(request.GET.get('days', 30))
+        except ValueError:
+            days = 30
+        
+        days = [date.today() - timedelta(day) for day in range(days)]
+        days_qs = [(day, Request.objects.day(date=day)) for day in days]
+        return HttpResponse(simplejson.dumps(modules.graph(days_qs)), mimetype='text/javascript')
 
 admin.site.register(Request, RequestAdmin)
