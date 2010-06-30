@@ -80,7 +80,7 @@ class RequestAdmin(admin.ModelAdmin):
             
             'traffic_table': modules.table(INFO_TABLE_QUERIES),
             
-            'lastest_requests': Request.objects.all()[:5],
+            'latest_requests': Request.objects.all()[:5],
             
             'top_paths': set_count(Request.objects.this_month().filter(response__lt=400).values_list('path', flat=True))[:10],
             'top_error_paths': set_count(Request.objects.this_month().filter(response__gte=400).values_list('path', flat=True))[:10],
