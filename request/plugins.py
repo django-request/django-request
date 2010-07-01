@@ -120,7 +120,7 @@ class TopErrorPaths(TopPaths):
 class TopReferrers(Plugin):
     def template_context(self):
         return {
-            'referrers': set_count(self.qs.unique_visits().values_list('referer', flat=True))[:10]
+            'referrers': set_count(self.qs.unique_visits().exclude(referer='').values_list('referer', flat=True))[:10]
         }
 
 class TopSearchPhrases(Plugin):
