@@ -66,11 +66,18 @@ class RequestAdmin(admin.ModelAdmin):
     
     def traffic(self, request):
         try:
-            days = int(request.GET.get('days', 30))
+            days_count = int(request.GET.get('days', 30))
         except ValueError:
-            days = 30
+            days_count = 30
         
-        days = [date.today() - timedelta(day) for day in range(days)]
+        if days_count < 10:
+            days_step = 1
+        elif days_count < 60:
+            days_step = 2
+        else:
+            days_step = 30
+        
+        days = [date.today() - timedelta(day) for day in xrange(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
         return HttpResponse(simplejson.dumps(modules.graph(days_qs)), mimetype='text/javascript')
 
