@@ -27,6 +27,7 @@ class RequestAdmin(admin.ModelAdmin):
             'fields': ('referer', 'user_agent', 'ip', 'user', 'language')
         })
     )
+    raw_id_fields = ('user',) 
     
     def request_from(self, obj):
         if obj.user_id:
