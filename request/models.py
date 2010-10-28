@@ -37,6 +37,9 @@ class Request(models.Model):
     def __unicode__(self):
         return u'[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
     
+    def get_user(self):
+        return User.objects.get(pk=self.user_id)
+
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
         self.method = request.method
