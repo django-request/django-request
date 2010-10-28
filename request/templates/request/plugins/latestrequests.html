@@ -13,7 +13,7 @@
   {% for request in requests %}
     <tr>
         <td><a href="../?path={{ request.path }}" title="{{ request.path }}">{{ request.path|trunc:"35" }}</a></td>
-        <td>{% if request.user %}{{ request.user }}{% else %}{{ request.ip }}{% endif %}</td>
+        <td>{% firstof request.get_user request.ip %}</td>
         <td>{{ request.get_response_display }}</td>
         <td><a href="../{{ request.id }}/"><abbr class="relatize" title="{{ request.time }}">{{ request.time|date:"D M d H:i:s O Y" }}</abbr></a></td>
     </tr>
