@@ -3,19 +3,11 @@
 {% load request_admin %}
 
 {% block extrahead %}
-{% if use_hosted_media %}
-<!--[if IE]><script language="javascript" type="text/javascript" src="http://media.kylefuller.co.uk/js/excanvas.min.js"></script><![endif]-->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="http://media.kylefuller.co.uk/js/jquery.flot.js"></script>
-<script type="text/javascript" src="http://media.kylefuller.co.uk/js/jquery.relatize_date.js"></script>
-<script type="text/javascript" src="http://media.kylefuller.co.uk/js/request.js"></script>
-{% else %}
-<!--[if IE]><script language="javascript" type="text/javascript" src="{{ request_media_prefix }}/js/excanvas.min.js"></script><![endif]-->
-<script type="text/javascript" src="{{ request_media_prefix }}/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="{{ request_media_prefix }}/js/jquery.flot.js"></script>
-<script type="text/javascript" src="{{ request_media_prefix }}/js/jquery.relatize_date.js"></script>
-<script type="text/javascript" src="{{ request_media_prefix }}/js/request.js"></script>
-{% endif %}
+<!--[if IE]><script language="javascript" type="text/javascript" src="{{ STATIC_URL }}request/js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery.flot.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery.relatize_date.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}request/js/request.js"></script>
 
 <script type="text/javascript">
 function loadTrafficGraph(days) {

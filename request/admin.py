@@ -59,11 +59,7 @@ class RequestAdmin(admin.ModelAdmin):
         
         return render_to_response('admin/request/request/overview.html', {
             'title': _('Request overview'),
-            
             'plugins': plugins.plugins,
-            
-            'use_hosted_media': settings.REQUEST_USE_HOSTED_MEDIA,
-            'request_media_prefix': settings.REQUEST_MEDIA_PREFIX,
         }, context_instance=RequestContext(request))
     
     def traffic(self, request):
