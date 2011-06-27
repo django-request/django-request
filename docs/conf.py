@@ -1,4 +1,7 @@
-import os, sys, request
+import os
+import sys
+
+import request
 
 source_suffix = '.txt'
 master_doc = 'contents'

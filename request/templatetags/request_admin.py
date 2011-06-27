@@ -2,12 +2,14 @@ from django import template
 
 register = template.Library()
 
+
 #@register.tag
 def trunc(string, chars):
     if len(string) > int(chars):
         return "%s..." % string[:int(chars) - 3]
     return string
 register.filter('trunc', trunc)
+
 
 #@register.simple_tag
 def pie_chart(items, width=440, height=190):

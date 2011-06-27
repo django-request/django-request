@@ -5,7 +5,7 @@ HTTP_STATUS_CODES = (
     (100, _('Continue')),
     (101, _('Switching Protocols')),
     (102, _('Processing (WebDAV)')),
-    
+
     # Success
     (200, _('OK')),
     (201, _('Created')),
@@ -15,7 +15,7 @@ HTTP_STATUS_CODES = (
     (205, _('Reset Content')),
     (206, _('Partial Content')),
     (207, _('Multi-Status (WebDAV)')),
-    
+
     # Redirection
     (300, _('Multiple Choices')),
     (301, _('Moved Permanently')),
@@ -23,9 +23,9 @@ HTTP_STATUS_CODES = (
     (303, _('See Other')),
     (304, _('Not Modified')),
     (305, _('Use Proxy')),
-    (306, _('Switch Proxy')), # No longer used
+    (306, _('Switch Proxy')),  # No longer used
     (307, _('Temporary Redirect')),
-    
+
     # Client Error
     (400, _('Bad Request')),
     (401, _('Unauthorized')),
@@ -45,14 +45,14 @@ HTTP_STATUS_CODES = (
     (415, _('Unsupported Media Type')),
     (416, _('Requested Range Not Satisfiable')),
     (417, _('Expectation Failed')),
-    (418, _('I\'m a teapot')), # April Fools
+    (418, _('I\'m a teapot')),  # April Fools
     (422, _('Unprocessable Entity (WebDAV)')),
     (423, _('Locked (WebDAV)')),
     (424, _('Failed Dependency (WebDAV)')),
     (425, _('Unordered Collection')),
     (426, _('Upgrade Required')),
     (449, _('Retry With')),
-    
+
     # Server Error
     (500, _('Internal Server Error')),
     (501, _('Not Implemented')),
@@ -82,16 +82,16 @@ browsers = patterns(('Unknown', {}),
     (r'Safari/(?P<version>[-.\w]+)', 'Safari'),
     (r'(Netscape([\d]?)|Navigator)/(?P<version>[-.\w]+)', 'Netscape'),
     (r'Wget/(?P<version>[-.\w]+)', 'Wget'),
-    
-    (r'Minefield(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox nightly trunk builds
-    (r'Shiretoko(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox testing browser
-    (r'GranParadiso(/(?P<version>[-.\w]+)?)', 'Firefox'), # Firefox testing browser
-    (r'Iceweasel(/(?P<version>[-.\w]+)?)', 'Firefox'), # Debian re-branded firefox
-    
+
+    (r'Minefield(/(?P<version>[-.\w]+)?)', 'Firefox'),  # Firefox nightly trunk builds
+    (r'Shiretoko(/(?P<version>[-.\w]+)?)', 'Firefox'),  # Firefox testing browser
+    (r'GranParadiso(/(?P<version>[-.\w]+)?)', 'Firefox'),  # Firefox testing browser
+    (r'Iceweasel(/(?P<version>[-.\w]+)?)', 'Firefox'),  # Debian re-branded firefox
+
     # RSS Reader
     (r'(NetNewsWire|NewsGatorOnline)/(?P<version>[-.\w]+)', 'NetNewsWire'),
     (r'Feedfetcher-Google', 'Google Reader'),
-    
+
     # Bots
     (r'Googlebot', 'Google'),
     (r'Yahoo! Slurp', 'Yahoo'),
@@ -112,7 +112,7 @@ browsers = patterns(('Unknown', {}),
     (r'IrssiUrlLog(/(?P<version>[-.\w]+)?)', 'irssi'),
     (r'Linguee Bot \(http://www.linguee.com/bot; bot@linguee.com\)', 'Linguee'),
     (r'Sphider', 'Sphider'),
-    
+
     # Other
     (r'Mediapartners-Google', 'Google Ads'),
     (r'Apple-PubSub', 'Apple-PubSub'),
