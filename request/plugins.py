@@ -1,5 +1,6 @@
 import re
 
+from django.db.models import Count
 from django.utils.translation import string_concat, ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
 
@@ -112,11 +113,11 @@ class TrafficInformation(Plugin):
 
 class TopPaths(Plugin):
     def queryset(self):
-        return self.qs.filter(response__lt=400).values_list('path', flat=True)
+        return self.qs.filter(response__lt=400)
 
     def template_context(self):
         return {
-            'paths': set_count(self.queryset())[:10]
+            'paths': self.queryset().values('path').annotate(Count('path')).order_by('-path__count')[:10]
         }
 
 
@@ -124,13 +125,16 @@ class TopErrorPaths(TopPaths):
     template = 'request/plugins/toppaths.html'
 
     def queryset(self):
-        return self.qs.filter(response__gte=400).values_list('path', flat=True)
+        return self.qs.filter(response__gte=400)
 
 
 class TopReferrers(Plugin):
+    def queryset(self):
+        return self.qs.unique_visits().exclude(referer='')
+
     def template_context(self):
         return {
-            'referrers': set_count(self.qs.unique_visits().exclude(referer='').values_list('referer', flat=True))[:10]
+            'referrers': self.queryset().values('referer').annotate(Count('referer')).order_by('-referer')[:10]
         }
 
 
