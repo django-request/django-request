@@ -134,7 +134,7 @@ class TopReferrers(Plugin):
 
     def template_context(self):
         return {
-            'referrers': self.queryset().values('referer').annotate(Count('referer')).order_by('-referer')[:10]
+            'referrers': self.queryset().values('referer').annotate(Count('referer')).order_by('-referer__count')[:10]
         }
 
 
