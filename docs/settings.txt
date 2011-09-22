@@ -109,3 +109,10 @@ This setting should only be set if you use SSL or do not use django.contrib.site
 Default: ``False``
 
 If this is set to True, django-request will ONLY store error returning request/responses. This can be useful to use django-request purely as a error detection system.
+
+``REQUEST_VALID_METHOD_NAMES``
+==============================
+
+Default: ('get', 'post', 'put', 'delete', 'head', 'options', 'trace')
+
+Any request which is not in this tuple/list will be ignored.

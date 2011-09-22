@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 
+REQUEST_VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'))
+
 REQUEST_ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 REQUEST_IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)
 REQUEST_IGNORE_IP = getattr(settings, 'REQUEST_IGNORE_IP', tuple())
