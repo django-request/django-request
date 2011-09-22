@@ -8,10 +8,10 @@
         <th>{% trans "Visits" %}</th>
     </tr>
     
-  {% for path,hits in paths %}
+  {% for path in paths %}
     <tr>
-        <td><a href="../?path={{ path }}" title="{{ path }}">{{ path|trunc:"60" }}</a></td>
-        <td>{{ hits }}</td>
+        <td><a href="../?path={{ path.path }}" title="{{ path.path }}">{{ path.path|trunc:"60" }}</a></td>
+        <td>{{ path.path__count }}</td>
     </tr>
   {% endfor %}
 {% endblock %}

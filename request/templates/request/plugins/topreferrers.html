@@ -8,10 +8,10 @@
         <th>{% trans "Visits" %}</th>
     </tr>
     
-  {% for referrer,hits in referrers %}
+  {% for referer in referrers %}
     <tr>
-        <td><a href="{{ referrer }}" title="{{ referrer }}">{{ referrer|trunc:"60" }}</a></td>
-        <td>{{ hits }}</td>
+        <td><a href="{{ referer.referer }}" title="{{ referer.referer }}">{{ referer.referer|trunc:"60" }}</a></td>
+        <td>{{ referer.referer__count }}</td>
     </tr>
   {% endfor %}
 {% endblock %}
