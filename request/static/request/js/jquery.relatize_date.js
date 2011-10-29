@@ -28,7 +28,7 @@
       var day = date.getDay(), month = date.getMonth();
       var hours = date.getHours(), minutes = date.getMinutes();
 
-      var pad = function(num) { 
+      var pad = function(num) {
         var string = num.toString(10);
         return new Array((2 - string.length) + 1).join('0') + string
       };
@@ -53,11 +53,11 @@
         }
       })
     },
-  
+
     timeAgoInWords: function(targetDate, includeTime) {
       return $r.distanceOfTimeInWords(targetDate, new Date(), includeTime);
     },
-  
+
     /**
      * Return the distance of time in words between two Date's
      * Example: '5 days ago', 'about an hour ago'

@@ -43,7 +43,7 @@ Example:
 ``REQUEST_TRAFFIC_MODULES``
 =================================
 
-Default: 
+Default:
 
 .. code-block:: python
 
@@ -71,7 +71,7 @@ These are all the items in the traffic graph and table on the overview page. If 
 ``REQUEST_PLUGINS``
 ===================
 
-Default: 
+Default:
 
 .. code-block:: python
 

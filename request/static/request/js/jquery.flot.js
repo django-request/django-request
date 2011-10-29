@@ -8,9 +8,9 @@
 // for convenience
 
 /* Plugin for jQuery for working with colors.
- * 
+ *
  * Version 1.0.
- * 
+ *
  * Inspiration from jQuery color animation plugin by John Resig.
  *
  * Released under the MIT license by Ole Laursen, October 2009.
@@ -24,7 +24,7 @@
  *
  * Note that .scale() and .add() work in-place instead of returning
  * new objects.
- */ 
+ */
 (function(){jQuery.color={};jQuery.color.make=function(E,D,B,C){var F={};F.r=E||0;F.g=D||0;F.b=B||0;F.a=C!=null?C:1;F.add=function(I,H){for(var G=0;G<I.length;++G){F[I.charAt(G)]+=H}return F.normalize()};F.scale=function(I,H){for(var G=0;G<I.length;++G){F[I.charAt(G)]*=H}return F.normalize()};F.toString=function(){if(F.a>=1){return"rgb("+[F.r,F.g,F.b].join(",")+")"}else{return"rgba("+[F.r,F.g,F.b,F.a].join(",")+")"}};F.normalize=function(){function G(I,J,H){return J<I?I:(J>H?H:J)}F.r=G(0,parseInt(F.r),255);F.g=G(0,parseInt(F.g),255);F.b=G(0,parseInt(F.b),255);F.a=G(0,F.a,1);return F};F.clone=function(){return jQuery.color.make(F.r,F.b,F.g,F.a)};return F.normalize()};jQuery.color.extract=function(C,B){var D;do{D=C.css(B).toLowerCase();if(D!=""&&D!="transparent"){break}C=C.parent()}while(!jQuery.nodeName(C.get(0),"body"));if(D=="rgba(0, 0, 0, 0)"){D="transparent"}return jQuery.color.parse(D)};jQuery.color.parse=function(E){var D,B=jQuery.color.make;if(D=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(E)){return B(parseInt(D[1],10),parseInt(D[2],10),parseInt(D[3],10))}if(D=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(E)){return B(parseInt(D[1],10),parseInt(D[2],10),parseInt(D[3],10),parseFloat(D[4]))}if(D=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(E)){return B(parseFloat(D[1])*2.55,parseFloat(D[2])*2.55,parseFloat(D[3])*2.55)}if(D=/rgba\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(E)){return B(parseFloat(D[1])*2.55,parseFloat(D[2])*2.55,parseFloat(D[3])*2.55,parseFloat(D[4]))}if(D=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(E)){return B(parseInt(D[1],16),parseInt(D[2],16),parseInt(D[3],16))}if(D=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(E)){return B(parseInt(D[1]+D[1],16),parseInt(D[2]+D[2],16),parseInt(D[3]+D[3],16))}var C=jQuery.trim(E).toLowerCase();if(C=="transparent"){return B(255,255,255,0)}else{D=A[C];return B(D[0],D[1],D[2])}};var A={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0]}})();
 
 // the actual Flot code
@@ -34,7 +34,7 @@
         //   [ series1, series2 ... ]
         // where series is either just the data as [ [x1, y1], [x2, y2], ... ]
         // or { data: [ [x1, y1], [x2, y2], ... ], label: "some label", ... }
-        
+
         var series = [],
             options = {
                 // the color theme used for graphs
@@ -61,7 +61,7 @@
                     tickFormatter: null, // fn: number -> string
                     labelWidth: null, // size of tick labels in pixels
                     labelHeight: null,
-                    
+
                     // mode specific options
                     tickDecimals: null, // no. of decimals, null means auto
                     tickSize: null, // number or [number, "unit"]
@@ -89,7 +89,7 @@
                     },
                     lines: {
                         // we don't put in show: false so we can see
-                        // whether lines were actively disabled 
+                        // whether lines were actively disabled
                         lineWidth: 2, // in pixels
                         fill: false,
                         fillColor: null,
@@ -101,7 +101,7 @@
                         barWidth: 1, // in units of the x axis
                         fill: true,
                         fillColor: null,
-                        align: "left", // or "center" 
+                        align: "left", // or "center"
                         horizontal: false // when horizontal, left is now top
                     },
                     shadowSize: 3
@@ -169,11 +169,11 @@
             return { left: parseInt(axisSpecToRealAxis(point, "xaxis").p2c(+point.x) + plotOffset.left),
                      top: parseInt(axisSpecToRealAxis(point, "yaxis").p2c(+point.y) + plotOffset.top) };
         };
-        
+
 
         // public attributes
         plot.hooks = hooks;
-        
+
         // initialize
         initPlugins(plot);
         parseOptions(options_);
@@ -198,7 +198,7 @@
                     $.extend(true, options, p.options);
             }
         }
-        
+
         function parseOptions(opts) {
             $.extend(true, options, opts);
             if (options.grid.borderColor == null)
@@ -233,7 +233,7 @@
             fillInSeriesOptions();
             processData();
         }
-        
+
         function parseData(d) {
             var res = [];
             for (var i = 0; i < d.length; ++i) {
@@ -254,7 +254,7 @@
 
             return res;
         }
-        
+
         function axisSpecToRealAxis(obj, attr) {
             var a = obj[attr];
             if (!a || a == 1)
@@ -263,10 +263,10 @@
                 return axes[attr.charAt(0) + a + attr.slice(1)];
             return a; // assume it's OK
         }
-        
+
         function fillInSeriesOptions() {
             var i;
-            
+
             // collect what we already got of colors
             var neededColors = series.length,
                 usedColors = [],
@@ -281,7 +281,7 @@
                         usedColors.push($.color.parse(series[i].color));
                 }
             }
-            
+
             // we might need to generate more colors if higher indices
             // are assigned
             for (i = 0; i < assignedColors.length; ++i) {
@@ -305,7 +305,7 @@
                 // FIXME: if we're getting to close to something else,
                 // we should probably skip this one
                 colors.push(c);
-                
+
                 ++i;
                 if (i >= options.colors.length) {
                     i = 0;
@@ -317,7 +317,7 @@
             var colori = 0, s;
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
-                
+
                 // assign colors
                 if (s.color == null) {
                     s.color = colors[colori].toString();
@@ -343,7 +343,7 @@
                 s.yaxis = axisSpecToRealAxis(s, "yaxis");
             }
         }
-        
+
         function processData() {
             var topSentry = Number.POSITIVE_INFINITY,
                 bottomSentry = Number.NEGATIVE_INFINITY,
@@ -366,10 +366,10 @@
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
                 s.datapoints = { points: [] };
-                
+
                 executeHooks(hooks.processRawData, [ s, s.data, s.datapoints ]);
             }
-            
+
             // first pass: clean and copy data
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
@@ -384,7 +384,7 @@
 
                     if (s.bars.show)
                         format.push({ y: true, number: true, required: false, defaultValue: 0 });
-                    
+
                     s.datapoints.format = format;
                 }
 
@@ -393,13 +393,13 @@
 
                 if (s.datapoints.pointsize == null)
                     s.datapoints.pointsize = format.length;
-                
+
                 ps = s.datapoints.pointsize;
                 points = s.datapoints.points;
 
                 insertSteps = s.lines.show && s.lines.steps;
                 s.xaxis.used = s.yaxis.used = true;
-                
+
                 for (j = k = 0; j < data.length; ++j, k += ps) {
                     p = data[j];
 
@@ -419,16 +419,16 @@
                                 if (val == null) {
                                     if (f.required)
                                         nullify = true;
-                                    
+
                                     if (f.defaultValue != null)
                                         val = f.defaultValue;
                                 }
                             }
-                            
+
                             points[k + m] = val;
                         }
                     }
-                    
+
                     if (nullify) {
                         for (m = 0; m < ps; ++m) {
                             val = points[k + m];
@@ -468,7 +468,7 @@
             // give the hooks a chance to run
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
-                
+
                 executeHooks(hooks.processDatapoints, [ s, s.datapoints]);
             }
 
@@ -480,7 +480,7 @@
 
                 var xmin = topSentry, ymin = topSentry,
                     xmax = bottomSentry, ymax = bottomSentry;
-                
+
                 for (j = 0; j < points.length; j += ps) {
                     if (points[j] == null)
                         continue;
@@ -490,7 +490,7 @@
                         f = format[m];
                         if (!f)
                             continue;
-                        
+
                         if (f.x) {
                             if (val < xmin)
                                 xmin = val;
@@ -505,7 +505,7 @@
                         }
                     }
                 }
-                
+
                 if (s.bars.show) {
                     // make sure we got room for the bar on the dancing floor
                     var delta = s.bars.align == "left" ? 0 : -s.bars.barWidth/2;
@@ -518,7 +518,7 @@
                         xmax += delta + s.bars.barWidth;
                     }
                 }
-                
+
                 updateAxis(s.xaxis, xmin, xmax);
                 updateAxis(s.yaxis, ymin, ymax);
             }
@@ -540,7 +540,7 @@
                     c = window.G_vmlCanvasManager.initElement(c);
                 return c;
             }
-            
+
             canvasWidth = placeholder.width();
             canvasHeight = placeholder.height();
             placeholder.html(""); // clear placeholder
@@ -552,7 +552,7 @@
 
             if ($.browser.msie) // excanvas hack
                 window.G_vmlCanvasManager.init_(document); // make sure everything is setup
-            
+
             // the canvas
             canvas = $(makeCanvas(canvasWidth, canvasHeight)).appendTo(placeholder).get(0);
             ctx = canvas.getContext("2d");
@@ -581,10 +581,10 @@
         function setupGrid() {
             function setTransformationHelpers(axis, o) {
                 function identity(x) { return x; }
-                
+
                 var s, m, t = o.transform || identity,
                     it = o.inverseTransform;
-                    
+
                 // add transformation helpers
                 if (axis == axes.xaxis || axis == axes.x2axis) {
                     // precompute how much the axis is scaling a point
@@ -606,7 +606,7 @@
                 else {
                     s = axis.scale = plotHeight / (t(axis.max) - t(axis.min));
                     m = t(axis.max);
-                    
+
                     if (t == identity)
                         axis.p2c = function (p) { return (m - p) * s; };
                     else
@@ -620,7 +620,7 @@
 
             function measureLabels(axis, axisOptions) {
                 var i, labels = [], l;
-                
+
                 axis.labelWidth = axisOptions.labelWidth;
                 axis.labelHeight = axisOptions.labelHeight;
 
@@ -640,7 +640,7 @@
                             if (l)
                                 labels.push('<div class="tickLabel" style="float:left;width:' + axis.labelWidth + 'px">' + l + '</div>');
                         }
-                        
+
                         if (labels.length > 0) {
                             var dummyDiv = $('<div style="position:absolute;top:-10000px;width:10000px;font-size:smaller">'
                                              + labels.join("") + '<div style="clear:left"></div></div>').appendTo(placeholder);
@@ -656,7 +656,7 @@
                         if (l)
                             labels.push('<div class="tickLabel">' + l + '</div>');
                     }
-                    
+
                     if (labels.length > 0) {
                         var dummyDiv = $('<div style="position:absolute;top:-10000px;font-size:smaller">'
                                          + labels.join("") + '</div>').appendTo(placeholder);
@@ -666,7 +666,7 @@
                             axis.labelHeight = dummyDiv.find("div").height();
                         dummyDiv.remove();
                     }
-                    
+
                 }
 
                 if (axis.labelWidth == null)
@@ -674,18 +674,18 @@
                 if (axis.labelHeight == null)
                     axis.labelHeight = 0;
             }
-            
+
             function setGridSpacing() {
                 // get the most space needed around the grid for things
                 // that may stick out
                 var maxOutset = options.grid.borderWidth;
                 for (i = 0; i < series.length; ++i)
                     maxOutset = Math.max(maxOutset, 2 * (series[i].points.radius + series[i].points.lineWidth/2));
-                
+
                 plotOffset.left = plotOffset.right = plotOffset.top = plotOffset.bottom = maxOutset;
-                
+
                 var margin = options.grid.labelMargin + options.grid.borderWidth;
-                
+
                 if (axes.xaxis.labelHeight > 0)
                     plotOffset.bottom = Math.max(maxOutset, axes.xaxis.labelHeight + margin);
                 if (axes.yaxis.labelWidth > 0)
@@ -694,15 +694,15 @@
                     plotOffset.top = Math.max(maxOutset, axes.x2axis.labelHeight + margin);
                 if (axes.y2axis.labelWidth > 0)
                     plotOffset.right = Math.max(maxOutset, axes.y2axis.labelWidth + margin);
-            
+
                 plotWidth = canvasWidth - plotOffset.left - plotOffset.right;
                 plotHeight = canvasHeight - plotOffset.bottom - plotOffset.top;
             }
-            
+
             var axis;
             for (axis in axes)
                 setRange(axes[axis], options[axis]);
-            
+
             if (options.grid.show) {
                 for (axis in axes) {
                     prepareTickGeneration(axes[axis], options[axis]);
@@ -717,16 +717,16 @@
                 plotWidth = canvasWidth;
                 plotHeight = canvasHeight;
             }
-            
+
             for (axis in axes)
                 setTransformationHelpers(axes[axis], options[axis]);
 
             if (options.grid.show)
                 insertLabels();
-            
+
             insertLegend();
         }
-        
+
         function setRange(axis, axisOptions) {
             var min = +(axisOptions.min != null ? axisOptions.min : axis.datamin),
                 max = +(axisOptions.max != null ? axisOptions.max : axis.datamax),
@@ -776,13 +776,13 @@
                 noTicks = 0.3 * Math.sqrt(canvasWidth);
             else
                 noTicks = 0.3 * Math.sqrt(canvasHeight);
-            
+
             var delta = (axis.max - axis.min) / noTicks,
                 size, generator, unit, formatter, i, magn, norm;
 
             if (axisOptions.mode == "time") {
                 // pretty handling of time
-                
+
                 // map of app. size of time units in milliseconds
                 var timeUnitSize = {
                     "second": 1000,
@@ -798,9 +798,9 @@
                 // an integer algorithm
                 var spec = [
                     [1, "second"], [2, "second"], [5, "second"], [10, "second"],
-                    [30, "second"], 
+                    [30, "second"],
                     [1, "minute"], [2, "minute"], [5, "minute"], [10, "minute"],
-                    [30, "minute"], 
+                    [30, "minute"],
                     [1, "hour"], [2, "hour"], [4, "hour"],
                     [8, "hour"], [12, "hour"],
                     [1, "day"], [2, "day"], [3, "day"],
@@ -824,7 +824,7 @@
                         break;
                 size = spec[i][0];
                 unit = spec[i][1];
-                
+
                 // special-case the possibility of several years
                 if (unit == "year") {
                     magn = Math.pow(10, Math.floor(Math.log(delta / timeUnitSize.year) / Math.LN10));
@@ -845,12 +845,12 @@
                     size = axisOptions.tickSize[0];
                     unit = axisOptions.tickSize[1];
                 }
-                
+
                 generator = function(axis) {
                     var ticks = [],
                         tickSize = axis.tickSize[0], unit = axis.tickSize[1],
                         d = new Date(axis.min);
-                    
+
                     var step = tickSize * timeUnitSize[unit];
 
                     if (unit == "second")
@@ -863,7 +863,7 @@
                         d.setUTCMonth(floorInBase(d.getUTCMonth(), tickSize));
                     if (unit == "year")
                         d.setUTCFullYear(floorInBase(d.getUTCFullYear(), tickSize));
-                    
+
                     // reset smaller components
                     d.setUTCMilliseconds(0);
                     if (step >= timeUnitSize.minute)
@@ -915,11 +915,11 @@
                     // first check global format
                     if (axisOptions.timeformat != null)
                         return $.plot.formatDate(d, axisOptions.timeformat, axisOptions.monthNames);
-                    
+
                     var t = axis.tickSize[0] * timeUnitSize[axis.tickSize[1]];
                     var span = axis.max - axis.min;
                     var suffix = (axisOptions.twelveHourClock) ? " %p" : "";
-                    
+
                     if (t < timeUnitSize.minute)
                         fmt = "%h:%M:%S" + suffix;
                     else if (t < timeUnitSize.day) {
@@ -938,7 +938,7 @@
                     }
                     else
                         fmt = "%y";
-                    
+
                     return $.plot.formatDate(d, fmt, axisOptions.monthNames);
                 };
             }
@@ -951,7 +951,7 @@
 
                 magn = Math.pow(10, -dec);
                 norm = delta / magn; // norm is between 1.0 and 10.0
-                
+
                 if (norm < 1.5)
                     size = 1;
                 else if (norm < 3) {
@@ -968,7 +968,7 @@
                     size = 10;
 
                 size *= magn;
-                
+
                 if (axisOptions.minTickSize != null && size < axisOptions.minTickSize)
                     size = axisOptions.minTickSize;
 
@@ -1004,13 +1004,13 @@
             else
                 axis.tickFormatter = formatter;
         }
-        
+
         function setTicks(axis, axisOptions) {
             axis.ticks = [];
 
             if (!axis.used)
                 return;
-            
+
             if (axisOptions.ticks == null)
                 axis.ticks = axis.tickGenerator(axis);
             else if (typeof axisOptions.ticks == "number") {
@@ -1023,7 +1023,7 @@
                 if ($.isFunction(ticks))
                     // generate the ticks
                     ticks = ticks({ min: axis.min, max: axis.max });
-                
+
                 // clean up the user-supplied ticks, copy them over
                 var i, v;
                 for (i = 0; i < ticks.length; ++i) {
@@ -1050,12 +1050,12 @@
                     axis.max = Math.max(axis.max, axis.ticks[axis.ticks.length - 1].v);
             }
         }
-      
+
         function draw() {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
             var grid = options.grid;
-            
+
             if (grid.show && !grid.aboveData)
                 drawGrid();
 
@@ -1063,7 +1063,7 @@
                 drawSeries(series[i]);
 
             executeHooks(hooks.draw, [ctx]);
-            
+
             if (grid.show && grid.aboveData)
                 drawGrid();
         }
@@ -1093,13 +1093,13 @@
             // auto-reverse as an added bonus
             if (from != null && to != null && from > to)
                 return { from: to, to: from, axis: axis };
-            
+
             return { from: from, to: to, axis: axis };
         }
-        
+
         function drawGrid() {
             var i;
-            
+
             ctx.save();
             ctx.translate(plotOffset.left, plotOffset.top);
 
@@ -1149,7 +1149,7 @@
                     xrange.to = xrange.axis.p2c(xrange.to);
                     yrange.from = yrange.axis.p2c(yrange.from);
                     yrange.to = yrange.axis.p2c(yrange.to);
-                    
+
                     if (xrange.from == xrange.to || yrange.from == yrange.to) {
                         // draw line
                         ctx.beginPath();
@@ -1170,7 +1170,7 @@
                     }
                 }
             }
-            
+
             // draw the inner grid
             ctx.lineWidth = 1;
             ctx.strokeStyle = options.grid.tickColor;
@@ -1200,7 +1200,7 @@
                 v = axis.ticks[i].v;
                 if (v <= axis.min || v >= axis.max)
                     continue;
-    
+
                 ctx.moveTo(Math.floor(axis.p2c(v)) + ctx.lineWidth/2, -5);
                 ctx.lineTo(Math.floor(axis.p2c(v)) + ctx.lineWidth/2, 5);
             }
@@ -1214,9 +1214,9 @@
                 ctx.moveTo(plotWidth-5, Math.floor(axis.p2c(v)) + ctx.lineWidth/2);
                 ctx.lineTo(plotWidth+5, Math.floor(axis.p2c(v)) + ctx.lineWidth/2);
             }
-            
+
             ctx.stroke();
-            
+
             if (options.grid.borderWidth) {
                 // draw border
                 var bw = options.grid.borderWidth;
@@ -1230,7 +1230,7 @@
 
         function insertLabels() {
             placeholder.find(".tickLabels").remove();
-            
+
             var html = ['<div class="tickLabels" style="font-size:smaller;color:' + options.grid.color + '">'];
 
             function addLabels(axis, labelGenerator) {
@@ -1243,26 +1243,26 @@
             }
 
             var margin = options.grid.labelMargin + options.grid.borderWidth;
-            
+
             addLabels(axes.xaxis, function (tick, axis) {
                 return '<div style="position:absolute;top:' + (plotOffset.top + plotHeight + margin) + 'px;left:' + Math.round(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2) + 'px;width:' + axis.labelWidth + 'px;text-align:center" class="tickLabel">' + tick.label + "</div>";
             });
-            
-            
+
+
             addLabels(axes.yaxis, function (tick, axis) {
                 return '<div style="position:absolute;top:' + Math.round(plotOffset.top + axis.p2c(tick.v) - axis.labelHeight/2) + 'px;right:' + (plotOffset.right + plotWidth + margin) + 'px;width:' + axis.labelWidth + 'px;text-align:right" class="tickLabel">' + tick.label + "</div>";
             });
-            
+
             addLabels(axes.x2axis, function (tick, axis) {
                 return '<div style="position:absolute;bottom:' + (plotOffset.bottom + plotHeight + margin) + 'px;left:' + Math.round(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2) + 'px;width:' + axis.labelWidth + 'px;text-align:center" class="tickLabel">' + tick.label + "</div>";
             });
-            
+
             addLabels(axes.y2axis, function (tick, axis) {
                 return '<div style="position:absolute;top:' + Math.round(plotOffset.top + axis.p2c(tick.v) - axis.labelHeight/2) + 'px;left:' + (plotOffset.left + plotWidth + margin) +'px;width:' + axis.labelWidth + 'px;text-align:left" class="tickLabel">' + tick.label + "</div>";
             });
 
             html.push('</div>');
-            
+
             placeholder.append(html.join(""));
         }
 
@@ -1274,18 +1274,18 @@
             if (series.points.show)
                 drawSeriesPoints(series);
         }
-        
+
         function drawSeriesLines(series) {
             function plotLine(datapoints, xoffset, yoffset, axisx, axisy) {
                 var points = datapoints.points,
                     ps = datapoints.pointsize,
                     prevx = null, prevy = null;
-                
+
                 ctx.beginPath();
                 for (var i = ps; i < points.length; i += ps) {
                     var x1 = points[i - ps], y1 = points[i - ps + 1],
                         x2 = points[i], y2 = points[i + 1];
-                    
+
                     if (x1 == null || x2 == null)
                         continue;
 
@@ -1348,7 +1348,7 @@
 
                     if (x1 != prevx || y1 != prevy)
                         ctx.moveTo(axisx.p2c(x1) + xoffset, axisy.p2c(y1) + yoffset);
-                    
+
                     prevx = x2;
                     prevy = y2;
                     ctx.lineTo(axisx.p2c(x2) + xoffset, axisy.p2c(y2) + yoffset);
@@ -1361,11 +1361,11 @@
                     ps = datapoints.pointsize,
                     bottom = Math.min(Math.max(0, axisy.min), axisy.max),
                     top, lastX = 0, areaOpen = false;
-                
+
                 for (var i = ps; i < points.length; i += ps) {
                     var x1 = points[i - ps], y1 = points[i - ps + 1],
                         x2 = points[i], y2 = points[i + 1];
-                    
+
                     if (areaOpen && x1 != null && x2 == null) {
                         // close area
                         ctx.lineTo(axisx.p2c(lastX), axisy.p2c(bottom));
@@ -1378,7 +1378,7 @@
                         continue;
 
                     // clip x values
-                    
+
                     // clip with xmin
                     if (x1 <= x2 && x1 < axisx.min) {
                         if (x2 < axisx.min)
@@ -1413,7 +1413,7 @@
                         ctx.moveTo(axisx.p2c(x1), axisy.p2c(bottom));
                         areaOpen = true;
                     }
-                    
+
                     // now first check the case where both is outside
                     if (y1 >= axisy.max && y2 >= axisy.max) {
                         ctx.lineTo(axisx.p2c(x1), axisy.p2c(axisy.max));
@@ -1427,14 +1427,14 @@
                         lastX = x2;
                         continue;
                     }
-                    
+
                     // else it's a bit more complicated, there might
                     // be two rectangles and two triangles we need to fill
                     // in; to find these keep track of the current x values
                     var x1old = x1, x2old = x2;
 
                     // and clip the y values, without shortcutting
-                    
+
                     // clip with ymin
                     if (y1 <= y2 && y1 < axisy.min && y2 >= axisy.min) {
                         x1 = (axisy.min - y1) / (y2 - y1) * (x2 - x1) + x1;
@@ -1463,11 +1463,11 @@
                             top = axisy.min;
                         else
                             top = axisy.max;
-                        
+
                         ctx.lineTo(axisx.p2c(x1old), axisy.p2c(top));
                         ctx.lineTo(axisx.p2c(x1), axisy.p2c(top));
                     }
-                    
+
                     // fill the triangles
                     ctx.lineTo(axisx.p2c(x1), axisy.p2c(y1));
                     ctx.lineTo(axisx.p2c(x2), axisy.p2c(y2));
@@ -1478,7 +1478,7 @@
                             top = axisy.min;
                         else
                             top = axisy.max;
-                        
+
                         ctx.lineTo(axisx.p2c(x2), axisy.p2c(top));
                         ctx.lineTo(axisx.p2c(x2old), axisy.p2c(top));
                     }
@@ -1491,7 +1491,7 @@
                     ctx.fill();
                 }
             }
-            
+
             ctx.save();
             ctx.translate(plotOffset.left, plotOffset.top);
             ctx.lineJoin = "round";
@@ -1526,12 +1526,12 @@
         function drawSeriesPoints(series) {
             function plotPoints(datapoints, radius, fillStyle, offset, circumference, axisx, axisy) {
                 var points = datapoints.points, ps = datapoints.pointsize;
-                
+
                 for (var i = 0; i < points.length; i += ps) {
                     var x = points[i], y = points[i + 1];
                     if (x == null || x < axisx.min || x > axisx.max || y < axisy.min || y > axisy.max)
                         continue;
-                    
+
                     ctx.beginPath();
                     ctx.arc(axisx.p2c(x), axisy.p2c(y) + offset, radius, 0, circumference, false);
                     if (fillStyle) {
@@ -1541,7 +1541,7 @@
                     ctx.stroke();
                 }
             }
-            
+
             ctx.save();
             ctx.translate(plotOffset.left, plotOffset.top);
 
@@ -1608,12 +1608,12 @@
                     drawTop = false;
                 }
             }
-           
+
             // clip
             if (right < axisx.min || left > axisx.max ||
                 top < axisy.min || bottom > axisy.max)
                 return;
-            
+
             if (left < axisx.min) {
                 left = axisx.min;
                 drawLeft = false;
@@ -1628,7 +1628,7 @@
                 bottom = axisy.min;
                 drawBottom = false;
             }
-            
+
             if (top > axisy.max) {
                 top = axisy.max;
                 drawTop = false;
@@ -1638,7 +1638,7 @@
             bottom = axisy.p2c(bottom);
             right = axisx.p2c(right);
             top = axisy.p2c(top);
-            
+
             // fill the bar
             if (fillStyleCallback) {
                 c.beginPath();
@@ -1675,11 +1675,11 @@
                 c.stroke();
             }
         }
-        
+
         function drawSeriesBars(series) {
             function plotBars(datapoints, barLeft, barRight, offset, fillStyleCallback, axisx, axisy) {
                 var points = datapoints.points, ps = datapoints.pointsize;
-                
+
                 for (var i = 0; i < points.length; i += ps) {
                     if (points[i] == null)
                         continue;
@@ -1706,19 +1706,19 @@
 
             if (filloptions.fillColor)
                 return getColorOrGradient(filloptions.fillColor, bottom, top, seriesColor);
-            
+
             var c = $.color.parse(seriesColor);
             c.a = typeof fill == "number" ? fill : 0.4;
             c.normalize();
             return c.toString();
         }
-        
+
         function insertLegend() {
             placeholder.find(".legend").remove();
 
             if (!options.legend.show)
                 return;
-            
+
             var fragments = [], rowStarted = false,
                 lf = options.legend.labelFormatter, s, label;
             for (i = 0; i < series.length; ++i) {
@@ -1726,7 +1726,7 @@
                 label = s.label;
                 if (!label)
                     continue;
-                
+
                 if (i % options.legend.noColumns == 0) {
                     if (rowStarted)
                         fragments.push('</tr>');
@@ -1736,14 +1736,14 @@
 
                 if (lf)
                     label = lf(label, s);
-                
+
                 fragments.push(
                     '<td class="legendColorBox"><div style="border:1px solid ' + options.legend.labelBoxBorderColor + ';padding:1px"><div style="width:4px;height:0;border:5px solid ' + s.color + ';overflow:hidden"></div></div></td>' +
                     '<td class="legendLabel">' + label + '</td>');
             }
             if (rowStarted)
                 fragments.push('</tr>');
-            
+
             if (fragments.length == 0)
                 return;
 
@@ -1787,10 +1787,10 @@
 
 
         // interactive features
-        
+
         var highlights = [],
             redrawTimeout = null;
-        
+
         // returns the data item the mouse is over, or null if none is found
         function findNearbyItem(mouseX, mouseY, seriesFilter) {
             var maxDistance = options.grid.mouseActiveRadius,
@@ -1800,7 +1800,7 @@
             for (i = 0; i < series.length; ++i) {
                 if (!seriesFilter(series[i]))
                     continue;
-                
+
                 var s = series[i],
                     axisx = s.xaxis,
                     axisy = s.yaxis,
@@ -1816,7 +1816,7 @@
                         var x = points[j], y = points[j + 1];
                         if (x == null)
                             continue;
-                        
+
                         // For points and lines, the cursor must be within a
                         // certain distance to the data point
                         if (x - mx > maxx || x - mx < -maxx ||
@@ -1837,19 +1837,19 @@
                         }
                     }
                 }
-                    
+
                 if (s.bars.show && !item) { // no other point can be nearby
                     var barLeft = s.bars.align == "left" ? 0 : -s.bars.barWidth/2,
                         barRight = barLeft + s.bars.barWidth;
-                    
+
                     for (j = 0; j < points.length; j += ps) {
                         var x = points[j], y = points[j + 1], b = points[j + 2];
                         if (x == null)
                             continue;
-  
+
                         // for a bar graph, the cursor must be inside the bar
-                        if (series[i].bars.horizontal ? 
-                            (mx <= Math.max(b, x) && mx >= Math.min(b, x) && 
+                        if (series[i].bars.horizontal ?
+                            (mx <= Math.max(b, x) && mx >= Math.min(b, x) &&
                              my >= y + barLeft && my <= y + barRight) :
                             (mx >= x + barLeft && mx <= x + barRight &&
                              my >= Math.min(b, y) && my <= Math.max(b, y)))
@@ -1862,13 +1862,13 @@
                 i = item[0];
                 j = item[1];
                 ps = series[i].datapoints.pointsize;
-                
+
                 return { datapoint: series[i].datapoints.points.slice(j * ps, (j + 1) * ps),
                          dataIndex: j,
                          series: series[i],
                          seriesIndex: i };
             }
-            
+
             return null;
         }
 
@@ -1877,7 +1877,7 @@
                 triggerClickHoverEvent("plothover", e,
                                        function (s) { return s["hoverable"] != false; });
         }
-        
+
         function onClick(e) {
             triggerClickHoverEvent("plotclick", e,
                                    function (s) { return s["clickable"] != false; });
@@ -1916,11 +1916,11 @@
                         !(item && h.series == item.series && h.point == item.datapoint))
                         unhighlight(h.series, h.point);
                 }
-                
+
                 if (item)
                     highlight(item.series, item.datapoint, eventname);
             }
-            
+
             placeholder.trigger(eventname, [ pos, item ]);
         }
 
@@ -1936,7 +1936,7 @@
             octx.save();
             octx.clearRect(0, 0, canvasWidth, canvasHeight);
             octx.translate(plotOffset.left, plotOffset.top);
-            
+
             var i, hi;
             for (i = 0; i < highlights.length; ++i) {
                 hi = highlights[i];
@@ -1947,10 +1947,10 @@
                     drawPointHighlight(hi.series, hi.point);
             }
             octx.restore();
-            
+
             executeHooks(hooks.drawOverlay, [octx]);
         }
-        
+
         function highlight(s, point, auto) {
             if (typeof s == "number")
                 s = series[s];
@@ -1967,13 +1967,13 @@
             else if (!auto)
                 highlights[i].auto = false;
         }
-            
+
         function unhighlight(s, point) {
             if (s == null && point == null) {
                 highlights = [];
                 triggerRedrawOverlay();
             }
-            
+
             if (typeof s == "number")
                 s = series[s];
 
@@ -1987,7 +1987,7 @@
                 triggerRedrawOverlay();
             }
         }
-        
+
         function indexOfHighlight(s, p) {
             for (var i = 0; i < highlights.length; ++i) {
                 var h = highlights[i];
@@ -1997,14 +1997,14 @@
             }
             return -1;
         }
-        
+
         function drawPointHighlight(series, point) {
             var x = point[0], y = point[1],
                 axisx = series.xaxis, axisy = series.yaxis;
-            
+
             if (x < axisx.min || x > axisx.max || y < axisy.min || y > axisy.max)
                 return;
-            
+
             var pointRadius = series.points.radius + series.points.lineWidth / 2;
             octx.lineWidth = pointRadius;
             octx.strokeStyle = $.color.parse(series.color).scale('a', 0.5).toString();
@@ -2031,7 +2031,7 @@
                 // supports a simple vertical gradient properly, so that's
                 // what we support too
                 var gradient = ctx.createLinearGradient(0, top, 0, bottom);
-                
+
                 for (var i = 0, l = spec.colors.length; i < l; ++i) {
                     var c = spec.colors[i];
                     if (typeof c != "string") {
@@ -2041,7 +2041,7 @@
                     }
                     gradient.addColorStop(i / (l - 1), c);
                 }
-                
+
                 return gradient;
             }
         }
@@ -2067,7 +2067,7 @@
             n = "" + n;
             return n.length == 1 ? "0" + n : n;
         };
-        
+
         var r = [];
         var escape = false;
         var hours = d.getUTCHours();
@@ -2084,7 +2084,7 @@
         }
         for (var i = 0; i < fmt.length; ++i) {
             var c = fmt.charAt(i);
-            
+
             if (escape) {
                 switch (c) {
                 case 'h': c = "" + hours; break;
@@ -2110,10 +2110,10 @@
         }
         return r.join("");
     };
-    
+
     // round to nearby lower multiple of base
     function floorInBase(n, base) {
         return base * Math.floor(n / base);
     }
-    
+
 })(jQuery);
