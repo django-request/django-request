@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 function showTooltip(x, y, contents) {
     $("#tooltip").remove();
-    
+
     $('<div id="tooltip">' + contents + '</div>').css( {
         position: 'absolute',
         display: 'none',
@@ -25,12 +25,12 @@ var date = new Date();
 
 function trafficGraph(placeholder, data) {
     var plot = $.plot(placeholder, data, {xaxis:{mode:'time'}, points:{show:true}, lines:{show:true}, grid:{hoverable:true}});
-    
+
     placeholder.bind("plothover", function (event, pos, item) {
         if (item) {
             if (previousPoint != item.datapoint) {
                 previousPoint = item.datapoint;
-                
+
                 date.setTime(item.datapoint[0]).toString;
                 showTooltip(item.pageX, item.pageY, item.series.label + ' on ' + monthNames[date.getMonth()] + ' ' + date.getDate() + ' is ' + item.datapoint[1]);
             }

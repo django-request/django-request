@@ -16,7 +16,7 @@ function loadTrafficGraph(days) {
     } else {
         path = "traffic.json?days=" + days;
     }
-    
+
     $.getJSON(path, function(data) {
         trafficGraph($("#trafficgraph"), data);
     });
@@ -43,12 +43,12 @@ $(document).ready(function(){
         <table style="width: 100%;">
             <caption>{% trans "Traffic graph" %} ( <a href="javascript:loadTrafficGraph(7);">{% trans "Week" %}</a> | <a href="javascript:loadTrafficGraph(30);">{% trans "Month" %}</a> | <a href="javascript:loadTrafficGraph(365);">{% trans "Year" %}</a> )</caption>
         </table>
-        
+
         <div style="padding: 15px;">
             <div id="trafficgraph" style="width: 900px; height: 250px;"></div>
         </div>
     </div>
-    
+
     {% for plugin in plugins %}
       <div class="module" style="float: left; width: 450px; {% cycle 'clear: both;' 'margin-left: 16px;' %}">
          {{ plugin.render }}

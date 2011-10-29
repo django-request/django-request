@@ -1,4 +1,4 @@
-{% extends "admin/app_index.html" %} 
+{% extends "admin/app_index.html" %}
 {% load i18n %}
 
 {% block content %}
@@ -29,7 +29,7 @@
                 <td>&nbsp;</td>
             {% endif %}
             </tr>
-            
+
             {% if model.perms.change %}
                 <tr>
                     <th scope="row"><a href="{{ model.admin_url }}overview/">{% trans 'Overview' %}</a></th>

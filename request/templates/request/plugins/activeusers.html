@@ -5,7 +5,7 @@
     <tr>
         <th>{% trans "User" %}</th>
     </tr>
-    
+
   {% load request_tag %}
   {% active_users in 5 minutes as user_list %}
   {% for user in user_list %}
