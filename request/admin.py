@@ -29,6 +29,7 @@ class RequestAdmin(admin.ModelAdmin):
         })
     )
     raw_id_fields = ('user',)
+    readonly_fields = ('time',)
 
     def request_from(self, obj):
         if obj.user_id:
