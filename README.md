@@ -22,4 +22,4 @@ Installation
 Detailed documentation
 ----------------------
 
-For a detailed documentation of django-request, or how to install django-request please see: [django-request](http://kylefuller.co.uk/projects/django-request/) or the docs/ directory.
+For a detailed documentation of django-request, or how to install django-request please see: [django-request](http://readthedocs.org/docs/django-requesthttp://readthedocs.org/docs/django-request) or the docs/ directory.
