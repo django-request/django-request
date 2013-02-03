@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
-
+from request import settings
 
 class Request(models.Model):
     # Response infomation
@@ -95,3 +95,15 @@ class Request(models.Model):
         except Exception:  # socket.gaierror, socket.herror, etc
             return self.ip
     hostname = property(hostname)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if not settings.REQUEST_LOG_IP:
+            self.ip = settings.REQUEST_IP_DUMMY
+        elif settings.REQUEST_ANONYMOUS_IP:
+            parts = self.ip.split('.')[0:-1]
+            parts.append('1')
+            self.ip='.'.join(parts)
+        if not settings.REQUEST_LOG_USER:
+            self.user = None
+
+        return models.Model.save(self, force_insert, force_update, using, update_fields)
