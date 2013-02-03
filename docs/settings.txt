@@ -18,6 +18,34 @@ Default: ``None``
 
 Any requests from a IP Address in this list will be ignored.
 
+``REQUEST_LOG_IP``
+=====================
+
+Default: ``True``
+
+If set to False, ip addresses are replaced with REQUEST_IP_DUMMY.
+
+``REQUEST_IP_DUMMY``
+=====================
+
+Default: ``1.1.1.1``
+
+Used dummy address, if REQUEST_LOG_IP is set to False.
+
+``REQUEST_ANONYMOUS_IP``
+=====================
+
+Default: ``False``
+
+If set to True, last octet of the ip is set to 1.
+
+``REQUEST_LOG_USER``
+=====================
+
+Default: ``True``
+
+If set to False, user are not logged (set to None).
+
 ``REQUEST_IGNORE_USERNAME``
 ===========================
 
