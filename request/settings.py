@@ -6,6 +6,10 @@ REQUEST_VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('g
 REQUEST_ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 REQUEST_IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)
 REQUEST_IGNORE_IP = getattr(settings, 'REQUEST_IGNORE_IP', tuple())
+REQUEST_LOG_IP = getattr(settings, 'REQUEST_LOG_IP', True)
+REQUEST_IP_DUMMY = getattr(settings, 'REQUEST_IP_DUMMY', "1.1.1.1")
+REQUEST_ANONYMOUS_IP = getattr(settings, 'REQUEST_ANONYMOUS_IP', False)
+REQUEST_LOG_USER = getattr(settings, 'REQUEST_LOG_USER', True)
 REQUEST_IGNORE_USERNAME = getattr(settings, 'REQUEST_IGNORE_USERNAME', tuple())
 REQUEST_IGNORE_PATHS = getattr(settings, 'REQUEST_IGNORE_PATHS', tuple())
 
