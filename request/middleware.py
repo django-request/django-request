@@ -30,4 +30,5 @@ class RequestMiddleware(object):
         r = Request()
         r.from_http_request(request, response)
 
+
         return response

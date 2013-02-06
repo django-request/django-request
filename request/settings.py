@@ -12,6 +12,8 @@ REQUEST_ANONYMOUS_IP = getattr(settings, 'REQUEST_ANONYMOUS_IP', False)
 REQUEST_LOG_USER = getattr(settings, 'REQUEST_LOG_USER', True)
 REQUEST_IGNORE_USERNAME = getattr(settings, 'REQUEST_IGNORE_USERNAME', tuple())
 REQUEST_IGNORE_PATHS = getattr(settings, 'REQUEST_IGNORE_PATHS', tuple())
+REQUEST_LOG_DB = getattr(settings, 'REQUEST_LOG_DB', True)
+REQUEST_LOG_LOGGER = getattr(settings, 'REQUEST_LOG_LOGGER', None)
 
 REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.UniqueVisitor',
