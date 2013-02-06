@@ -1,5 +1,6 @@
 from socket import gethostbyaddr
-
+from logging import getLogger
+import json
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -105,5 +106,22 @@ class Request(models.Model):
             self.ip='.'.join(parts)
         if not settings.REQUEST_LOG_USER:
             self.user = None
+        if settings.REQUEST_LOG_DB:
+            models.Model.save(self, force_insert, force_update, using, update_fields)
+        if settings.REQUEST_LOG_LOGGER:
+            logger = getLogger(settings.REQUEST_LOG_LOGGER)
 
-        return models.Model.save(self, force_insert, force_update, using, update_fields)
+
+            data = json.dumps({
+                'response' : "%s" % self.response,
+                'method' : "%s" % self.method,
+                'path' : "%s" % self.path,
+                'time' : "%s" % self.time,
+                'is_secure': "%s" % self.is_secure,
+                'is_ajax' : "%s" % self.is_ajax,
+                'user':"%s" % self.user,
+                'referer':"%s" % self.referer,
+                'user_agent': "%s" % self.user_agent,
+                'language': "%s" % self.language,
+            })
+            logger.error(data)
