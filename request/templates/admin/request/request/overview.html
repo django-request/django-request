@@ -3,6 +3,7 @@
 {% load request_admin %}
 
 {% block extrahead %}
+{{ block.super }}
 <!--[if IE]><script language="javascript" type="text/javascript" src="{{ STATIC_URL }}request/js/excanvas.min.js"></script><![endif]-->
 <script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery.flot.js"></script>
