@@ -96,7 +96,7 @@ class Request(models.Model):
             return self.ip
     hostname = property(hostname)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, *args, **kwargs):
         if not settings.REQUEST_LOG_IP:
             self.ip = settings.REQUEST_IP_DUMMY
         elif settings.REQUEST_ANONYMOUS_IP:
@@ -106,4 +106,4 @@ class Request(models.Model):
         if not settings.REQUEST_LOG_USER:
             self.user = None
 
-        return models.Model.save(self, force_insert, force_update, using, update_fields)
+        super(Request, self).save(*args, **kwargs)
