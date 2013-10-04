@@ -1,4 +1,4 @@
-__version__ = 0.30
+__version__ = 1.0
 __copyright__ = 'Copyright (c) 2009-2013, Kyle Fuller'
 __licence__ = 'BSD'
 __author__ = [
