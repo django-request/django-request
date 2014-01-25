@@ -43,7 +43,11 @@ class RequestAdmin(admin.ModelAdmin):
     request_from.allow_tags = True
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+        try:
+            from django.conf.urls import patterns, url
+        except ImportError:
+            # to keep backward (Django <= 1.4) compatibility
+            from django.conf.urls.defaults import patterns, url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
