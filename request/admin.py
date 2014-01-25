@@ -3,7 +3,11 @@ from datetime import datetime, timedelta, date
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
-from django.utils.functional import update_wrapper
+try:
+    from django.utils.functional import update_wrapper
+except ImportError:
+    # to keep backward (Django <= 1.5) compatibility
+    from functools import update_wrapper
 from django.template import RequestContext
 from django.contrib import admin
 from django.http import HttpResponse
