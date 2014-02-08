@@ -4,7 +4,7 @@ import request
 
 setup(
     name='django-request',
-    version=__version__,
+    version=request.__version__,
     description='django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.',
     long_description="""
     django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
