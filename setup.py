@@ -4,7 +4,7 @@ import request
 
 setup(
     name='django-request',
-    version='%s' % request.__version__,
+    version=__version__,
     description='django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.',
     long_description="""
     django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
@@ -16,7 +16,7 @@ setup(
     author='Kyle Fuller',
     author_email='inbox@kylefuller.co.uk',
     url=request.__URL__,
-    download_url='http://github.com/kylef/django-request/zipball/%s' % request.__version__,
+    download_url='http://github.com/kylef/django-request/archive/%s.zip' % request.__version__,
     packages=['request', 'request.templatetags', 'request.management', 'request.management.commands'],
     package_data={'request': [
         'templates/admin/request/*.html',
