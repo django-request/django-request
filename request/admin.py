@@ -1,15 +1,13 @@
-from datetime import datetime, timedelta, date
+import json
+from datetime import timedelta, date
 
-from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
 from functools import update_wrapper
 from django.template import RequestContext
 from django.contrib import admin
 from django.http import HttpResponse
-from django.utils import simplejson
 
-from request import settings
 from request.models import Request
 from request.traffic import modules
 from request.plugins import *
@@ -82,6 +80,6 @@ class RequestAdmin(admin.ModelAdmin):
 
         days = [date.today() - timedelta(day) for day in xrange(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
-        return HttpResponse(simplejson.dumps(modules.graph(days_qs)), mimetype='text/javascript')
+        return HttpResponse(json.dumps(modules.graph(days_qs)), mimetype='text/javascript')
 
 admin.site.register(Request, RequestAdmin)
