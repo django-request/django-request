@@ -2,17 +2,12 @@ from socket import gethostbyaddr
 
 from django.db import models
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
 from request import settings as request_settings
-
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    from django.contrib.auth.models import User
 
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
@@ -48,7 +43,7 @@ class Request(models.Model):
         return u'[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
 
     def get_user(self):
-        return User.objects.get(pk=self.user_id)
+        return get_user_model().objects.get(pk=self.user_id)
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
