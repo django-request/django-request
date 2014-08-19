@@ -2,7 +2,7 @@ from socket import gethostbyaddr
 
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
@@ -20,6 +20,7 @@ class Request(models.Model):
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
+    params = models.CharField(_('params'), max_length=1024)
     time = models.DateTimeField(_('time'), auto_now_add=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
@@ -43,7 +44,7 @@ class Request(models.Model):
         return u'[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
 
     def get_user(self):
-        return get_user_model().objects.get(pk=self.user_id)
+        return User.objects.get(pk=self.user_id)
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
@@ -58,6 +59,9 @@ class Request(models.Model):
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
+
+        if self.method == 'POST':
+            self.params = request.POST
 
         if getattr(request, 'user', False):
             if request.user.is_authenticated():
