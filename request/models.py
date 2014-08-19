@@ -2,7 +2,7 @@ from socket import gethostbyaddr
 
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
@@ -43,7 +43,7 @@ class Request(models.Model):
         return u'[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
 
     def get_user(self):
-        return get_user_model().objects.get(pk=self.user_id)
+        return User.objects.get(pk=self.user_id)
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
@@ -54,7 +54,7 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        self.ip = 'hahahaha'
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
