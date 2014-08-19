@@ -1,3 +1,4 @@
+.idea
 *.pyc
 docs/_build/
 *.egg-info
