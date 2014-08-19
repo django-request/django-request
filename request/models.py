@@ -20,6 +20,7 @@ class Request(models.Model):
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
+    params = models.CharField(_('params'), max_length=1024)
     time = models.DateTimeField(_('time'), auto_now_add=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
@@ -54,10 +55,13 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        self.ip = 'hahahaha'
+        self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
+
+        if self.method == 'POST':
+            self.params = request.POST
 
         if getattr(request, 'user', False):
             if request.user.is_authenticated():
