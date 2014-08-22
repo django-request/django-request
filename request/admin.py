@@ -86,6 +86,6 @@ class RequestAdmin(admin.ModelAdmin):
 
         days = [date.today() - timedelta(day) for day in xrange(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
-        return HttpResponse(json.dumps(modules.graph(days_qs)), mimetype='text/javascript')
+        return HttpResponse(json.dumps(modules.graph(days_qs)), content_type='text/javascript')
 
 admin.site.register(Request, RequestAdmin)
