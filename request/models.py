@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+from request.managers import RequestManager
+from request.utils import HTTP_STATUS_CODES, browsers, engines
 from ipware.ip import get_real_ip
 from request import settings as request_settings
 
