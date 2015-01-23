@@ -48,7 +48,7 @@ class Request(models.Model):
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
         self.method = request.method
-        self.path = request.path
+        self.path = request.path[:255]
 
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
