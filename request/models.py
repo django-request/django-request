@@ -34,7 +34,6 @@ class Request(models.Model):
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
     post_data = models.TextField(blank=True, null=True)
-    get_data = models.TextField(blank=True, null=True)
     session = models.ForeignKey(Session, blank=True, null=True)
     objects = RequestManager()
 
@@ -64,7 +63,6 @@ class Request(models.Model):
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
         if self.method == 'POST' and request.POST:
             self.post_data = json.dumps(request.POST)
-        self.get_data = json.dumps(request.GET)
         try:
             self.session = Session.objects.get(session_key=request.session.session_key)
         except Session.DoesNotExist:
