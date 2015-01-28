@@ -19,8 +19,7 @@ class RequestMiddleware(object):
 
         if request.is_ajax() and settings.REQUEST_IGNORE_AJAX:
             return response
-
-        if request.META.get('REMOTE_ADDR') in settings.REQUEST_IGNORE_IP:
+        if request.META.get('REMOTE_ADDR') in settings.REQUEST_IGNORE_IP or request.META.get('HTTP_X_REAL_IP') in settings.REQUEST_IGNORE_IP:
             return response
 
         if getattr(request, 'user', False):
