@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
 from request.managers import RequestManager
-from request.utils import HTTP_STATUS_CODES, browsers, engines
+from request.utils import HTTP_STATUS_CODES, browsers, engines, get_remote_addr
 from request import settings as request_settings
 
 
@@ -54,7 +54,7 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        self.ip = get_remote_addr(request) or ''
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]

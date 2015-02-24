@@ -3,7 +3,7 @@ from django.core.urlresolvers import get_callable
 from request.models import Request
 from request import settings
 from request.router import patterns
-
+from request.utils import get_remote_addr
 
 class RequestMiddleware(object):
     def process_response(self, request, response):
@@ -20,7 +20,7 @@ class RequestMiddleware(object):
         if request.is_ajax() and settings.REQUEST_IGNORE_AJAX:
             return response
 
-        if request.META.get('REMOTE_ADDR') in settings.REQUEST_IGNORE_IP:
+        if get_remote_addr(request) in settings.REQUEST_IGNORE_IP:
             return response
 
         if getattr(request, 'user', False):
