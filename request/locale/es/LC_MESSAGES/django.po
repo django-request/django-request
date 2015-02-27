@@ -1,0 +1,514 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: django-request\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-06-29 11:24+0200\n"
+"PO-Revision-Date: 2010-06-28 12:10+0200\n"
+"Last-Translator: Javier Vieira <xavi.vieira@gmail.com>\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:43 templates/admin/request/request/overview.html:31
+#: templates/admin/request/request/overview.html:32
+msgid "Request"
+msgstr "Solicitud"
+
+#: admin.py:46 templates/admin/request/request/overview.html:45
+msgid "Response"
+msgstr "Respuesta"
+
+#: admin.py:49
+msgid "User info"
+msgstr "Información de usuario"
+
+#: admin.py:56
+msgid "Show only requests from this user."
+msgstr "Mostrar solicitudes solo de este usuario."
+
+#: admin.py:57
+msgid "Show only requests from this IP address."
+msgstr "Mostrar solicitudes solo de esta dirección IP."
+
+#: admin.py:81
+msgid "Request overview"
+msgstr "Visión general de solicitudes"
+
+#: models.py:13
+msgid "response"
+msgstr "respuesta"
+
+#: models.py:16
+msgid "method"
+msgstr "método"
+
+#: models.py:17
+msgid "path"
+msgstr "ruta"
+
+#: models.py:18
+msgid "time"
+msgstr "hora"
+
+#: models.py:20
+msgid "is secure"
+msgstr "es seguro"
+
+#: models.py:21
+msgid "is ajax"
+msgstr "es Ajax"
+
+#: models.py:21
+msgid "Wheather this request was used via javascript."
+msgstr "Si esta solicitud fue realizada vía javascript."
+
+#: models.py:24
+msgid "ip address"
+msgstr "Dirección IP"
+
+#: models.py:25
+msgid "user"
+msgstr "usuario"
+
+#: models.py:26
+msgid "referer"
+msgstr "referer"
+
+#: models.py:27
+msgid "user agent"
+msgstr "agente de usuario"
+
+#: models.py:28
+msgid "language"
+msgstr "lenguaje"
+
+#: models.py:33
+msgid "request"
+msgstr "solicitud"
+
+#: models.py:34
+msgid "requests"
+msgstr "solicitudes"
+
+#: traffic.py:64
+msgid "Ajax"
+msgstr "Ajax"
+
+#: traffic.py:70 traffic.py:71
+msgid "Not Ajax"
+msgstr "No Ajax"
+
+#: traffic.py:77
+msgid "Error"
+msgstr "Error"
+
+#: traffic.py:78
+msgid "Errors"
+msgstr "Errores"
+
+#: traffic.py:84
+msgid "Error 404"
+msgstr "Error 404"
+
+#: traffic.py:85
+msgid "Errors 404"
+msgstr "Errores 404"
+
+#: traffic.py:91
+msgid "Hit"
+msgstr "Hit"
+
+#: traffic.py:92
+msgid "Hits"
+msgstr "Hits"
+
+#: traffic.py:98
+msgid "Search"
+msgstr "Busqueda"
+
+#: traffic.py:99
+msgid "Searches"
+msgstr "Busquedas"
+
+#: traffic.py:105 traffic.py:106
+msgid "Secure"
+msgstr "Seguro"
+
+#: traffic.py:112 traffic.py:113
+msgid "Unsecure"
+msgstr "Inseguro"
+
+#: traffic.py:119
+msgid "Unique Visit"
+msgstr "Visita Única"
+
+#: traffic.py:120
+msgid "Unique Visits"
+msgstr "Visitas Únicas"
+
+#: traffic.py:126 traffic.py:127
+msgid "Unique Visitor"
+msgstr "Visitante Único"
+
+#: traffic.py:133 traffic.py:134
+msgid "User"
+msgstr "Usuario"
+
+#: traffic.py:140 traffic.py:141
+msgid "Unique User"
+msgstr "Usuario Único"
+
+#: utils.py:5
+msgid "Continue"
+msgstr "Continuar"
+
+#: utils.py:6
+msgid "Switching Protocols"
+msgstr "Conmutando protocolos"
+
+#: utils.py:7
+msgid "Processing (WebDAV)"
+msgstr "Procesando (WebDAV)"
+
+#: utils.py:10
+msgid "OK"
+msgstr "OK"
+
+#: utils.py:11
+msgid "Created"
+msgstr "Creado"
+
+#: utils.py:12
+msgid "Accepted"
+msgstr "Aceptada"
+
+#: utils.py:13
+msgid "Non-Authoritative Information"
+msgstr "Información no autoritativa"
+
+#: utils.py:14
+msgid "No Content"
+msgstr "Sin contenido"
+
+#: utils.py:15
+msgid "Reset Content"
+msgstr "Recargar contenido"
+
+#: utils.py:16
+msgid "Partial Content"
+msgstr "Contenido parcial"
+
+#: utils.py:17
+msgid "Multi-Status (WebDAV)"
+msgstr "Estado múltiple (WebDAV)"
+
+#: utils.py:20
+msgid "Multiple Choices"
+msgstr "Múltiples opciones"
+
+#: utils.py:21
+msgid "Moved Permanently"
+msgstr "Movido permanentemente"
+
+#: utils.py:22
+msgid "Found"
+msgstr "Movido temporalmente"
+
+#: utils.py:23
+msgid "See Other"
+msgstr "Vea otra"
+
+#: utils.py:24
+msgid "Not Modified"
+msgstr "No modificado"
+
+#: utils.py:25
+msgid "Use Proxy"
+msgstr "Utilice un proxy"
+
+#: utils.py:26
+msgid "Switch Proxy"
+msgstr "Cambie de proxy"
+
+#: utils.py:27
+msgid "Temporary Redirect"
+msgstr "Redirección temporal"
+
+#: utils.py:30
+msgid "Bad Request"
+msgstr "Solicitud incorrecta"
+
+#: utils.py:31
+msgid "Unauthorized"
+msgstr "No autorizado"
+
+#: utils.py:32
+msgid "Payment Required"
+msgstr "Pago requerido"
+
+#: utils.py:33
+msgid "Forbidden"
+msgstr "Prohibido"
+
+#: utils.py:34
+msgid "Not Found"
+msgstr "No encontrado"
+
+#: utils.py:35
+msgid "Method Not Allowed"
+msgstr "Método no permitido"
+
+#: utils.py:36
+msgid "Not Acceptable"
+msgstr "No aceptable"
+
+#: utils.py:37
+msgid "Proxy Authentication Required"
+msgstr "Autenticación Proxy requerida"
+
+#: utils.py:38
+msgid "Request Timeout"
+msgstr "Tiempo de espera agotado"
+
+#: utils.py:39
+msgid "Conflict"
+msgstr "Conflicto"
+
+#: utils.py:40
+msgid "Gone"
+msgstr "Ya no disponible"
+
+#: utils.py:41
+msgid "Length Required"
+msgstr "Requiere longitud"
+
+#: utils.py:42
+msgid "Precondition Failed"
+msgstr "Falló precondición"
+
+#: utils.py:43
+msgid "Request Entity Too Large"
+msgstr "Solicitud demasiado larga"
+
+#: utils.py:44
+msgid "Request-URI Too Long"
+msgstr "URI demasiado larga"
+
+#: utils.py:45
+msgid "Unsupported Media Type"
+msgstr "Tipo de medio no soportado"
+
+#: utils.py:46
+msgid "Requested Range Not Satisfiable"
+msgstr "Rango solicitado no disponible"
+
+#: utils.py:47
+msgid "Expectation Failed"
+msgstr "Falló expectativa"
+
+#: utils.py:48
+msgid "I'm a teapot"
+msgstr "Soy una tetera"
+
+#: utils.py:49
+msgid "Unprocessable Entity (WebDAV)"
+msgstr "Entidad no procesable (WebDAV)"
+
+#: utils.py:50
+msgid "Locked (WebDAV)"
+msgstr "Bloqueado (WebDAV)"
+
+#: utils.py:51
+msgid "Failed Dependency (WebDAV)"
+msgstr "Falló dependencia (WebDAV)"
+
+#: utils.py:52
+msgid "Unordered Collection"
+msgstr "Colección sin ordenar"
+
+#: utils.py:53
+msgid "Upgrade Required"
+msgstr "Actualización requerida"
+
+#: utils.py:54
+msgid "Retry With"
+msgstr "Reintente con"
+
+#: utils.py:57
+msgid "Internal Server Error"
+msgstr "Error interno"
+
+#: utils.py:58
+msgid "Not Implemented"
+msgstr "No implementado"
+
+#: utils.py:59
+msgid "Bad Gateway"
+msgstr "Pasarela incorrecta"
+
+#: utils.py:60
+msgid "Service Unavailable"
+msgstr "Servicio no disponible"
+
+#: utils.py:61
+msgid "Gateway Timeout"
+msgstr "Tiempo de espera de la pasarela agotado"
+
+#: utils.py:62
+msgid "HTTP Version Not Supported"
+msgstr "Versión de HTTP no soportada"
+
+#: utils.py:63
+msgid "Variant Also Negotiates"
+msgstr "Variante también negocia"
+
+#: utils.py:64
+msgid "Insufficient Storage (WebDAV)"
+msgstr "Almacenamiento insuficiente (WebDAV)"
+
+#: utils.py:65
+msgid "Bandwidth Limit Exceeded"
+msgstr "Límite de ancho de banda excedido"
+
+#: utils.py:66
+msgid "Not Extended"
+msgstr "No extendido"
+
+#: templates/admin/request/app_index.html:10
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr "Modelos disponibles en la aplicación %(name)s."
+
+#: templates/admin/request/app_index.html:11
+#, python-format
+msgid "%(name)s"
+msgstr "%(name)s"
+
+#: templates/admin/request/app_index.html:21
+msgid "Add"
+msgstr "Añadir"
+
+#: templates/admin/request/app_index.html:27
+msgid "Change"
+msgstr "Modificar"
+
+#: templates/admin/request/app_index.html:35
+#: templates/admin/request/request/change_list.html:6
+#: templates/admin/request/request/overview.html:33
+msgid "Overview"
+msgstr "Visión general"
+
+#: templates/admin/request/app_index.html:45
+msgid "You don't have permission to edit anything."
+msgstr "Usted no tiene permisos de modificar nada."
+
+#: templates/admin/request/request/change_list.html:10
+#, python-format
+msgid "Add %(name)s"
+msgstr "Añadir %(name)s"
+
+#: templates/admin/request/request/overview.html:30
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/admin/request/request/overview.html:40
+#: templates/admin/request/request/overview.html:41
+msgid "Last 5 requests"
+msgstr "Ultimas 5 solicitudes"
+
+#: templates/admin/request/request/overview.html:43
+#: templates/admin/request/request/overview.html:96
+#: templates/admin/request/request/overview.html:112
+msgid "Path"
+msgstr "Ruta"
+
+#: templates/admin/request/request/overview.html:44
+msgid "From"
+msgstr "De"
+
+#: templates/admin/request/request/overview.html:46
+msgid "Time"
+msgstr "Hora"
+
+#: templates/admin/request/request/overview.html:60
+#: templates/admin/request/request/overview.html:61
+msgid "Traffic information"
+msgstr "Información de tráfico"
+
+#: templates/admin/request/request/overview.html:64
+msgid "Today"
+msgstr "Hoy"
+
+#: templates/admin/request/request/overview.html:65
+msgid "This week"
+msgstr "Esta semana"
+
+#: templates/admin/request/request/overview.html:66
+msgid "This month"
+msgstr "Este mes"
+
+#: templates/admin/request/request/overview.html:67
+msgid "This year"
+msgstr "Este año"
+
+#: templates/admin/request/request/overview.html:68
+msgid "Alltime"
+msgstr "Todo el tiempo"
+
+#: templates/admin/request/request/overview.html:84
+msgid "Traffic graph"
+msgstr "Gráfico de tráfico"
+
+#: templates/admin/request/request/overview.html:93
+#: templates/admin/request/request/overview.html:94
+msgid "Top paths"
+msgstr "Principales rutas"
+
+#: templates/admin/request/request/overview.html:94
+#: templates/admin/request/request/overview.html:110
+#: templates/admin/request/request/overview.html:126
+#: templates/admin/request/request/overview.html:142
+#: templates/admin/request/request/overview.html:157
+msgid "this month"
+msgstr "este mes"
+
+#: templates/admin/request/request/overview.html:97
+#: templates/admin/request/request/overview.html:113
+#: templates/admin/request/request/overview.html:129
+#: templates/admin/request/request/overview.html:145
+msgid "Visits"
+msgstr "Visitas"
+
+#: templates/admin/request/request/overview.html:109
+#: templates/admin/request/request/overview.html:110
+msgid "Top error-returning paths"
+msgstr "Principales rutas que devuelven error"
+
+#: templates/admin/request/request/overview.html:110
+msgid "more"
+msgstr "más"
+
+#: templates/admin/request/request/overview.html:125
+#: templates/admin/request/request/overview.html:126
+msgid "Top referrers"
+msgstr "Principales referrers"
+
+#: templates/admin/request/request/overview.html:128
+msgid "Referrer"
+msgstr "Referrer"
+
+#: templates/admin/request/request/overview.html:141
+#: templates/admin/request/request/overview.html:142
+msgid "Top search phrases"
+msgstr "Principales frases de búsqueda"
+
+#: templates/admin/request/request/overview.html:144
+msgid "Phrase"
+msgstr "Frase"
+
+#: templates/admin/request/request/overview.html:157
+msgid "Top browsers"
+msgstr "Principales navegadores"
