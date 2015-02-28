@@ -24,6 +24,9 @@ setup(
         'templates/request/plugins/*.html',
         'static/request/js/*.js',
     ]},
+    install_requires=[
+        'django',
+    ],
     license=request.__licence__,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
