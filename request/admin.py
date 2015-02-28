@@ -1,5 +1,5 @@
 import json
-from datetime import timedelta, date
+from datetime import datetime, timedelta, date
 
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
@@ -41,15 +41,24 @@ class RequestAdmin(admin.ModelAdmin):
     request_from.allow_tags = True
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        try:
+            from django.conf.urls import patterns, url
+        except ImportError:
+            # to keep backward (Django <= 1.4) compatibility
+            from django.conf.urls.defaults import patterns, url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
             return update_wrapper(wrapper, view)
 
-        info = self.model._meta.app_label, self.model._meta.module_name
-
+        # to keep backward (Django <= 1.7) compatibility
+        info = (self.model._meta.app_label,)
+        try:
+            info += (self.model._meta.model_name,)
+        except AttributeError:
+            info += (self.model._meta.module_name,)
+        
         return patterns('',
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
             url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
@@ -80,6 +89,6 @@ class RequestAdmin(admin.ModelAdmin):
 
         days = [date.today() - timedelta(day) for day in xrange(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
-        return HttpResponse(json.dumps(modules.graph(days_qs)), mimetype='text/javascript')
+        return HttpResponse(json.dumps(modules.graph(days_qs)), content_type='text/javascript')
 
 admin.site.register(Request, RequestAdmin)

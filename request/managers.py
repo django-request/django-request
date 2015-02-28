@@ -98,8 +98,10 @@ class RequestManager(models.Manager):
             return getattr(self.get_query_set(), attr, None)
         super(RequestManager, self).__getattr__(*args, **kwargs)
 
-    def get_query_set(self):
+    def get_queryset(self):
         return RequestQuerySet(self.model)
+
+    get_query_set = get_queryset # Django 1.5 compat
 
     def active_users(self, **options):
         """
