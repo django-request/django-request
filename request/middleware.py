@@ -23,6 +23,10 @@ class RequestMiddleware(object):
         if request.META.get('REMOTE_ADDR') in settings.REQUEST_IGNORE_IP:
             return response
 
+        ignore = patterns(False, *settings.REQUEST_IGNORE_USER_AGENTS)
+        if ignore.resolve(request.META.get('HTTP_USER_AGENT', '')):
+            return response
+
         if getattr(request, 'user', False):
             if request.user.username in settings.REQUEST_IGNORE_USERNAME:
                 return response
