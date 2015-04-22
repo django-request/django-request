@@ -15,7 +15,7 @@ setup(
     As well as a site statistics module, with the active_users template tag and manager method you can also use django-request to show who is online in a certain time.
     """,
     author='Kyle Fuller',
-    author_email='inbox@kylefuller.co.uk',
+    author_email='kyle@fuller.li',
     url=request.__URL__,
     download_url='http://github.com/kylef/django-request/archive/%s.zip' % request.__version__,
     packages=['request', 'request.templatetags', 'request.management', 'request.management.commands'],
