@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.sites.models import Site
 
 REQUEST_VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'))
 
@@ -32,6 +31,8 @@ REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
 ))
 
 try:
-    REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://%s' % Site.objects.get_current().domain)
+    from django.http import HttpRequest
+    from django.contrib.sites.shortcuts import get_current_site
+    REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://%s' % get_current_site( HttpRequest() ).domain)
 except:
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://127.0.0.1')
