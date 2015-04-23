@@ -26,7 +26,7 @@ class Request(models.Model):
     is_ajax = models.BooleanField(_('is ajax'), default=False, help_text=_('Wheather this request was used via javascript.'))
 
     # User infomation
-    ip = models.IPAddressField(_('ip address'))
+    ip = models.GenericIPAddressField(_('ip address'))
     user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'))
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
