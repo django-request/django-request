@@ -68,6 +68,23 @@ Example:
         r'^admin/',
     )
 
+``REQUEST_IGNORE_USER_AGENTS``
+===========================
+
+Default: ``None``
+
+Any request with a user agent that matches any pattern in this list will be ignored.
+
+Example:
+
+.. code-block:: python
+
+    REQUEST_IGNORE_USER_AGENTS = (
+        r'^$', # ignore requests with no user agent string set
+        r'Googlebot',
+        r'Baiduspider',
+    )
+
 ``REQUEST_TRAFFIC_MODULES``
 =================================
 

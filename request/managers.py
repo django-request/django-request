@@ -101,6 +101,8 @@ class RequestManager(models.Manager):
     def get_queryset(self):
         return RequestQuerySet(self.model)
 
+    get_query_set = get_queryset # Django 1.5 compat
+
     def active_users(self, **options):
         """
         Returns a list of active users.
