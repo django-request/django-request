@@ -23,18 +23,18 @@ class Modules(object):
             try:
                 dot = module_path.rindex('.')
             except ValueError:
-                raise exceptions.ImproperlyConfigured, '%s isn\'t a traffic module' % module_path
+                raise exceptions.ImproperlyConfigured('%s isn\'t a traffic module' % module_path)
             traffic_module, traffic_classname = module_path[:dot], module_path[dot + 1:]
 
             try:
                 mod = import_module(traffic_module)
-            except ImportError, e:
-                raise exceptions.ImproperlyConfigured, 'Error importing module %s: "%s"' % (traffic_module, e)
+            except ImportError as e:
+                raise exceptions.ImproperlyConfigured('Error importing module %s: "%s"' % (traffic_module, e))
 
             try:
                 traffic_class = getattr(mod, traffic_classname)
             except AttributeError:
-                raise exceptions.ImproperlyConfigured, 'Traffic module "%s" does not define a "%s" class' % (traffic_module, traffic_classname)
+                raise exceptions.ImproperlyConfigured('Traffic module "%s" does not define a "%s" class' % (traffic_module, traffic_classname))
 
             self._modules.append(traffic_class())
 
