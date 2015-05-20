@@ -24,7 +24,7 @@ class Command(BaseCommand):
         try:
             amount = int(amount)
         except ValueError:
-            print 'Amount must be a number'
+            print('Amount must be a number')
             return
         
         if duration[-1] != 's': # If its not plural, make it plural
@@ -33,14 +33,14 @@ class Command(BaseCommand):
             duration_plural = duration
         
         if not duration_plural in DURATION_OPTIONS:
-            print 'Amount must be %s' % ', '.join(DURATION_OPTIONS)
+            print('Amount must be %s' % ', '.join(DURATION_OPTIONS))
             return
         
         qs = Request.objects.filter(time__lte=DURATION_OPTIONS[duration_plural](amount))
         count = qs.count()
         
         if count == 0:
-            print "There are no requests to delete."
+            print("There are no requests to delete.")
             return
         
         if options.get('interactive'):
