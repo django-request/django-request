@@ -30,7 +30,7 @@ def set_count(items):
             item_count[item] = 0
         item_count[item] += 1
 
-    items = [(v, k) for k, v in item_count.iteritems()]
+    items = [(v, k) for k, v in item_count.items()]
     items.sort()
     items.reverse()
 
