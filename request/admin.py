@@ -87,7 +87,7 @@ class RequestAdmin(admin.ModelAdmin):
         else:
             days_step = 30
 
-        days = [date.today() - timedelta(day) for day in xrange(0, days_count, days_step)]
+        days = [date.today() - timedelta(day) for day in range(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
         return HttpResponse(json.dumps(modules.graph(days_qs)), content_type='text/javascript')
 
