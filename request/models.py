@@ -72,7 +72,7 @@ class Request(models.Model):
         if commit:
             self.save()
 
-    #@property
+    @property
     def browser(self):
         if not self.user_agent:
             return
@@ -80,9 +80,8 @@ class Request(models.Model):
         if not hasattr(self, '_browser'):
             self._browser = browsers.resolve(self.user_agent)
         return self._browser[0]
-    browser = property(browser)
 
-    #@property
+    @property
     def keywords(self):
         if not self.referer:
             return
@@ -91,15 +90,13 @@ class Request(models.Model):
             self._keywords = engines.resolve(self.referer)
         if self._keywords:
             return ' '.join(self._keywords[1]['keywords'].split('+'))
-    keywords = property(keywords)
 
-    #@property
+    @property
     def hostname(self):
         try:
             return gethostbyaddr(self.ip)[0]
         except Exception:  # socket.gaierror, socket.herror, etc
             return self.ip
-    hostname = property(hostname)
 
     def save(self, *args, **kwargs):
         if not request_settings.REQUEST_LOG_IP:
