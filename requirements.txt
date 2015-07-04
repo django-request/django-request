@@ -1,0 +1,1 @@
+django-ipware>=0.0.8            # @see https://github.com/un33k/django-ipware
