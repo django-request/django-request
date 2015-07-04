@@ -4,9 +4,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
-from ipware.ip import get_ip
 from request import settings as request_settings
 
 
@@ -54,10 +54,7 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-
-        # @see: https://github.com/kylef/django-request/issues/54
-        self.ip = get_ip(request) if not None else '0.0.0.0'
-		
+        self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
