@@ -39,8 +39,8 @@ class Request(models.Model):
         verbose_name_plural = _('requests')
         ordering = ('-time',)
 
-    def __unicode__(self):
-        return u'[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
+    def __str__(self):
+        return '[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
 
     def get_user(self):
         return get_user_model().objects.get(pk=self.user_id)

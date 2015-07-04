@@ -23,7 +23,7 @@ class RequestTests(unittest.TestCase):
         self.assertEqual(request.ip, '32.64.128.16')
         self.assertEqual(request.response, 204)
 
-    def test_unicode(self):
+    def test_str_conversion(self):
         request = Request(method='PATCH', path='/', response=204)
         request.time = datetime.now()
-        self.assertEqual(unicode(request), '[{}] PATCH / 204'.format(request.time))
+        self.assertEqual(str(request), '[{}] PATCH / 204'.format(request.time))
