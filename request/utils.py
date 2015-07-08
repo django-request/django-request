@@ -66,6 +66,12 @@ HTTP_STATUS_CODES = (
     (510, _('Not Extended')),
 )
 
+REMOTE_ADDR_HEADER_KEYS = (
+    'HTTP_X_REAL_IP',
+    'HTTP_X_FORWARDED_FOR',
+    'REMOTE_ADDR'
+)
+
 from request.router import patterns
 
 browsers = patterns(('Unknown', {}),
@@ -124,3 +130,8 @@ engines = patterns(None,
     (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
     (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
 )
+
+def get_remote_addr(request):
+    for key in REMOTE_ADDR_HEADER_KEYS:
+        if key in request.META:
+            return request.META[key]
