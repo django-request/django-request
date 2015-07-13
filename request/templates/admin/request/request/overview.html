@@ -1,14 +1,15 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 {% load request_admin %}
+{% load staticfiles %}
 
 {% block extrahead %}
 {{ block.super }}
-<!--[if IE]><script language="javascript" type="text/javascript" src="{{ STATIC_URL }}request/js/excanvas.min.js"></script><![endif]-->
-<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery.flot.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}request/js/jquery.relatize_date.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}request/js/request.js"></script>
+<!--[if IE]><script language="javascript" type="text/javascript" src="{% static "request/js/excanvas.min.js" %}"></script><![endif]-->
+<script type="text/javascript" src="{% static "request/js/jquery-1.4.2.min.js" %}"></script>
+<script type="text/javascript" src="{% static "request/js/jquery.flot.js" %}"></script>
+<script type="text/javascript" src="{% static "request/js/jquery.relatize_date.js" %}"></script>
+<script type="text/javascript" src="{% static "request/js/request.js" %}"></script>
 
 <script type="text/javascript">
 function loadTrafficGraph(days) {
