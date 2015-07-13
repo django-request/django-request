@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
 from request import settings as request_settings
+from django.contrib.sessions.models import Session
+import json
 
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
@@ -31,7 +33,8 @@ class Request(models.Model):
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
-
+    post_data = models.TextField(blank=True, null=True)
+    session = models.ForeignKey(Session, blank=True, null=True)
     objects = RequestManager()
 
     class Meta:
@@ -54,10 +57,16 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        self.ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_X_REAL_IP') or request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
+        if self.method == 'POST' and request.POST:
+            self.post_data = json.dumps(request.POST)
+        try:
+            self.session = Session.objects.get(session_key=request.session.session_key)
+        except Session.DoesNotExist:
+            self.session = None
 
         if getattr(request, 'user', False):
             if request.user.is_authenticated():

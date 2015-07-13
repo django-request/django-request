@@ -17,13 +17,13 @@ class RequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'path', 'response', 'method', 'request_from')
     fieldsets = (
         (_('Request'), {
-            'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax')
+            'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax', 'post_data')
         }),
         (_('Response'), {
             'fields': ('response',)
         }),
         (_('User info'), {
-            'fields': ('referer', 'user_agent', 'ip', 'user', 'language')
+            'fields': ('referer', 'user_agent', 'ip', 'user', 'language', 'session')
         })
     )
     raw_id_fields = ('user',)

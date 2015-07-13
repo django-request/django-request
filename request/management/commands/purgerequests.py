@@ -44,7 +44,7 @@ class Command(BaseCommand):
             return
         
         if options.get('interactive'):
-            confirm = raw_input("""
+            confirm = input("""
 You have requested a database reset.
 This will IRREVERSIBLY DESTROY any
 requests created before %d %s ago.
