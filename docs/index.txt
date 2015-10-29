@@ -42,7 +42,7 @@ This command can be used to purge old requests, it takes two arguments amount an
 
 .. code-block:: bash
 
-    $ python manage.py purgerequests 1 months
+    $ python manage.py purgerequests 1 month
     $ python manage.py purgerequests 2 weeks
 
 It also has a option called ``--noinput``, if this is supplied, it will not ask you to confirm. With this option you can use this command in a cron.

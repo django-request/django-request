@@ -7,7 +7,6 @@ from django.db.models import Count
 from django.utils.translation import string_concat
 
 from request import settings
-from request.models import Request
 
 # Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
 get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).strip()
