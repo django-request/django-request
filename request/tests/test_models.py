@@ -1,12 +1,10 @@
-import unittest
+from django.test import TestCase
 from datetime import datetime
-from django.conf import settings
-settings.configure()
 from django.http import HttpRequest, HttpResponse
 from request.models import Request
 
 
-class RequestTests(unittest.TestCase):
+class RequestTests(TestCase):
     def test_from_http_request(self):
         http_request = HttpRequest()
         http_request.method = 'PATCH'
@@ -14,6 +12,7 @@ class RequestTests(unittest.TestCase):
         http_request.META['REMOTE_ADDR'] = '32.64.128.16'
         http_request.META['HTTP_USER_AGENT'] = 'test user agent'
         http_request.META['HTTP_REFERER'] = 'https://fuller.li/'
+        http_request.session = self.client.session
 
         http_response = HttpResponse(status=204)
 
