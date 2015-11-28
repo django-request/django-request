@@ -1,7 +1,6 @@
 import unittest
 from datetime import datetime
-from django.conf import settings
-settings.configure()
+
 from django.http import HttpRequest, HttpResponse
 from request.models import Request
 
@@ -47,4 +46,3 @@ class RequestTests(unittest.TestCase):
     def test_determining_search_keywords(self):
         request = Request(referer='https://www.google.com/search?client=safari&rls=en&q=querykit+core+data&ie=UTF-8&oe=UTF-8')
         self.assertEqual(request.keywords, 'querykit core data')
-
