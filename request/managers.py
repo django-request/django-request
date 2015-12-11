@@ -2,7 +2,6 @@ import datetime
 import time
 
 from django.db import models
-from django.contrib.auth.models import User
 
 try:  # For python <= 2.3
     set()
@@ -101,7 +100,7 @@ class RequestManager(models.Manager):
     def get_queryset(self):
         return RequestQuerySet(self.model)
 
-    get_query_set = get_queryset # Django 1.5 compat
+    get_query_set = get_queryset  # Django 1.5 compat
 
     def active_users(self, **options):
         """
