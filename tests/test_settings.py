@@ -13,3 +13,10 @@ SECRET_KEY = "django_requests_tests_secret_key"
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
 ]
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'tests',
+    'request',
+]

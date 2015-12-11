@@ -1,5 +1,3 @@
-from django.core.urlresolvers import get_callable
-
 from request.models import Request
 from request import settings
 from request.router import patterns
