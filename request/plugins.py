@@ -1,8 +1,7 @@
 import re
-
 from django.db.models import Count
-from django.utils.translation import string_concat, ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
 from request import settings
 from request.models import Request
@@ -39,7 +38,7 @@ def set_count(items):
 
 class Plugins(object):
     def load(self):
-        from django.utils.importlib import import_module
+        from importlib import import_module
         from django.core import exceptions
 
         self._plugins = []

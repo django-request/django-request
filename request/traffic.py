@@ -1,11 +1,9 @@
 import re
-
 from time import mktime
 
-from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db.models import Count
-from django.utils.translation import string_concat
-
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat, ugettext
 from request import settings
 
 # Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
@@ -14,7 +12,7 @@ get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|
 
 class Modules(object):
     def load(self):
-        from django.utils.importlib import import_module
+        from importlib import import_module
         from django.core import exceptions
 
         self._modules = []
@@ -47,7 +45,7 @@ class Modules(object):
         return [(module.verbose_name_plural, [module.count(qs) for qs in queries]) for module in self.modules]
 
     def graph(self, days):
-        return [{'data':[(mktime(day.timetuple()) * 1000, module.count(qs)) for day, qs in days], 'label':ugettext(module.verbose_name_plural)} for module in self.modules]
+        return [{'data': [(mktime(day.timetuple()) * 1000, module.count(qs)) for day, qs in days], 'label':ugettext(module.verbose_name_plural)} for module in self.modules]
 
 modules = Modules()
 
