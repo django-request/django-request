@@ -1,16 +1,15 @@
+# -*- coding: utf-8 -*-
 import json
-from datetime import timedelta, date
-
-from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render_to_response
+from datetime import date, timedelta
 from functools import update_wrapper
-from django.template import RequestContext
+
 from django.contrib import admin
 from django.http import HttpResponse
-
+from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 from request.models import Request
-from request.traffic import modules
 from request.plugins import *
+from request.traffic import modules
 
 
 class RequestAdmin(admin.ModelAdmin):
@@ -42,10 +41,10 @@ class RequestAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         try:
-            from django.conf.urls import patterns, url
+            from django.conf.urls import url
         except ImportError:
             # to keep backward (Django <= 1.4) compatibility
-            from django.conf.urls.defaults import patterns, url
+            from django.conf.urls.defaults import url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -59,20 +58,24 @@ class RequestAdmin(admin.ModelAdmin):
         except AttributeError:
             info += (self.model._meta.module_name,)
 
-        return patterns('',
+        return [
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
             url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
-        ) + super(RequestAdmin, self).get_urls()
+        ] + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):
         qs = Request.objects.this_month()
         for plugin in plugins.plugins:
             plugin.qs = qs
 
-        return render_to_response('admin/request/request/overview.html', {
-            'title': _('Request overview'),
-            'plugins': plugins.plugins,
-        }, context_instance=RequestContext(request))
+        return render(
+            request,
+            'admin/request/request/overview.html',
+            {
+                'title': _('Request overview'),
+                'plugins': plugins.plugins,
+            }
+        )
 
     def traffic(self, request):
         try:
