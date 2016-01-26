@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
 from django.db import models

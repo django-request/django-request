@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from request.models import Request
 from request import settings
 from request.router import patterns
