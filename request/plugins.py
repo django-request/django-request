@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
+
 from django.db.models import Count
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-
 from request import settings
 from request.models import Request
 from request.traffic import modules

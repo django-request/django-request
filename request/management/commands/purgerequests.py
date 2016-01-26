@@ -1,35 +1,41 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
-from optparse import make_option
+
 from django.core.management.base import BaseCommand
-from request.models import Request
 from django.utils import timezone
+from request.models import Request
 
 DURATION_OPTIONS = {
     'hours': lambda amount: timezone.now() - timedelta(hours=amount),
     'days': lambda amount: timezone.now() - timedelta(days=amount),
     'weeks': lambda amount: timezone.now() - timedelta(weeks=amount),
-    'months': lambda amount: timezone.now() - timedelta(days=(30*amount)),  # 30-day month
-    'years': lambda amount: timezone.now() - timedelta(weeks=(52*amount)),  # 364-day year
+    'months': lambda amount: timezone.now() - timedelta(days=(30 * amount)),  # 30-day month
+    'years': lambda amount: timezone.now() - timedelta(weeks=(52 * amount)),  # 364-day year
 }
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--noinput', action='store_false', dest='interactive', default=True,
-                    help='Tells Django to NOT prompt the user for input of any kind.'),
-    )
-    help = ""
-    args = '[amount duration]'
+    help = "Purge old requests."
 
-    def handle(self, amount, duration, **options):
+    def add_arguments(self, parser):
+        parser.add_argument(
+            'amount',
+            type=int,
+        )
+        parser.add_argument('duration')
+        parser.add_argument(
+            '--noinput',
+            action='store_false',
+            dest='interactive',
+            default=True,
+            help='Tells Django to NOT prompt the user for input of any kind.'
+        )
+
+    def handle(self, *args, **options):
+        amount = options['amount']
+        duration = options['duration']
+
         # Check we have the correct values
-        try:
-            amount = int(amount)
-        except ValueError:
-            print('Amount must be a number')
-            return
-
         if duration[-1] != 's':  # If its not plural, make it plural
             duration_plural = '%ss' % duration
         else:
@@ -61,4 +67,4 @@ Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration, count))
         if confirm == 'yes':
             qs.delete()
         else:
-            'Purge cancelled'
+            print('Purge cancelled')

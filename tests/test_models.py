@@ -36,14 +36,16 @@ class RequestTests(unittest.TestCase):
         request = Request(method='GET', path='/', response=200)
         self.assertEqual(request.browser, None)
 
-    def test_browser_detection_with_no_ua(self):
-        request = Request(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3')
-        self.assertEqual(request.browser, 'Safari')
+    def test_browser_detection_with_no_path(self):
+        request = Request(user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0')
+        self.assertEqual(request.browser, 'Firefox')
 
     def test_determining_search_keywords_with_no_referer(self):
         request = Request()
         self.assertEqual(request.keywords, None)
 
     def test_determining_search_keywords(self):
-        request = Request(referer='https://www.google.com/search?client=safari&rls=en&q=querykit+core+data&ie=UTF-8&oe=UTF-8')
+        request = Request(
+            referer='https://www.google.com/search?client=safari&rls=en&q=querykit+core+data&ie=UTF-8&oe=UTF-8'
+        )
         self.assertEqual(request.keywords, 'querykit core data')
