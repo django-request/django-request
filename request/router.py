@@ -19,7 +19,7 @@ class patterns(object):
         self.unknown = unknown
 
         for pattern in args:
-            if pattern.__class__ == str:
+            if pattern.__class__ in (str, u''.__class__):
                 self.patterns.append(RegexPattern(pattern))
             else:
                 self.patterns.append(RegexPattern(*pattern))
