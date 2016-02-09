@@ -19,19 +19,20 @@ class RequestAdmin(admin.ModelAdmin):
             'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax')
         }),
         (_('Response'), {
-            'fields': ('response',)
+            'fields': ('response', 'data')
         }),
         (_('User info'), {
             'fields': ('referer', 'user_agent', 'ip', 'user', 'language')
         })
     )
     raw_id_fields = ('user',)
-    readonly_fields = ('time',)
+    readonly_fields = ('time', 'data')
 
     def lookup_allowed(self, key, value):
         return key == 'user__username' or super(RequestAdmin, self).lookup_allowed(key, value)
 
     def request_from(self, obj):
+        print(obj, dir(obj), vars(obj))
         if obj.user_id:
             user = obj.get_user()
             return '<a href="?user__username=%s" title="%s">%s</a>' % (user.username, _('Show only requests from this user.'), user)
