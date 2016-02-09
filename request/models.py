@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from socket import gethostbyaddr
+from collections import OrderedDict
 
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+
+from jsonfield import JSONField
 
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
@@ -16,22 +19,32 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 class Request(models.Model):
     # Response infomation
-    response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)
+    response = models.SmallIntegerField(
+        _('response'), choices=HTTP_STATUS_CODES, default=200)
 
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     time = models.DateTimeField(_('time'), auto_now_add=True)
 
+    # Request payload.
+    data = JSONField(_('data'),
+                     load_kwargs={'object_pairs_hook': OrderedDict})
+
     is_secure = models.BooleanField(_('is secure'), default=False)
-    is_ajax = models.BooleanField(_('is ajax'), default=False, help_text=_('Wheather this request was used via javascript.'))
+    is_ajax = models.BooleanField(_('is ajax'), default=False, help_text=_(
+        'Wheather this request was used via javascript.'))
 
     # User infomation
     ip = models.GenericIPAddressField(_('ip address'))
-    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'))
-    referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
-    user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
-    language = models.CharField(_('language'), max_length=255, blank=True, null=True)
+    user = models.ForeignKey(
+        AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'))
+    referer = models.URLField(
+        _('referer'), max_length=255, blank=True, null=True)
+    user_agent = models.CharField(
+        _('user agent'), max_length=255, blank=True, null=True)
+    language = models.CharField(
+        _('language'), max_length=255, blank=True, null=True)
 
     objects = RequestManager()
 
@@ -105,7 +118,7 @@ class Request(models.Model):
         elif request_settings.REQUEST_ANONYMOUS_IP:
             parts = self.ip.split('.')[0:-1]
             parts.append('1')
-            self.ip='.'.join(parts)
+            self.ip = '.'.join(parts)
         if not request_settings.REQUEST_LOG_USER:
             self.user = None
 

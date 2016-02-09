@@ -46,6 +46,13 @@ Default: ``True``
 
 If set to False, user are not logged (set to None).
 
+``REQUEST_LOG_DATA``
+=====================
+
+Default: ``False``
+
+If set to True, the data that came as part of the request will be logged.
+
 ``REQUEST_IGNORE_USERNAME``
 ===========================
 
@@ -88,7 +95,7 @@ Example:
 ``REQUEST_TRAFFIC_MODULES``
 =================================
 
-Default: 
+Default:
 
 .. code-block:: python
 
@@ -116,7 +123,7 @@ These are all the items in the traffic graph and table on the overview page. If 
 ``REQUEST_PLUGINS``
 ===================
 
-Default: 
+Default:
 
 .. code-block:: python
 
