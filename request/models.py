@@ -67,10 +67,14 @@ class Request(models.Model):
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
 
-        try:
-            self.data = request.body
-        except Exception, e:
-            self.data = {}
+        if request_settings.REQUEST_LOG_DATA:
+            try:
+                self.data = request.body
+            except Exception, e:
+                if request.method == 'POST':
+                    self.data = request.POST
+                else:
+                    self.data = request.GET
 
         # User infomation
         self.ip = request.META.get('REMOTE_ADDR', '')
