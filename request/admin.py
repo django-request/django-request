@@ -19,14 +19,14 @@ class RequestAdmin(admin.ModelAdmin):
             'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax')
         }),
         (_('Response'), {
-            'fields': ('response',)
+            'fields': ('response', 'data')
         }),
         (_('User info'), {
             'fields': ('referer', 'user_agent', 'ip', 'user', 'language')
         })
     )
     raw_id_fields = ('user',)
-    readonly_fields = ('time',)
+    readonly_fields = ('time', 'data')
 
     def lookup_allowed(self, key, value):
         return key == 'user__username' or super(RequestAdmin, self).lookup_allowed(key, value)

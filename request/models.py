@@ -75,6 +75,8 @@ class Request(models.Model):
                     self.data = request.POST
                 else:
                     self.data = request.GET
+        else:
+            self.data = {}
 
         # User infomation
         self.ip = request.META.get('REMOTE_ADDR', '')
