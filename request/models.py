@@ -70,7 +70,7 @@ class Request(models.Model):
         if request_settings.REQUEST_LOG_DATA:
             try:
                 self.data = request.body
-            except Exception, e:
+            except Exception(e):
                 if request.method == 'POST':
                     self.data = request.POST
                 else:
