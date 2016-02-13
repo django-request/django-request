@@ -37,7 +37,8 @@ class RequestTests(unittest.TestCase):
         self.assertEqual(request.browser, None)
 
     def test_browser_detection_with_no_path(self):
-        request = Request(user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0')
+        request = Request(
+            user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0')
         self.assertEqual(request.browser, 'Firefox')
 
     def test_determining_search_keywords_with_no_referer(self):
@@ -49,3 +50,32 @@ class RequestTests(unittest.TestCase):
             referer='https://www.google.com/search?client=safari&rls=en&q=querykit+core+data&ie=UTF-8&oe=UTF-8'
         )
         self.assertEqual(request.keywords, 'querykit core data')
+
+    def test_request_data(self):
+        data = {
+            "login": "kylef",
+            "id": 44164,
+            "avatar_url": "https://avatars.githubusercontent.com/u/44164?v=3",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/kylef",
+            "html_url": "https://github.com/kylef",
+            "type": "User",
+            "site_admin": False,
+            "name": "Kyle Fuller",
+            "company": "Apiary",
+            "blog": "https://fuller.li/",
+            "location": "London, England",
+            "email": "kyle@fuller.li",
+            "hireable": True,
+            "bio": None,
+            "public_repos": 152,
+            "public_gists": 38,
+            "followers": 806,
+            "following": 89,
+            "created_at": "2009-01-04T22:54:57Z",
+            "updated_at": "2016-02-03T12:40:01Z"
+        }
+        request = Request(data=data)
+
+        self.assertEqual(request.response, 200)
+        self.assertDictEqual(request.data, data)
