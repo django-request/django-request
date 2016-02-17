@@ -32,7 +32,6 @@ class ActiveUserNode(template.Node):
         return ''
 
 
-#@register.tag
 def active_users(parser, token):
     """
     This template tag will get a list of active users based on time,

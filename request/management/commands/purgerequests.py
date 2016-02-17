@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
 
+from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from request.models import Request
@@ -9,8 +10,8 @@ DURATION_OPTIONS = {
     'hours': lambda amount: timezone.now() - timedelta(hours=amount),
     'days': lambda amount: timezone.now() - timedelta(days=amount),
     'weeks': lambda amount: timezone.now() - timedelta(weeks=amount),
-    'months': lambda amount: timezone.now() - timedelta(days=(30 * amount)),  # 30-day month
-    'years': lambda amount: timezone.now() - timedelta(weeks=(52 * amount)),  # 364-day year
+    'months': lambda amount: timezone.now() + relativedelta(months=-amount),
+    'years': lambda amount: timezone.now() + relativedelta(years=-amount),
 }
 
 

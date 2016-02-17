@@ -7,4 +7,3 @@ __author__ = [
     'krisje8 <krisje8@gmail.com>',
 ]
 __URL__ = 'http://django-request.readthedocs.org/en/latest/'
-
