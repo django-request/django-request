@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
-import unittest
+import mock
+import socket
 from datetime import datetime
 
+from django.test import TestCase
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth import get_user_model
+
 from request.models import Request
+from request import settings
+
+User = get_user_model()
 
 
-class RequestTests(unittest.TestCase):
+class RequestTests(TestCase):
     def test_from_http_request(self):
         http_request = HttpRequest()
         http_request.method = 'PATCH'
@@ -26,6 +33,33 @@ class RequestTests(unittest.TestCase):
         self.assertEqual(request.response, 204)
         self.assertEqual(request.user_agent, 'test user agent')
         self.assertEqual(request.referer, 'https://fuller.li/')
+
+    def test_from_http_request_with_user(self):
+        http_request = HttpRequest()
+        http_request.method = 'GET'
+        http_request.user = User.objects.create(username='foo')
+
+        request = Request()
+        request.from_http_request(http_request)
+        self.assertEqual(request.user.id, http_request.user.id)
+
+    def test_from_http_request_redirection(self):
+        http_request = HttpRequest()
+        http_request.method = 'GET'
+        http_response = HttpResponse(status=301)
+        http_response['Location'] = '/foo'
+
+        request = Request()
+        request.from_http_request(http_request, http_response)
+        self.assertEqual(request.redirect, '/foo')
+
+    def test_from_http_request_not_commit(self):
+        http_request = HttpRequest()
+        http_request.method = 'GET'
+
+        request = Request()
+        request.from_http_request(http_request, commit=False)
+        self.assertIsNone(request.id)
 
     def test_str_conversion(self):
         request = Request(method='PATCH', path='/', response=204)
@@ -49,3 +83,47 @@ class RequestTests(unittest.TestCase):
             referer='https://www.google.com/search?client=safari&rls=en&q=querykit+core+data&ie=UTF-8&oe=UTF-8'
         )
         self.assertEqual(request.keywords, 'querykit core data')
+
+    @mock.patch('request.models.gethostbyaddr',
+                return_value=('foo.net', [], ['1.2.3.4']))
+    def test_hostname(self, *mocks):
+        request = Request(ip='1.2.3.4')
+        self.assertEqual(request.hostname, 'foo.net')
+
+    @mock.patch('request.models.gethostbyaddr',
+                side_effect=socket.herror(2, 'Host name lookup failure'))
+    def test_hostname_invalid(self, *mocks):
+        request = Request(ip='1.2.3.4')
+        self.assertEqual(request.hostname, request.ip)
+
+    def test_save(self):
+        request = Request(ip='1.2.3.4')
+        request.save()
+
+    @mock.patch('request.models.request_settings.REQUEST_LOG_IP',
+                False)
+    def test_save_not_log_ip(self):
+        request = Request(ip='1.2.3.4')
+        request.save()
+        self.assertEqual(settings.REQUEST_IP_DUMMY, request.ip)
+
+    @mock.patch('request.models.request_settings.REQUEST_ANONYMOUS_IP',
+                True)
+    def test_save_anonymous_ip(self):
+        request = Request(ip='1.2.3.4')
+        request.save()
+        self.assertTrue(request.ip.endswith('.1'))
+
+    @mock.patch('request.models.request_settings.REQUEST_LOG_USER',
+                False)
+    def test_save_not_log_user(self):
+        user = User.objects.create(username='foo')
+        request = Request(ip='1.2.3.4', user=user)
+        request.save()
+        self.assertIsNone(request.user)
+
+    def test_get_user(self):
+        user = User.objects.create(username='foo')
+        request = Request.objects.create(ip='1.2.3.4', user=user)
+        self.assertEqual(request.get_user(), user)
+
