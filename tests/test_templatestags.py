@@ -21,11 +21,11 @@ class RequestAdminPieChart(TestCase):
     def test_pie_chart(self):
         inventory = ['apple', 'lemon', 'apple', 'orange', 'lemon', 'lemon']
         result = pie_chart(inventory)
-        self.assertTrue(result.startswith('http://chart.apis.google.com/chart?'))
+        self.assertTrue(result.startswith('//chart.googleapis.com/chart?'))
         self.assertIn('chs=440x190', result)
 
         result = pie_chart(inventory, width=100, height=100)
-        self.assertTrue(result.startswith('http://chart.apis.google.com/chart?'))
+        self.assertTrue(result.startswith('//chart.googleapis.com/chart?'))
         self.assertIn('chs=100x100', result)
 
 
