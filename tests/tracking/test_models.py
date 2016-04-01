@@ -51,7 +51,8 @@ class VisitorModelTest(TestCase):
 
 class VisitModelTest(TestCase):
     def test_str(self):
-        pass
+        visit = Visit.objects.create(visitor=Visitor.objects.create(key='foo'))
+        visit.__str__()
 
     def test_no_first_time(self):
         visit = Visit.objects.create(visitor=Visitor.objects.create(key='foo'))
