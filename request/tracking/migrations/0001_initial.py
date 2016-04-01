@@ -12,6 +12,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Visit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('requests', models.ManyToManyField(to='request.Request')),
+            ],
+            options={
+                'verbose_name': 'visit',
+                'verbose_name_plural': 'visits',
+            },
+        ),
+        migrations.CreateModel(
             name='Visitor',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -22,5 +33,10 @@ class Migration(migrations.Migration):
                 'verbose_name': 'visitor',
                 'verbose_name_plural': 'visitors',
             },
+        ),
+        migrations.AddField(
+            model_name='visit',
+            name='visitor',
+            field=models.ForeignKey(to='tracking.Visitor'),
         ),
     ]

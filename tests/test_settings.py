@@ -31,6 +31,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'request.middleware.RequestMiddleware',
 )
 
 STATIC_URL = '/static/'

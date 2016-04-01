@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.sessions.backends.db import SessionStore
 from request.models import Request
 from request.tracking.models import Visitor
 from request import settings
@@ -38,7 +39,10 @@ class RequestMiddleware(object):
             if 'track_key' in request.COOKIES:
                 session_key = request.COOKIES['track_key']
             else:
-                session_key = request.session._get_or_create_session_key()
+                if hasattr(request, 'session'):
+                    session_key = request.session._get_or_create_session_key()
+                else:
+                    session_key = SessionStore()._get_new_session_key()
                 response.cookies['track_key'] = session_key
             visitor, created = Visitor.objects.get_or_create(key=session_key)
             visitor.requests.add(req)
