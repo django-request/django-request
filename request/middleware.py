@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from request import settings
 from request.models import Request
+from request.tracking.models import Visitor
+from request import settings
 from request.router import patterns
 
 
@@ -30,7 +31,16 @@ class RequestMiddleware(object):
             if request.user.username in settings.REQUEST_IGNORE_USERNAME:
                 return response
 
-        r = Request()
-        r.from_http_request(request, response)
+        req = Request()
+        req.from_http_request(request, response)
+
+        if settings.USE_TRACKING:
+            if 'track_key' in request.COOKIES:
+                session_key = request.COOKIES['track_key']
+            else:
+                session_key = request.session._get_or_create_session_key()
+                response.cookies['track_key'] = session_key
+            visitor, created = Visitor.objects.get_or_create(key=session_key)
+            visitor.requests.add(req)
 
         return response

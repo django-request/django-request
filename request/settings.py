@@ -36,3 +36,5 @@ try:
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://{0}'.format(get_current_site(HttpRequest()).domain))
 except:
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://127.0.0.1')
+
+USE_TRACKING = 'request.tracking' in settings.INSTALLED_APPS

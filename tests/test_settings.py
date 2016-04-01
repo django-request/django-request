@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'tests',
     'request',
+    'request.tracking',
 ]
 
 MIDDLEWARE_CLASSES = (
