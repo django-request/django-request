@@ -79,7 +79,7 @@ class Plugin(object):
             self.verbose_name = _(get_verbose_name(self.module_name))
 
     def template_context(self):
-        {}
+        return {}
 
     def render(self):
         templates = [
