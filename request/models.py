@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
@@ -14,6 +15,7 @@ from request import settings as request_settings
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
+@python_2_unicode_compatible
 class Request(models.Model):
     # Response infomation
     response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)
@@ -21,7 +23,7 @@ class Request(models.Model):
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
-    time = models.DateTimeField(_('time'), auto_now_add=True)
+    time = models.DateTimeField(_('time'), auto_now_add=True, db_index=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
     is_ajax = models.BooleanField(_('is ajax'), default=False, help_text=_('Wheather this request was used via javascript.'))
@@ -36,6 +38,7 @@ class Request(models.Model):
     objects = RequestManager()
 
     class Meta:
+        app_label = 'request'
         verbose_name = _('request')
         verbose_name_plural = _('requests')
         ordering = ('-time',)
@@ -105,7 +108,7 @@ class Request(models.Model):
         elif request_settings.REQUEST_ANONYMOUS_IP:
             parts = self.ip.split('.')[0:-1]
             parts.append('1')
-            self.ip='.'.join(parts)
+            self.ip = '.'.join(parts)
         if not request_settings.REQUEST_LOG_USER:
             self.user = None
 
