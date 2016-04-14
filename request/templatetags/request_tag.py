@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from request.models import Request
 
@@ -32,6 +33,7 @@ class ActiveUserNode(template.Node):
         return ''
 
 
+@register.tag
 def active_users(parser, token):
     """
     This template tag will get a list of active users based on time,
@@ -54,5 +56,3 @@ def active_users(parser, token):
         {% endfor %}
     """
     return ActiveUserNode(parser, token)
-
-register.tag(active_users)

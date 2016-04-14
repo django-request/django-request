@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.test import TestCase
 from django import template
-from request.templatetags.request_admin import trunc, pie_chart
+from django.test import TestCase
+from request.templatetags.request_admin import pie_chart, trunc
 from request.templatetags.request_tag import ActiveUserNode, active_users
 
 

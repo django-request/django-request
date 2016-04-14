@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import mock
-from django.test import TestCase
 from django.core import exceptions
+from django.test import TestCase
 from request import plugins
 from request.models import Request
 
@@ -66,10 +67,10 @@ class PluginBaseTest(TestCase):
         self.TestPlugin = TestPlugin
 
     def test_init(self):
-        plugin = self.TestPlugin()
+        self.TestPlugin()
         # with verbose_name
         self.TestPlugin.verbose_name = 'foo'
-        plugin = self.TestPlugin()
+        self.TestPlugin()
 
     def test_template_context(self):
         plugin = plugins.Plugin()
@@ -104,7 +105,7 @@ class TopPathsTest(TestCase):
         self.plugin.qs = Request.objects.all()
 
     def test_queryset(self):
-        queryset = self.plugin.queryset()
+        self.plugin.queryset()
 
     def test_template_context(self):
         context = self.plugin.template_context()
@@ -115,7 +116,7 @@ class TopErrorPathsTest(TestCase):
     def test_queryset(self):
         self.plugin = plugins.TopErrorPaths()
         self.plugin.qs = Request.objects.all()
-        queryset = self.plugin.queryset()
+        self.plugin.queryset()
 
 
 class TopReferrersTest(TestCase):
@@ -124,7 +125,7 @@ class TopReferrersTest(TestCase):
         self.plugin.qs = Request.objects.all()
 
     def test_queryset(self):
-        queryset = self.plugin.queryset()
+        self.plugin.queryset()
 
     def test_template_context(self):
         context = self.plugin.template_context()
@@ -150,4 +151,4 @@ class TopBrowsersTest(TestCase):
 class ActiveUsersTest(TestCase):
     def test_template_context(self):
         self.plugin = plugins.ActiveUsers()
-        context = self.plugin.template_context()
+        self.plugin.template_context()

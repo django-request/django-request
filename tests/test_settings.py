@@ -34,4 +34,4 @@ MIDDLEWARE_CLASSES = (
 
 STATIC_URL = '/static/'
 
-ROOT_URLCONF = '.'.join([m for m in __name__.split('.')][:-1] + ['test_urls'])
+ROOT_URLCONF = 'tests.test_urls'

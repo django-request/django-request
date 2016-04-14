@@ -4,5 +4,7 @@ python:
 - "3.4"
 install:
 - pip install .
+- pip install isort
 script:
+- isort --recursive --check-only --diff --line-width 119 tests request/management request/templatetags request/*.py
 - python runtests.py
