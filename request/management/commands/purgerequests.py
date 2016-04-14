@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand
-from django.utils import timezone
+from django.utils import timezone, six
 from request.models import Request
 
 DURATION_OPTIONS = {
@@ -13,6 +13,8 @@ DURATION_OPTIONS = {
     'months': lambda amount: timezone.now() + relativedelta(months=-amount),
     'years': lambda amount: timezone.now() + relativedelta(years=-amount),
 }
+
+input = raw_input if six.PY2 else input  # @ReservedAssignment
 
 
 class Command(BaseCommand):
@@ -54,7 +56,7 @@ class Command(BaseCommand):
             return
 
         if options.get('interactive'):
-            confirm = raw_input("""
+            confirm = input("""
 You have requested a database reset.
 This will IRREVERSIBLY DESTROY any
 requests created before %d %s ago.

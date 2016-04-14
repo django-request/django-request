@@ -11,7 +11,7 @@ register.filter('trunc', trunc)
 
 
 def pie_chart(items, width=440, height=190):
-    return 'http://chart.apis.google.com/chart?cht=p3&chd=t:%s&chs=%sx%s&chl=%s' % (
+    return '//chart.googleapis.com/chart?cht=p3&chd=t:%s&chs=%sx%s&chl=%s' % (
         ','.join([str(item[1]) for item in items]),
         width,
         height,
