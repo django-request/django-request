@@ -24,7 +24,17 @@ class Visitor(models.Model):
         verbose_name_plural = _('visitors')
 
     def __str__(self):
-        return str(self.id)
+        return "#%s" % self.id
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('admin:tracking_visitor_change', args=(self.id,))
+
+    def hits(self):
+        return self.requests.count()
+
+    def visits(self):
+        return self.visit_set.count()
 
     def first_time(self):
         try:
@@ -61,6 +71,13 @@ class Visit(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('admin:tracking_visit_change', args=(self.id,))
+
+    def hits(self):
+        return self.requests.count()
 
     def first_time(self):
         try:

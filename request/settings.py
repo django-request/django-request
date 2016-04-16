@@ -1,5 +1,28 @@
 from django.conf import settings
 
+if 'request.tracking' in settings.INSTALLED_APPS:
+    DEFAULT_PLUGINS = (
+        'request.plugins.TrafficInformation',
+        'request.plugins.LatestRequests',
+        'request.plugins.TopPaths',
+        'request.plugins.TopErrorPaths',
+        'request.plugins.TopReferrers',
+        'request.plugins.TopSearchPhrases',
+        'request.plugins.TopBrowsers',
+        'request.tracking.plugins.ActiveVisitors',
+    )
+else:
+    DEFAULT_PLUGINS = (
+        'request.plugins.TrafficInformation',
+        'request.plugins.LatestRequests',
+        'request.plugins.TopPaths',
+        'request.plugins.TopErrorPaths',
+        'request.plugins.TopReferrers',
+        'request.plugins.TopSearchPhrases',
+        'request.plugins.TopBrowsers',
+    )
+REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', DEFAULT_PLUGINS)
+
 REQUEST_VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'))
 
 REQUEST_ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
@@ -17,17 +40,6 @@ REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.UniqueVisitor',
     'request.traffic.UniqueVisit',
     'request.traffic.Hit',
-))
-
-REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
-    'request.plugins.TrafficInformation',
-    'request.plugins.LatestRequests',
-
-    'request.plugins.TopPaths',
-    'request.plugins.TopErrorPaths',
-    'request.plugins.TopReferrers',
-    'request.plugins.TopSearchPhrases',
-    'request.plugins.TopBrowsers',
 ))
 
 try:

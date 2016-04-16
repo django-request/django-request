@@ -10,12 +10,6 @@ class VisitorAdmin(admin.ModelAdmin):
     def lookup_allowed(self, key, value):
         return key == 'requests__user__username' or super(VisitorAdmin, self).lookup_allowed(key, value)
 
-    def hits(self, obj):
-        return obj.requests.count()
-
-    def visits(self, obj):
-        return obj.visit_set.count()
-
 
 class VisitAdmin(admin.ModelAdmin):
     list_display = ('visitor', 'hits', 'first_time', 'last_time')
@@ -23,9 +17,6 @@ class VisitAdmin(admin.ModelAdmin):
 
     def lookup_allowed(self, key, value):
         return key == 'requests__user__username' or super(VisitorAdmin, self).lookup_allowed(key, value)
-
-    def hits(self, obj):
-        return obj.requests.count()
 
 
 admin.site.register(Visitor, VisitorAdmin)

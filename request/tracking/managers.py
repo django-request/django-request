@@ -18,7 +18,7 @@ class VisitorQuerySet(models.query.QuerySet):
     def in_progress(self):
         """Filter that is currently visiting."""
         timeout = now() - timedelta(**settings.VISIT_TIMEOUT)
-        return self.filter(requests__time__gte=timeout)
+        return self.filter(requests__time__gte=timeout).distinct()
 
 
 class VisitorManager(models.Manager):
