@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 import json
-from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
+
 from django.contrib.admin import site
+from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
+from django.test import RequestFactory, TestCase
 from request.admin import RequestAdmin
 from request.models import Request
 
@@ -21,18 +23,18 @@ class RequestFromTest(TestCase):
         admin = RequestAdmin(Request, site)
         user = User.objects.create(username='foo')
         request = Request.objects.create(user=user, ip='1.2.3.4')
-        html = admin.request_from(request)
+        admin.request_from(request)
 
     def test_without_user_id(self):
         admin = RequestAdmin(Request, site)
         request = Request.objects.create(ip='1.2.3.4')
-        html = admin.request_from(request)
+        admin.request_from(request)
 
 
 class GetUrlsTest(TestCase):
     def test_get_urls(self):
         admin = RequestAdmin(Request, site)
-        urls = admin.get_urls()
+        admin.get_urls()
 
 
 class OverviewTest(TestCase):
@@ -40,7 +42,7 @@ class OverviewTest(TestCase):
         admin = RequestAdmin(Request, site)
         factory = RequestFactory()
         request = factory.get('/foo')
-        response = admin.overview(request)
+        admin.overview(request)
 
 
 class TrafficTest(TestCase):
@@ -50,19 +52,19 @@ class TrafficTest(TestCase):
 
     def test_traffic(self):
         request = self.factory.get('/foo')
-        response = self.admin.traffic(request)
+        self.admin.traffic(request)
 
     def test_bad_days(self):
         request = self.factory.get('/foo', {'days': 'foo'})
-        response = self.admin.traffic(request)
+        self.admin.traffic(request)
 
     def test_days_lt_10(self):
         request = self.factory.get('/foo', {'days': 9})
-        response = self.admin.traffic(request)
+        self.admin.traffic(request)
 
     def test_days_gt_60(self):
         request = self.factory.get('/foo', {'days': 61})
-        response = self.admin.traffic(request)
+        self.admin.traffic(request)
 
 
 class RequestAdminViewsTest(TestCase):
@@ -73,16 +75,12 @@ class RequestAdminViewsTest(TestCase):
         self.client.login(username=user.username, password='bar')
 
     def test_overview(self):
-        # TODO: Don't work
-        # url = reverse('request_request_overview')
-        url = '/admin/request/request/overview/'
+        url = reverse('admin:request_request_overview')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_traffic(self):
-        # TODO: Don't work
-        # url = reverse('request_request_traffic')
-        url = '/admin/request/request/overview/traffic.json'
+        url = reverse('admin:request_request_traffic')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         json_response = json.loads(response.content.decode())

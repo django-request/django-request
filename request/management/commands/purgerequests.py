@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
 
-from django.core.management.base import BaseCommand
-from django.utils import timezone, six
+from dateutil.relativedelta import relativedelta
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import six, timezone
 from request.models import Request
 
 DURATION_OPTIONS = {
     'hours': lambda amount: timezone.now() - timedelta(hours=amount),
     'days': lambda amount: timezone.now() - timedelta(days=amount),
     'weeks': lambda amount: timezone.now() - timedelta(weeks=amount),
-    'months': lambda amount: timezone.now() - timedelta(days=(30 * amount)),  # 30-day month
-    'years': lambda amount: timezone.now() - timedelta(weeks=(52 * amount)),  # 364-day year
+    'months': lambda amount: timezone.now() + relativedelta(months=-amount),
+    'years': lambda amount: timezone.now() + relativedelta(years=-amount),
 }
 
 input = raw_input if six.PY2 else input  # @ReservedAssignment
@@ -39,19 +40,18 @@ class Command(BaseCommand):
 
         # Check we have the correct values
         if duration[-1] != 's':  # If its not plural, make it plural
-            duration_plural = '%ss' % duration
+            duration_plural = '{0}s'.format(duration)
         else:
             duration_plural = duration
 
         if duration_plural not in DURATION_OPTIONS:
-            print('Amount must be %s' % ', '.join(DURATION_OPTIONS))
-            return
+            raise CommandError('Amount must be {0}'.format(', '.join(DURATION_OPTIONS)))
 
         qs = Request.objects.filter(time__lte=DURATION_OPTIONS[duration_plural](amount))
         count = qs.count()
 
         if count == 0:
-            print("There are no requests to delete.")
+            self.stdout.write('There are no requests to delete.')
             return
 
         if options.get('interactive'):
@@ -69,4 +69,4 @@ Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration, count))
         if confirm == 'yes':
             qs.delete()
         else:
-            print('Purge cancelled')
+            self.stdout.write('Purge cancelled')

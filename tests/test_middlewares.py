@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import mock
-from django.test import TestCase, RequestFactory
-from django.http import HttpResponse
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+from django.test import RequestFactory, TestCase
 from request.middleware import RequestMiddleware
 from request.models import Request
 

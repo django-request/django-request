@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from request import router
 
 
 class RegexPatternTest(TestCase):
     def test_init(self):
-        pat = router.RegexPattern(r'^foo$')
+        router.RegexPattern(r'^foo$')
 
     def test_resolve(self):
         pat = router.RegexPattern(r'^foo$', 'bar')

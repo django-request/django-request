@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
-from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.utils.translation import ugettext_lazy as _
+from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-
+from django.utils.translation import ugettext_lazy as _
+from request import settings as request_settings
 from request.managers import RequestManager
 from request.utils import HTTP_STATUS_CODES, browsers, engines
-from request import settings as request_settings
-
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import mock
-from django.test import TestCase
 from django.core import exceptions
+from django.test import TestCase
 from request import traffic
 from request.models import Request
-from request import settings
 
 
 class ModulesLoadTest(TestCase):
@@ -68,7 +67,7 @@ class ModulesGraphTest(TestCase):
 
 class ModuleBaseTest(TestCase):
     def test_init(self):
-        module = traffic.Module()
+        traffic.Module()
 
 
 class ModuleAjaxTest(TestCase):

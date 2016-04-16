@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-
-from setuptools import setup
 import request
+from setuptools import setup
 
 setup(
     name='django-request',
@@ -27,6 +26,7 @@ setup(
     ]},
     install_requires=[
         'django',
+        'python-dateutil',
     ],
     license=request.__licence__,
     classifiers=[

@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-import mock
 import socket
 from datetime import datetime
 
-from django.test import TestCase
-from django.http import HttpRequest, HttpResponse
+import mock
 from django.contrib.auth import get_user_model
-
-from request.models import Request
+from django.http import HttpRequest, HttpResponse
+from django.test import TestCase
 from request import settings
+from request.models import Request
 
 User = get_user_model()
 
@@ -126,4 +125,3 @@ class RequestTests(TestCase):
         user = User.objects.create(username='foo')
         request = Request.objects.create(ip='1.2.3.4', user=user)
         self.assertEqual(request.get_user(), user)
-
