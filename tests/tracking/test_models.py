@@ -1,8 +1,10 @@
 from datetime import timedelta
+
 from django.test import TestCase
 from django.utils.timezone import now
-from request.tracking.models import Visitor, Visit
+
 from request.models import Request
+from request.tracking.models import Visit, Visitor
 
 
 class VisitorModelTest(TestCase):

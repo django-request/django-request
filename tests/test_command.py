@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 from datetime import timedelta
-
 import mock
+
 from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils.timezone import now
+
 from request.management.commands.purgerequests import Command as PurgeRequest
 from request.management.commands.purgerequests import DURATION_OPTIONS
 from request.models import Request
@@ -44,7 +46,9 @@ class PurgeRequestsTest(TestCase):
     @mock.patch('request.management.commands.purgerequests.input',
                 return_value='no')
     def test_interactive_non_confirmed(self, *mock):
-        PurgeRequest().handle(amount=1, duration='days', interactive=True)
+        command = PurgeRequest()
+        command.stdout = open(os.devnull, 'w')
+        command.handle(amount=1, duration='days', interactive=True)
         self.assertTrue(mock[0].called)
         self.assertEqual(2, Request.objects.count())
 

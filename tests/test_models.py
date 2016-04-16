@@ -37,6 +37,7 @@ class RequestTests(TestCase):
         http_request = HttpRequest()
         http_request.method = 'GET'
         http_request.user = User.objects.create(username='foo')
+        http_request.META['REMOTE_ADDR'] = '32.64.128.16'
 
         request = Request()
         request.from_http_request(http_request)
@@ -45,6 +46,8 @@ class RequestTests(TestCase):
     def test_from_http_request_redirection(self):
         http_request = HttpRequest()
         http_request.method = 'GET'
+        http_request.META['HTTP_USER_AGENT'] = 'test user agent'
+        http_request.META['REMOTE_ADDR'] = '32.64.128.16'
         http_response = HttpResponse(status=301)
         http_response['Location'] = '/foo'
 

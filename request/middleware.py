@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.contrib.sessions.backends.db import SessionStore
-from request.models import Request
-from request.tracking.models import Visitor
+
 from request import settings
+from request.models import Request
 from request.router import patterns
+from request.tracking.models import Visitor
 
 
 class RequestMiddleware(object):

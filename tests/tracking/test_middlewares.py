@@ -1,10 +1,12 @@
 from datetime import timedelta
-from django.test import TestCase, RequestFactory
+
 from django.http import HttpResponse
+from django.test import RequestFactory, TestCase
 from django.utils.timezone import now
+
 from request.middleware import RequestMiddleware
 from request.models import Request
-from request.tracking.models import Visitor, Visit
+from request.tracking.models import Visit, Visitor
 
 
 class RequestMiddlewareWithTrackingTest(TestCase):
