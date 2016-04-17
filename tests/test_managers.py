@@ -193,7 +193,7 @@ class RequestQuerySetTest(TestCase):
 
     def test_unique_visits(self):
         # setUp
-        Request.objects.create(ip='1.2.3.4', referer=settings.REQUEST_BASE_URL)
+        Request.objects.create(ip='1.2.3.4', referer=settings.BASE_URL)
         # Test
         qs = Request.objects.all().unique_visits()
         self.assertEqual(1, qs.count())

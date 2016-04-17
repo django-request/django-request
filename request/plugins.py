@@ -43,7 +43,7 @@ class Plugins(object):
         from django.core import exceptions
 
         self._plugins = []
-        for module_path in settings.REQUEST_PLUGINS:
+        for module_path in settings.PLUGINS:
             try:
                 dot = module_path.rindex('.')
             except ValueError:

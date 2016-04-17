@@ -98,7 +98,7 @@ class RequestQuerySet(models.query.QuerySet):
 
     def unique_visits(self):
         from request import settings
-        return self.exclude(referer__startswith=settings.REQUEST_BASE_URL)
+        return self.exclude(referer__startswith=settings.BASE_URL)
 
     def attr_list(self, name):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]

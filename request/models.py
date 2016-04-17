@@ -106,13 +106,13 @@ class Request(models.Model):
             return self.ip
 
     def save(self, *args, **kwargs):
-        if not request_settings.REQUEST_LOG_IP:
-            self.ip = request_settings.REQUEST_IP_DUMMY
-        elif request_settings.REQUEST_ANONYMOUS_IP:
+        if not request_settings.LOG_IP:
+            self.ip = request_settings.IP_DUMMY
+        elif request_settings.ANONYMOUS_IP:
             parts = self.ip.split('.')[0:-1]
             parts.append('1')
             self.ip = '.'.join(parts)
-        if not request_settings.REQUEST_LOG_USER:
+        if not request_settings.LOG_USER:
             self.user = None
 
         super(Request, self).save(*args, **kwargs)

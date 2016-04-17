@@ -20,7 +20,7 @@ class RequestMiddlewareTest(TestCase):
         self.middleware.process_response(request, response)
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.settings.REQUEST_VALID_METHOD_NAMES',
+    @mock.patch('request.settings.VALID_METHOD_NAMES',
                 ('get',))
     def test_dont_record_unvalid_method_name(self):
         request = self.factory.post('/foo')
@@ -28,7 +28,7 @@ class RequestMiddlewareTest(TestCase):
         self.middleware.process_response(request, response)
         self.assertEqual(0, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_VALID_METHOD_NAMES',
+    @mock.patch('request.middleware.settings.VALID_METHOD_NAMES',
                 ('get',))
     def test_record_valid_method_name(self):
         request = self.factory.get('/foo')
@@ -36,7 +36,7 @@ class RequestMiddlewareTest(TestCase):
         self.middleware.process_response(request, response)
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_ONLY_ERRORS',
+    @mock.patch('request.middleware.settings.ONLY_ERRORS',
                 False)
     def test_dont_record_only_error(self):
         request = self.factory.get('/foo')
@@ -49,7 +49,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(2, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_ONLY_ERRORS',
+    @mock.patch('request.middleware.settings.ONLY_ERRORS',
                 True)
     def test_record_only_error(self):
         request = self.factory.get('/foo')
@@ -62,7 +62,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_PATHS',
+    @mock.patch('request.middleware.settings.IGNORE_PATHS',
                 (r'^foo',))
     def test_dont_record_ignored_paths(self):
         request = self.factory.get('/foo')
@@ -75,7 +75,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_AJAX',
+    @mock.patch('request.middleware.settings.IGNORE_AJAX',
                 True)
     def test_dont_record_ajax(self):
         request = self.factory.get('/foo')
@@ -88,7 +88,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_AJAX',
+    @mock.patch('request.middleware.settings.IGNORE_AJAX',
                 False)
     def test_record_ajax(self):
         request = self.factory.get('/foo')
@@ -101,7 +101,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(2, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_IP',
+    @mock.patch('request.middleware.settings.IGNORE_IP',
                 ('1.2.3.4',))
     def test_dont_record_ignored_ips(self):
         request = self.factory.get('/foo')
@@ -115,7 +115,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(1, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_USER_AGENTS',
+    @mock.patch('request.middleware.settings.IGNORE_USER_AGENTS',
                 (r'^.*Foo.*$',))
     def test_dont_record_ignored_user_agents(self):
         request = self.factory.get('/foo')
@@ -133,7 +133,7 @@ class RequestMiddlewareTest(TestCase):
 
         self.assertEqual(2, Request.objects.count())
 
-    @mock.patch('request.middleware.settings.REQUEST_IGNORE_USERNAME',
+    @mock.patch('request.middleware.settings.IGNORE_USERNAME',
                 ('foo',))
     def test_dont_record_ignored_user_names(self):
         request = self.factory.get('/foo')
