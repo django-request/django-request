@@ -1,5 +1,7 @@
-*.pyc
+*.py[co]
+__pycache__
 docs/_build/
 *.egg-info
 build/
 dist/
+*.sw[pon]
