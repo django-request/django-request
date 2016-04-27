@@ -9,7 +9,19 @@ try:  # For python <= 2.3
 except NameError:
     from sets import Set as set
 
-QUERYSET_PROXY_METHODS = ('year', 'month', 'week', 'day', 'today', 'this_week', 'this_month', 'this_year', 'unique_visits', 'attr_list', 'search')
+QUERYSET_PROXY_METHODS = (
+    'year',
+    'month',
+    'week',
+    'day',
+    'today',
+    'this_week',
+    'this_month',
+    'this_year',
+    'unique_visits',
+    'attr_list',
+    'search',
+)
 
 
 class RequestQuerySet(models.query.QuerySet):
@@ -66,7 +78,10 @@ class RequestQuerySet(models.query.QuerySet):
             except ValueError:
                 return
 
-        return self.filter(time__range=(datetime.datetime.combine(date, datetime.time.min), datetime.datetime.combine(date, datetime.time.max)))
+        return self.filter(time__range=(
+            datetime.datetime.combine(date, datetime.time.min),
+            datetime.datetime.combine(date, datetime.time.max),
+        ))
 
     def today(self):
         return self.day(date=datetime.date.today())
@@ -79,7 +94,7 @@ class RequestQuerySet(models.query.QuerySet):
 
     def this_week(self):
         today = datetime.date.today()
-        return self.week(str(today.year), str(today.isocalendar()[1] - 1))
+        return self.week(str(today.year), str(today.isocalendar()[1]))
 
     def unique_visits(self):
         from request import settings

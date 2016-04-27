@@ -33,7 +33,7 @@ Default: ``1.1.1.1``
 Used dummy address, if REQUEST_LOG_IP is set to False.
 
 ``REQUEST_ANONYMOUS_IP``
-=====================
+========================
 
 Default: ``False``
 
@@ -69,7 +69,7 @@ Example:
     )
 
 ``REQUEST_IGNORE_USER_AGENTS``
-===========================
+==============================
 
 Default: ``None``
 
