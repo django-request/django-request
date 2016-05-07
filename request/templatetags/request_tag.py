@@ -2,8 +2,6 @@
 from django import template
 from request.models import Request
 
-import urllib2
-
 register = template.Library()
 
 
@@ -58,16 +56,3 @@ def active_users(parser, token):
         {% endfor %}
     """
     return ActiveUserNode(parser, token)
-
-
-@register.simple_tag
-def page_hits(path):
-    """
-    :param path: page url path, call this way in templates: {% page_hits request.get_full_path %}
-    urllib2.unquote and utf-8 encode needed to support unicode urls
-    :return: number of page hits
-    """
-    path = urllib2.unquote(path.encode('utf-8'))
-    qs = Request.objects.filter(path=path)
-    hits = qs.count()
-    return hits + 1
