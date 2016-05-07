@@ -61,10 +61,9 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        if 'HTTP_X_REAL_IP' in request.META:
-            # record real ip from header if was set
-            self.ip = request.META.get('HTTP_X_REAL_IP', '')
-        else:
+        # record real ip from header if was set
+        self.ip = request.META.get('HTTP_X_REAL_IP', '')
+        if not self.ip:
             self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
