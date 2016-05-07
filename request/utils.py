@@ -127,3 +127,22 @@ engines = patterns(
     (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
     (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
 )
+
+
+# transformation of request headers to upper case with underlines
+def transform_http_headers(request):
+    for header in request.META:
+        if header and ':' in header:
+            k, v = header.split(':', 1)
+            v = v.strip()
+
+            if '-' in header:
+                k = k.replace('-', '_').upper()
+
+            if k in request.META:
+                continue  # skip content length, type,etc.
+            if 'HTTP_'+k in request.META:
+                request.META['HTTP_'+k] += ',' + v  # comma-separate multiple headers
+            else:
+                request.META['HTTP_'+k] = v
+

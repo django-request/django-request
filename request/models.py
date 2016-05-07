@@ -9,7 +9,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from request import settings as request_settings
 from request.managers import RequestManager
-from request.utils import HTTP_STATUS_CODES, browsers, engines
+from request.utils import HTTP_STATUS_CODES, browsers, engines, transform_http_headers
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -54,6 +54,9 @@ class Request(models.Model):
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
+        
+        transform_http_headers(request)
+
         self.method = request.method
         self.path = request.path[:255]
 
