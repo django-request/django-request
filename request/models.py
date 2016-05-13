@@ -69,7 +69,7 @@ class Request(models.Model):
 	if request.POST:
 	    parsed_data.update(request.POST.dict())
 	
-	return parse_data
+	return parsed_data
 
 	
     def from_http_request(self, request, response=None, commit=True):
