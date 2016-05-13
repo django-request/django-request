@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
+import json
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -37,7 +38,12 @@ class Request(models.Model):
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
-
+    
+    params = models.TextField(_('params'), blank=True, null=True)
+    data = models.TextField(_('data'), blank=True, null=True)
+    
+    
+    
     objects = RequestManager()
 
     class Meta:
@@ -52,6 +58,20 @@ class Request(models.Model):
     def get_user(self):
         return get_user_model().objects.get(pk=self.user_id)
 
+    def get_request_data(self, request):
+	parsed_data = {}
+	if request.body:
+	    try: 
+		parsed_data.update(json.loads(request.body))
+	    except Exception:
+		parsed_data.update(eval(request.body))
+        
+	if request.POST:
+	    parsed_data.update(request.POST.dict())
+	
+	return parse_data
+
+	
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
         self.method = request.method
@@ -65,6 +85,9 @@ class Request(models.Model):
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
+	
+	self.params = json.dumps(request.GET.dict())
+	self.data = self.get_request_data(request)
 
         if getattr(request, 'user', False):
             if request.user.is_authenticated():
