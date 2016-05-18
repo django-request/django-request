@@ -60,7 +60,7 @@ class RequestQuerySet(models.query.QuerySet):
         if not date:
             try:
                 if year and month and day:
-                    date = datetime.datetime.date(*time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
+                    date = datetime.date(*time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
                 else:
                     raise TypeError('Request.objects.day() takes exactly 3 arguments')
             except ValueError:

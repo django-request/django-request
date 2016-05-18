@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
+from request.router import patterns
 
 HTTP_STATUS_CODES = (
     # Infomational
@@ -67,9 +68,9 @@ HTTP_STATUS_CODES = (
     (510, _('Not Extended')),
 )
 
-from request.router import patterns
 
-browsers = patterns(('Unknown', {}),
+browsers = patterns(
+    ('Unknown', {}),
     # Browsers
     (r'AOL (?P<version>[\d+\.\d+]+)', 'AOL'),
     (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<msie_version>[-.\w]+);( ?)( ?)America Online Browser (?P<version>[-.\w]+);', 'AOL'),
@@ -120,7 +121,8 @@ browsers = patterns(('Unknown', {}),
     (r'Python-urllib', 'Python'),
 )
 
-engines = patterns(None,
+engines = patterns(
+    None,
     (r'^https?:\/\/([\.\w]+)?yahoo.*(?:&|\?)p=(?P<keywords>[\+-_\w]+)', 'Yahoo'),
     (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
     (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
