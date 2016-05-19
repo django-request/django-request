@@ -7,7 +7,8 @@
   }
 
   $.relatizeDate = function(element) {
-    return $.relatizeDate.timeAgoInWords( new Date($(element).text()) )
+    var da = $(element).text().split(' ');
+    return $.relatizeDate.timeAgoInWords(new Date(da[1] + ' ' + da[2] + ', ' + da[5] + ' ' + da[3] + ' UTC'));
   }
 
   // shortcut
