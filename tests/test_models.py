@@ -39,7 +39,7 @@ class RequestTests(TestCase):
         http_request.user = User.objects.create(username='foo')
 
         request = Request()
-        request.from_http_request(http_request)
+        request.from_http_request(http_request, commit=False)
         self.assertEqual(request.user.id, http_request.user.id)
 
     def test_from_http_request_redirection(self):
@@ -49,7 +49,7 @@ class RequestTests(TestCase):
         http_response['Location'] = '/foo'
 
         request = Request()
-        request.from_http_request(http_request, http_response)
+        request.from_http_request(http_request, http_response, commit=False)
         self.assertEqual(request.redirect, '/foo')
 
     def test_from_http_request_not_commit(self):
