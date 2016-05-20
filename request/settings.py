@@ -1,5 +1,28 @@
 from django.conf import settings
 
+if 'request.tracking' in settings.INSTALLED_APPS:
+    DEFAULT_PLUGINS = (
+        'request.plugins.TrafficInformation',
+        'request.plugins.LatestRequests',
+        'request.plugins.TopPaths',
+        'request.plugins.TopErrorPaths',
+        'request.plugins.TopReferrers',
+        'request.plugins.TopSearchPhrases',
+        'request.plugins.TopBrowsers',
+        'request.tracking.plugins.ActiveVisitors',
+    )
+else:
+    DEFAULT_PLUGINS = (
+        'request.plugins.TrafficInformation',
+        'request.plugins.LatestRequests',
+        'request.plugins.TopPaths',
+        'request.plugins.TopErrorPaths',
+        'request.plugins.TopReferrers',
+        'request.plugins.TopSearchPhrases',
+        'request.plugins.TopBrowsers',
+    )
+REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', DEFAULT_PLUGINS)
+
 REQUEST_VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'))
 
 REQUEST_ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
@@ -19,20 +42,12 @@ REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.Hit',
 ))
 
-REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
-    'request.plugins.TrafficInformation',
-    'request.plugins.LatestRequests',
-
-    'request.plugins.TopPaths',
-    'request.plugins.TopErrorPaths',
-    'request.plugins.TopReferrers',
-    'request.plugins.TopSearchPhrases',
-    'request.plugins.TopBrowsers',
-))
-
 try:
     from django.http import HttpRequest
     from django.contrib.sites.shortcuts import get_current_site
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://{0}'.format(get_current_site(HttpRequest()).domain))
 except:
     REQUEST_BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://127.0.0.1')
+
+USE_TRACKING = 'request.tracking' in settings.INSTALLED_APPS
+VISIT_TIMEOUT = getattr(settings, 'REQUEST_VISIT_TIMEOUT', {'minutes': 30})

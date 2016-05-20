@@ -1,0 +1,31 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+
+{% block table %}
+  <thead>
+    <tr>
+     <th colspan="4">
+      {% blocktrans with count=visitors.count since=since|time %}
+      {{ count }} visitor(s) since {{ since }}
+      {% endblocktrans %}
+     </th>
+    </tr>
+    <tr>
+     <th>{% trans "ID" %}</th>
+     <th>{% trans "Last time" %}</th>
+     <th>{% trans "Visits" %}</th>
+     <th>{% trans "Hits" %}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for visitor in visitors %}
+    <tr>
+        <td><a href="{{ visitor.get_absolute_url }}">{{ visitor }}</a></td>
+        <td>{{ visitor.last_time|time }}</td>
+        <td>{{ visitor.visits }}</td>
+        <td>{{ visitor.hits }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+{% endblock %}
