@@ -24,13 +24,13 @@ class Modules(object):
     def load(self):
         """
         Import and instanciate modules defined in
-        ``settings.REQUEST_TRAFFIC_MODULES``.
+        ``settings.TRAFFIC_MODULES``.
         """
         from importlib import import_module
         from django.core import exceptions
 
         self._modules = []
-        for module_path in settings.REQUEST_TRAFFIC_MODULES:
+        for module_path in settings.TRAFFIC_MODULES:
             try:
                 dot = module_path.rindex('.')
             except ValueError:
@@ -162,7 +162,7 @@ class UniqueVisit(Module):
     verbose_name_plural = _('Unique Visits')
 
     def count(self, qs):
-        return qs.exclude(referer__startswith=settings.REQUEST_BASE_URL)\
+        return qs.exclude(referer__startswith=settings.BASE_URL)\
             .count()
 
 

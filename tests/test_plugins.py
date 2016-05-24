@@ -30,17 +30,17 @@ class PluginsLoadTest(TestCase):
         for plu in self.plugins._plugins:
             self.assertIsInstance(plu, plugins.Plugin)
 
-    @mock.patch('request.settings.REQUEST_PLUGINS',
+    @mock.patch('request.settings.PLUGINS',
                 ('foobar',))
     def test_bad_module(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.plugins.load)
 
-    @mock.patch('request.settings.REQUEST_PLUGINS',
+    @mock.patch('request.settings.PLUGINS',
                 ('foo.bar',))
     def test_import_error(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.plugins.load)
 
-    @mock.patch('request.settings.REQUEST_PLUGINS',
+    @mock.patch('request.settings.PLUGINS',
                 ('request.plugins.Foo',))
     def test_module_not_exists(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.plugins.load)

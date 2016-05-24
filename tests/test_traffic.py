@@ -15,17 +15,17 @@ class ModulesLoadTest(TestCase):
         for mod in self.modules._modules:
             self.assertIsInstance(mod, traffic.Module)
 
-    @mock.patch('request.settings.REQUEST_TRAFFIC_MODULES',
+    @mock.patch('request.settings.TRAFFIC_MODULES',
                 ('foobar',))
     def test_bad_module(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.modules.load)
 
-    @mock.patch('request.settings.REQUEST_TRAFFIC_MODULES',
+    @mock.patch('request.settings.TRAFFIC_MODULES',
                 ('foo.bar',))
     def test_import_error(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.modules.load)
 
-    @mock.patch('request.settings.REQUEST_TRAFFIC_MODULES',
+    @mock.patch('request.settings.TRAFFIC_MODULES',
                 ('request.traffic.Foo',))
     def test_module_not_exists(self):
         self.assertRaises(exceptions.ImproperlyConfigured, self.modules.load)
