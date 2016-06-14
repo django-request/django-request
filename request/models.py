@@ -59,19 +59,17 @@ class Request(models.Model):
         return get_user_model().objects.get(pk=self.user_id)
 
     def get_request_data(self, request):
-	parsed_data = {}
-	if request.body:
-	    try: 
-		parsed_data.update(json.loads(request.body))
-	    except Exception:
-		parsed_data.update(eval(request.body))
-        
-	if request.POST:
-	    parsed_data.update(request.POST.dict())
-	
-	return parsed_data
+        parsed_data = {}
+        if request.body:
+            try: 
+                parsed_data.update(json.loads(request.body))
+            except Exception:
+                parsed_data.update(eval(request.body))
+        if request.POST:
+            parsed_data.update(request.POST.dict())
+        return parsed_data
 
-	
+
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
         self.method = request.method
