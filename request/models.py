@@ -83,9 +83,8 @@ class Request(models.Model):
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
-	
-	self.params = json.dumps(request.GET.dict())
-	self.data = self.get_request_data(request)
+        self.params = json.dumps(request.GET.dict())
+        self.data = self.get_request_data(request)
 
         if getattr(request, 'user', False):
             if request.user.is_authenticated():
