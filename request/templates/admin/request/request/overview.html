@@ -1,8 +1,4 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
-{% load request_admin %}
-{% load staticfiles %}
-
+{% extends "admin/base_site.html" %}{% load i18n request_admin staticfiles %}
 {% block extrahead %}
 {{ block.super }}
 <!--[if IE]><script language="javascript" type="text/javascript" src="{% static "request/js/excanvas.min.js" %}"></script><![endif]-->
@@ -14,9 +10,9 @@
 <script type="text/javascript">
 function loadTrafficGraph(days) {
     if (days == undefined) {
-        path = "traffic.json";
+        path = "{% url "admin:request_request_traffic" %}";
     } else {
-        path = "traffic.json?days=" + days;
+        path = "{% url "admin:request_request_traffic" %}?days=" + days;
     }
     
     $.getJSON(path, function(data) {
@@ -32,9 +28,9 @@ $(document).ready(function(){
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="../../../">{% trans "Home" %}</a> &rsaquo;
-        <a href="../../">{% trans "Request" %}</a> &rsaquo;
-        <a href="../">{% trans "Request" %}</a> &rsaquo;
+        <a href="{% url "admin:index" %}">{% trans "Home" %}</a> &rsaquo;
+        <a href="{% url "admin:app_list" "request" %}">{% trans "Request" %}</a> &rsaquo;
+        <a href="{% url "admin:request_request_changelist" %}">{% trans "Requests" %}</a> &rsaquo;
         {% trans "Overview" %}
     </div>
 {% endblock %}

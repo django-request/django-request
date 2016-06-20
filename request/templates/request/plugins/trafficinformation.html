@@ -1,6 +1,5 @@
 {% extends "request/plugins/table.html" %}
 {% load i18n %}
-
 {% block table %}
     <tr>
         <td>&nbsp;</td>
@@ -10,13 +9,12 @@
         <th>{% trans "This year" %}</th>
         <th>{% trans "Alltime" %}</th>
     </tr>
-    
-  {% for key,value in traffic %}
-    <tr>
-        <th>{{ key }}</th>
-          {% for item in value %}
-            <td>{{ item }}</td>
-          {% endfor %}
+    {% for key,value in traffic %}
+        <tr>
+            <th>{{ key }}</th>
+            {% for item in value %}
+                <td>{{ item }}</td>
+            {% endfor %}
         </tr>
-  {% endfor %}
+    {% endfor %}
 {% endblock %}

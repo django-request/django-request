@@ -1,17 +1,14 @@
 {% extends "request/plugins/table.html" %}
-{% load i18n %}
-{% load request_admin %}
-
+{% load i18n request_admin %}
 {% block table %}
     <tr>
         <th>{% trans "Path" %}</th>
         <th>{% trans "Visits" %}</th>
     </tr>
-    
-  {% for path in paths %}
-    <tr>
-        <td><a href="../?path={{ path.path }}" title="{{ path.path }}">{{ path.path|trunc:"60" }}</a></td>
-        <td>{{ path.path__count }}</td>
-    </tr>
-  {% endfor %}
+    {% for path in paths %}
+        <tr>
+            <td><a href="{% url "admin:request_request_changelist" %}?path={{ path.path }}" title="{{ path.path }}">{{ path.path|trunc:"60" }}</a></td>
+            <td>{{ path.path__count }}</td>
+        </tr>
+    {% endfor %}
 {% endblock %}
