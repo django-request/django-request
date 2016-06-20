@@ -60,7 +60,7 @@ class RequestAdmin(admin.ModelAdmin):
 
         return [
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
-            url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
+            url(r'^overview/traffic/$', wrap(self.traffic), name='%s_%s_traffic' % info),
         ] + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):

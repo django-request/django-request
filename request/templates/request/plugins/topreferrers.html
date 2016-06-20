@@ -1,17 +1,14 @@
 {% extends "request/plugins/table.html" %}
-{% load i18n %}
-{% load request_admin %}
-
+{% load i18n request_admin %}
 {% block table %}
     <tr>
         <th>{% trans "Referrer" %}</th>
         <th>{% trans "Visits" %}</th>
     </tr>
-    
-  {% for referer in referrers %}
-    <tr>
-        <td><a href="{{ referer.referer }}" title="{{ referer.referer }}">{{ referer.referer|trunc:"60" }}</a></td>
-        <td>{{ referer.referer__count }}</td>
-    </tr>
-  {% endfor %}
+    {% for referer in referrers %}
+        <tr>
+            <td><a href="{{ referer.referer }}" title="{{ referer.referer }}">{{ referer.referer|trunc:"60" }}</a></td>
+            <td>{{ referer.referer__count }}</td>
+        </tr>
+    {% endfor %}
 {% endblock %}
