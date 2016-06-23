@@ -11,8 +11,8 @@ Via tar.gz / zip archive
 
 You can download the latest version in a archive created directly from the git repository via the following links:
 
-    * tar.gz: http://github.com/kylef/django-request/tarball/master
-    * zip: http://github.com/kylef/django-request/zipball/master
+    * tar.gz: https://github.com/django-request/django-request/tarball/master
+    * zip: https://github.com/django-request/django-request/zipball/master
 
 Once you have downloaded and extracted django-request, you can use the following command to install.
 
@@ -29,7 +29,7 @@ You can use the following command to clone the git repository:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/kylef/django-request.git
+    $ git clone git://github.com/django-request/django-request.git
     $ ln -s django-request/request <PYTHONPATH>
 
 .. note:

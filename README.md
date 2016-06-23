@@ -1,7 +1,7 @@
 django-request
 ==============
 
-[![Build Status](http://img.shields.io/travis/kylef/django-request/master.svg?style=flat)](https://travis-ci.org/kylef/django-request)
+[![Build Status](http://img.shields.io/travis/django-request/django-request/master.svg?style=flat)](https://travis-ci.org/django-request/django-request)
 
 django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
 
