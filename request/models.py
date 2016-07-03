@@ -60,13 +60,16 @@ class Request(models.Model):
 
     def get_request_data(self, request):
         parsed_data = {}
-        if request.body:
-            try: 
-                parsed_data.update(json.loads(request.body))
-            except Exception:
-                parsed_data.update(eval(request.body))
         if request.POST:
             parsed_data.update(request.POST.dict())
+        if request.body:
+            try:
+                parsed_data.update(json.loads(request.body))
+            except Exception:
+                try:
+                    parsed_data.update(eval(request.body))
+                except Exception:
+                    pass
         return parsed_data
 
 
