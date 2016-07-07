@@ -1,10 +1,27 @@
 language: python
-python:
-- "2.7"
-- "3.4"
+env:
+  - TOXENV=py27-django14-test
+  - TOXENV=py27-django15-test
+  - TOXENV=py27-django16-test
+  - TOXENV=py27-django17-test
+  - TOXENV=py27-django18-test
+  - TOXENV=py27-django19-test
+  - TOXENV=py27-django110-test
+  - TOXENV=py34-django14-test
+  - TOXENV=py34-django15-test
+  - TOXENV=py34-django16-test
+  - TOXENV=py34-django17-test
+  - TOXENV=py34-django18-test
+  - TOXENV=py34-django19-test
+  - TOXENV=py34-django110-test
+  - TOXENV=py27-isort
+  - TOXENV=py34-isort
+matrix:
+  allow_failures:
+    - env: TOXENV=py27-django110-test
+    - env: TOXENV=py34-django110-test
 install:
-- pip install .
-- pip install isort
+  - pip install tox>=2.1
 script:
-- isort --recursive --check-only --diff --line-width 119 tests request/management request/templatetags request/*.py
-- python runtests.py
+  - tox
+sudo: false
