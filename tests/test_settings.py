@@ -1,4 +1,3 @@
-SECRET_KEY = '&qaeg(m5s0rpdj-wx@hrc3vpu)v@@n$if67ba-4e9&kk+j$$c+'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

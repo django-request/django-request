@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils.timezone import now
 from request import settings
 from request.managers import QUERYSET_PROXY_METHODS, RequestQuerySet
 from request.models import Request
 
-User = get_user_model()
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    # to keep backward (Django <= 1.4) compatibility
+    from django.contrib.auth.models import User
 
 
 class RequestManagerTest(TestCase):
