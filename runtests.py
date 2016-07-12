@@ -12,6 +12,8 @@ if __name__ == "__main__":
     if hasattr(django, "setup"):
         django.setup()
 
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
     try:
         from django.test.runner import DiscoverRunner as TestRunner
     except ImportError:
