@@ -5,3 +5,5 @@ docs/_build/
 build/
 dist/
 *.sw[pon]
+.coverage
+.tox

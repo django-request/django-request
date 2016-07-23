@@ -51,7 +51,7 @@ class Command(BaseCommand):
         count = qs.count()
 
         if count == 0:
-            self.stdout.write('There are no requests to delete.')
+            print('There are no requests to delete.')
             return
 
         if options.get('interactive'):
@@ -69,4 +69,4 @@ Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration, count))
         if confirm == 'yes':
             qs.delete()
         else:
-            self.stdout.write('Purge cancelled')
+            print('Purge cancelled')

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 import mock
-from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 from request.middleware import RequestMiddleware
 from request.models import Request
 
-User = get_user_model()
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    # to keep backward (Django <= 1.4) compatibility
+    from django.contrib.auth.models import User
 
 
 class RequestMiddlewareTest(TestCase):
