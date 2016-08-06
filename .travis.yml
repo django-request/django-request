@@ -15,10 +15,6 @@ env:
   - TOXENV=py34-django110-test
   - TOXENV=py27-isort
   - TOXENV=py34-isort
-matrix:
-  allow_failures:
-    - env: TOXENV=py27-django110-test
-    - env: TOXENV=py34-django110-test
 install:
   - pip install tox>=2.1
 script:
