@@ -23,9 +23,10 @@ setup(
         'templates/admin/request/request/*.html',
         'templates/request/plugins/*.html',
         'static/request/js/*.js',
+        'locale/*/LC_MESSAGES/*.*',
     ]},
     install_requires=[
-        'django',
+        'django >= 1.4',
         'python-dateutil',
     ],
     license=request.__licence__,
