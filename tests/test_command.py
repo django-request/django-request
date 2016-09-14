@@ -4,6 +4,7 @@ from datetime import timedelta
 import mock
 from django.core.management.base import CommandError
 from django.test import TestCase
+from django.utils.six import StringIO
 from django.utils.timezone import now
 from request.management.commands.purgerequests import Command as PurgeRequest
 from request.management.commands.purgerequests import DURATION_OPTIONS
@@ -38,8 +39,11 @@ class PurgeRequestsTest(TestCase):
             PurgeRequest().handle(amount=1, duration='foo')
         self.assertEqual(2, Request.objects.count())
 
-    def test_no_request_to_delete(self, *mock):
-        PurgeRequest().handle(amount=1, duration='days')
+    @mock.patch('sys.stdout', new_callable=StringIO)
+    def test_no_request_to_delete(self, mock_stdout):
+        Request.objects.all().delete()
+        PurgeRequest().handle(amount=1, duration='day', interactive=False)
+        self.assertIn('There are no requests to delete.', mock_stdout.getvalue())
 
     @mock.patch('request.management.commands.purgerequests.input',
                 return_value='no')
