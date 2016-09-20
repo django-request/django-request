@@ -1,5 +1,5 @@
 {% extends "request/plugins/table.html" %}
-{% load i18n request_admin %}
+{% load i18n %}
 {% block table %}
     <tr>
         <th>{% trans "Path" %}</th>
@@ -9,7 +9,7 @@
     </tr>
     {% for request in requests %}
         <tr>
-            <td><a href="{% url "admin:request_request_changelist" %}?path={{ request.path }}" title="{{ request.path }}">{{ request.path|trunc:"35" }}</a></td>
+            <td><a href="{% url "admin:request_request_changelist" %}?path={{ request.path }}" title="{{ request.path }}">{{ request.path|truncatechars:35 }}</a></td>
             <td>{% firstof request.get_user request.ip %}</td>
             <td>{{ request.get_response_display }}</td>
             <td><a href="{% url "admin:request_request_change" request.id %}">
