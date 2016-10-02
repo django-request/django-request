@@ -94,7 +94,7 @@ class RequestQuerySet(models.query.QuerySet):
 
     def this_week(self):
         today = datetime.date.today()
-        return self.week(str(today.year), str(today.isocalendar()[1]))
+        return self.week(str(today.year), today.strftime('%U'))
 
     def unique_visits(self):
         from request import settings
