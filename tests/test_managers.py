@@ -185,6 +185,11 @@ class RequestQuerySetTest(TestCase):
         qs = Request.objects.all().this_week()
         self.assertEqual(1, qs.count())
 
+    def test_sunday_in_this_week_today(self):
+        self.request.time -= timedelta(days=self.request.time.weekday())
+        qs = Request.objects.all().this_week()
+        self.assertEqual(1, qs.count())
+
     def test_this_week(self):
         # setUp
         request = Request.objects.create(ip='1.2.3.4')
