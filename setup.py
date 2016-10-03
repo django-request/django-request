@@ -17,7 +17,13 @@ setup(
     author_email='kyle@fuller.li',
     url=request.__URL__,
     download_url='https://github.com/django-request/django-request/archive/%s.zip' % request.__version__,
-    packages=['request', 'request.migrations', 'request.templatetags', 'request.management', 'request.management.commands'],
+    packages=[
+        'request',
+        'request.migrations',
+        'request.templatetags',
+        'request.management',
+        'request.management.commands',
+    ],
     package_data={'request': [
         'templates/admin/request/*.html',
         'templates/admin/request/request/*.html',

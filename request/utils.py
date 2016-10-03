@@ -73,11 +73,19 @@ browsers = patterns(
     ('Unknown', {}),
     # Browsers
     (r'AOL (?P<version>[\d+\.\d+]+)', 'AOL'),
-    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<msie_version>[-.\w]+);( ?)( ?)America Online Browser (?P<version>[-.\w]+);', 'AOL'),
+    (
+        r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<msie_version>[-.\w]+); ' +
+        r'( ?)( ?)America Online Browser (?P<version>[-.\w]+);',
+        'AOL',
+    ),
     (r'Camino/(?P<version>[-.\w]+)', 'Camino'),
     (r'Chrome/(?P<version>[-.\w]+)', 'Google Chrome'),
     (r'Firefox(/(?P<version>[-.\w]+)?)', 'Firefox'),
-    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<version>[-.\w]+);( ?)( ?)(Win|Mac)', 'Internet Explorer'),
+    (
+        r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<version>[-.\w]+); ' +
+        r'( ?)( ?)(Win|Mac)',
+        'Internet Explorer',
+    ),
     (r'Konqueror/(?P<version>[-.\w]+)', 'Konqueror'),
     (r'Opera( |/)(?P<version>[-.\w]+)', 'Opera'),
     (r'OmniWeb(/(?P<version>[-.\w]+)?)', 'OmniWeb'),
@@ -110,7 +118,11 @@ browsers = patterns(
     (r'Purebot(/(?P<version>[-.\w]+)?);', 'Purity search'),
     (r'Yandex(/(?P<version>[-.\w]+)?)', 'Yandex'),
     (r'PostRank(/(?P<version>[-.\w]+)?)', 'PostRank'),
-    (r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; DotBot/(?P<version>[-.\w]+); http://www.dotnetdotcom.org/, crawler@dotnetdotcom.org\)', 'Dotbot'),
+    (
+        r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; DotBot/(?P<version>[-.\w]+); ' +
+        r'http://www.dotnetdotcom.org/, crawler@dotnetdotcom.org\)',
+        'Dotbot',
+    ),
     (r'IrssiUrlLog(/(?P<version>[-.\w]+)?)', 'irssi'),
     (r'Linguee Bot \(http://www.linguee.com/bot; bot@linguee.com\)', 'Linguee'),
     (r'Sphider', 'Sphider'),
