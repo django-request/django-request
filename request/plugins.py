@@ -8,8 +8,12 @@ from request import settings
 from request.models import Request
 from request.traffic import modules
 
-# Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
-get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).strip()
+
+def get_verbose_name(class_name):
+    '''
+    Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
+    '''
+    return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).strip()
 
 
 def set_count(items):
@@ -58,7 +62,10 @@ class Plugins(object):
             try:
                 plugin_class = getattr(mod, plugin_classname)
             except AttributeError:
-                raise exceptions.ImproperlyConfigured('Plugin "%s" does not define a "%s" class' % (plugin, plugin_classname))
+                raise exceptions.ImproperlyConfigured('Plugin "{0}" does not define a "{1}" class'.format(
+                    plugin,
+                    plugin_classname,
+                ))
 
             self._plugins.append(plugin_class())
 

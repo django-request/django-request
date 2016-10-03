@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from request.models import Request
-from request.plugins import *
+from request.plugins import plugins
 from request.traffic import modules
 
 
@@ -34,7 +34,11 @@ class RequestAdmin(admin.ModelAdmin):
     def request_from(self, obj):
         if obj.user_id:
             user = obj.get_user()
-            return '<a href="?user__username=%s" title="%s">%s</a>' % (user.username, _('Show only requests from this user.'), user)
+            return '<a href="?user__username={0}" title="{1}">{2}</a>'.format(
+                user.username,
+                _('Show only requests from this user.'),
+                user,
+            )
         return '<a href="?ip=%s" title="%s">%s</a>' % (obj.ip, _('Show only requests from this IP address.'), obj.ip)
     request_from.short_description = 'From'
     request_from.allow_tags = True

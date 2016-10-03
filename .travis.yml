@@ -15,8 +15,16 @@ env:
   - TOXENV=py34-django110-test
   - TOXENV=py27-isort
   - TOXENV=py34-isort
+  - TOXENV=py27-flake
+  - TOXENV=py34-flake
+matrix:
+  allow_failures:
+    - env: TOXENV=py27-flake
+    - env: TOXENV=py34-flake
 install:
-  - pip install tox>=2.1
+  - pip install coveralls tox>=2.1
 script:
   - tox
+after_script:
+  - coveralls
 sudo: false

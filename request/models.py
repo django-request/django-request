@@ -15,6 +15,7 @@ try:
 except ImportError:
     # to keep backward (Django <= 1.4) compatibility
     from django.contrib.auth.models import User
+
     def get_user_model():
         return User
 

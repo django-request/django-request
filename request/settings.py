@@ -1,6 +1,10 @@
 from django.conf import settings
 
-VALID_METHOD_NAMES = getattr(settings, 'REQUEST_VALID_METHOD_NAMES', ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'))
+VALID_METHOD_NAMES = getattr(
+    settings,
+    'REQUEST_VALID_METHOD_NAMES',
+    ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'),
+)
 
 ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)

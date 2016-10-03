@@ -3,6 +3,7 @@ import datetime
 import time
 
 from django.db import models
+from django.db.models import Q
 
 try:  # For python <= 2.3
     set()
@@ -104,7 +105,7 @@ class RequestQuerySet(models.query.QuerySet):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
 
     def search(self):
-        return self.filter(referer__contains='google') | self.filter(referer__contains='yahoo') | self.filter(referer__contains='bing')
+        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing'))
 
 
 class RequestManager(models.Manager):

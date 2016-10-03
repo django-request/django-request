@@ -5,5 +5,6 @@ __author__ = [
     'Kyle Fuller <kyle@fuller.li>',
     'Jannis Leidel (jezdez)',
     'krisje8 <krisje8@gmail.com>',
+    'Mariusz Felisiak <felisiak.mariusz@gmail.com>',
 ]
 __URL__ = 'http://django-request.readthedocs.org/en/latest/'
