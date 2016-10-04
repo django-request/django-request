@@ -7,7 +7,7 @@ DATABASES = {
     }
 }
 
-SECRET_KEY = "django_requests_tests_secret_key"
+SECRET_KEY = 'django_requests_tests_secret_key'
 
 # Use a fast hasher to speed up tests.
 PASSWORD_HASHERS = [

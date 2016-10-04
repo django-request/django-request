@@ -120,7 +120,7 @@ class RequestManager(models.Manager):
     get_query_set = get_queryset  # Django 1.5 compat
 
     def active_users(self, **options):
-        """
+        '''
         Returns a list of active users.
 
         Any arguments passed to this method will be
@@ -129,7 +129,7 @@ class RequestManager(models.Manager):
         Example:
         >>> Request.object.active_users(minutes=15)
         [<User: kylef>, <User: krisje8>]
-        """
+        '''
 
         qs = self.filter(user__isnull=False)
 

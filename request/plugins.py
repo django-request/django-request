@@ -17,7 +17,7 @@ def get_verbose_name(class_name):
 
 
 def set_count(items):
-    """
+    '''
     This is similar to "set", but this just creates a list with values.
     The list will be ordered from most frequent down.
 
@@ -25,7 +25,7 @@ def set_count(items):
         >>> inventory = ['apple', 'lemon', 'apple', 'orange', 'lemon', 'lemon']
         >>> set_count(inventory)
         [('lemon', 3), ('apple', 2), ('orange', 1)]
-    """
+    '''
     item_count = {}
     for item in items:
         if not item:
@@ -51,13 +51,13 @@ class Plugins(object):
             try:
                 dot = module_path.rindex('.')
             except ValueError:
-                raise exceptions.ImproperlyConfigured('%s isn\'t a plugin' % module_path)
+                raise exceptions.ImproperlyConfigured('{0} isn\'t a plugin'.format(module_path))
             plugin, plugin_classname = module_path[:dot], module_path[dot + 1:]
 
             try:
                 mod = import_module(plugin)
             except ImportError as e:
-                raise exceptions.ImproperlyConfigured('Error importing plugin %s: "%s"' % (plugin, e))
+                raise exceptions.ImproperlyConfigured('Error importing plugin {0}: "{1}"'.format(plugin, e))
 
             try:
                 plugin_class = getattr(mod, plugin_classname)
@@ -90,8 +90,8 @@ class Plugin(object):
 
     def render(self):
         templates = [
-            "request/plugins/%s.html" % (self.__class__.__name__.lower()),
-            "request/plugins/base.html",
+            'request/plugins/{0}.html'.format(self.__class__.__name__.lower()),
+            'request/plugins/base.html',
         ]
 
         if hasattr(self, 'template'):
