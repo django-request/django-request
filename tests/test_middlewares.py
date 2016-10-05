@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from unittest import skipIf
+
+import django
 import mock
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
@@ -23,6 +26,20 @@ class RequestMiddlewareTest(TestCase):
         response = HttpResponse()
         self.middleware.process_response(request, response)
         self.assertEqual(1, Request.objects.count())
+
+    @mock.patch('django.conf.settings.MIDDLEWARE', [
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'request.middleware.RequestMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+    ])
+    @mock.patch('django.conf.settings.MIDDLEWARE_CLASSES', None)
+    @skipIf(django.VERSION < (1, 10), 'Django >= 1.10 specific test')
+    def test_middleware_functions_supported(self):
+        '''
+        Test support of a middleware factory that was introduced in Django == 1.10
+        '''
+        request = self.factory.get('/foo')
+        RequestMiddleware(request)
 
     @mock.patch('request.settings.VALID_METHOD_NAMES',
                 ('get',))

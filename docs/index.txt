@@ -16,15 +16,15 @@ Quick start guide
 
 .. note::
 
-    To find the request overview page, please click on Requests inside the admin, then "Overview" on the top right, next to "add".
+    To find the request overview page, please click on Requests inside the admin, then "Overview" on the top right, next to "add request".
 
 Once you have installed ``django-request`` you can add it to a django project by following these steps;
     
 	#. Install the blog app by adding ``'request'`` to ``INSTALLED_APPS``.
 	
-	#. Run ``manage.py syncdb`` so that Django will create the database tables.
+	#. Run ``manage.py migrate`` so that Django will create the database tables.
 	
-	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE_CLASSES``. If you use django.contrib.auth, place RequestMiddleware after it. If you use django.contrib.flatpages place ``request.middleware.RequestMiddleware`` before it else flatpages will be marked as error pages in the admin panel.
+	#. Add ``request.middleware.RequestMiddleware`` to ``MIDDLEWARE``. If you use ``django.contrib.auth.middleware.AuthenticationMiddleware``, place ``RequestMiddleware`` after it. If you use ``django.contrib.flatpages.middleware.FlatpageFallbackMiddleware`` place ``request.middleware.RequestMiddleware`` before it else flatpages will be marked as error pages in the admin panel.
 	
 	#. Make sure that the domain name in django.contrib.sites admin is correct. This is used to calculate unique visitors and top referrers.
 
