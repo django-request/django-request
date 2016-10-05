@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand, CommandError
-from django.utils import six, timezone
+from django.utils import timezone
 from request.models import Request
 
 DURATION_OPTIONS = {
@@ -14,11 +14,15 @@ DURATION_OPTIONS = {
     'years': lambda amount: timezone.now() + relativedelta(years=-amount),
 }
 
-input = raw_input if six.PY2 else input  # @ReservedAssignment
+try:
+    # to keep backward Python 2 compatibility
+    input = raw_input
+except NameError:
+    pass
 
 
 class Command(BaseCommand):
-    help = "Purge old requests."
+    help = 'Purge old requests.'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -55,14 +59,14 @@ class Command(BaseCommand):
             return
 
         if options.get('interactive'):
-            confirm = input("""
+            confirm = input('''
 You have requested a database reset.
 This will IRREVERSIBLY DESTROY any
-requests created before %d %s ago.
-That is a total of %d requests.
+requests created before {0} {1} ago.
+That is a total of {2} requests.
 Are you sure you want to do this?
 
-Type 'yes' to continue, or 'no' to cancel: """ % (amount, duration, count))
+Type 'yes' to continue, or 'no' to cancel:'''.format(amount, duration, count))
         else:
             confirm = 'yes'
 

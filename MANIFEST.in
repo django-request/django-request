@@ -1,3 +1,5 @@
 include README.md
+include docs/description.txt
+include docs/long_description.txt
 recursive-include request/media *
 recursive-include request/templates *

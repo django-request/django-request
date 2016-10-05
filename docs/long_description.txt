@@ -1,0 +1,5 @@
+.. include:: description.txt
+
+.. image:: https://github.com/django-request/django-request/raw/master/docs/graph.png
+
+As well as a site statistics module, with the active_users template tag and manager method you can also use django-request to show who is online in a certain time.

@@ -76,6 +76,8 @@ class RequestTests(TestCase):
     def test_browser_detection_with_no_path(self):
         request = Request(user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0')
         self.assertEqual(request.browser, 'Firefox')
+        request = Request(user_agent='Mozilla/5.0 (compatible; MSIE 9.0; America Online Browser 1.1; Windows NT 5.0)')
+        self.assertEqual(request.browser, 'AOL')
 
     def test_determining_search_keywords_with_no_referer(self):
         request = Request()

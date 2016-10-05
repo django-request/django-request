@@ -1,6 +1,3 @@
-import os
-import sys
-
 import request
 
 source_suffix = '.txt'

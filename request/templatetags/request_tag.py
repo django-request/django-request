@@ -12,14 +12,14 @@ class ActiveUserNode(template.Node):
         self.kwargs = {}
 
         if not ((len(tokens) == 5) or (len(tokens) == 2) or (len(tokens) == 0)):
-            raise template.TemplateSyntaxError("Incorrect amount of arguments in the tag %r" % tag_name)
+            raise template.TemplateSyntaxError('Incorrect amount of arguments in the tag {0!r}'.format(tag_name))
 
         if (len(tokens) == 5) and (tokens[0] == 'in'):
             tokens.pop(0)  # pop 'in' of tokens
             try:
                 self.kwargs[str(tokens.pop(0))] = int(tokens.pop(0))
             except ValueError:
-                raise template.TemplateSyntaxError('Invalid arguments for %r template tag.' % tag_name)
+                raise template.TemplateSyntaxError('Invalid arguments for {0!r} template tag.'.format(tag_name))
         else:
             self.kwargs['minutes'] = 15
 
@@ -35,7 +35,7 @@ class ActiveUserNode(template.Node):
 
 @register.tag
 def active_users(parser, token):
-    """
+    '''
     This template tag will get a list of active users based on time,
     if you do not supply a time to the tag, the default of 15 minutes
     will be used. With the 'as' clause you can supply what context
@@ -54,5 +54,5 @@ def active_users(parser, token):
         {% for user in user_list %}
             {{ user.username }}
         {% endfor %}
-    """
+    '''
     return ActiveUserNode(parser, token)

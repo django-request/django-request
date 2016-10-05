@@ -15,6 +15,7 @@ try:
 except ImportError:
     # to keep backward (Django <= 1.4) compatibility
     from django.contrib.auth.models import User
+
     def get_user_model():
         return User
 
@@ -54,7 +55,7 @@ class Request(models.Model):
         ordering = ('-time',)
 
     def __str__(self):
-        return '[%s] %s %s %s' % (self.time, self.method, self.path, self.response)
+        return '[{0}] {1} {2} {3}'.format(self.time, self.method, self.path, self.response)
 
     def get_user(self):
         return get_user_model().objects.get(pk=self.user_id)

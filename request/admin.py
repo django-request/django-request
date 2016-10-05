@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from request.models import Request
-from request.plugins import *
+from request.plugins import plugins
 from request.traffic import modules
 
 
@@ -34,8 +34,15 @@ class RequestAdmin(admin.ModelAdmin):
     def request_from(self, obj):
         if obj.user_id:
             user = obj.get_user()
-            return '<a href="?user__username=%s" title="%s">%s</a>' % (user.username, _('Show only requests from this user.'), user)
-        return '<a href="?ip=%s" title="%s">%s</a>' % (obj.ip, _('Show only requests from this IP address.'), obj.ip)
+            return '<a href="?user__username={0}" title="{1}">{2}</a>'.format(
+                user.username,
+                _('Show only requests from this user.'),
+                user,
+            )
+        return '<a href="?ip={0}" title="{1}">{0}</a>'.format(
+            obj.ip,
+            _('Show only requests from this IP address.'),
+        )
     request_from.short_description = 'From'
     request_from.allow_tags = True
 
@@ -57,10 +64,9 @@ class RequestAdmin(admin.ModelAdmin):
             info += (self.model._meta.model_name,)
         except AttributeError:
             info += (self.model._meta.module_name,)
-
         return [
-            url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
-            url(r'^overview/traffic/$', wrap(self.traffic), name='%s_%s_traffic' % info),
+            url(r'^overview/$', wrap(self.overview), name='{0}_{1}_overview'.format(*info)),
+            url(r'^overview/traffic/$', wrap(self.traffic), name='{0}_{1}_traffic'.format(*info)),
         ] + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):

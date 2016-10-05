@@ -63,7 +63,9 @@ class PluginsPluginsTest(TestCase):
 class PluginBaseTest(TestCase):
     def setUp(self):
         class TestPlugin(plugins.Plugin):
-            """Created for don't modify original class"""
+            '''
+            Created for don't modify original class
+            '''
         self.TestPlugin = TestPlugin
 
     def test_init(self):

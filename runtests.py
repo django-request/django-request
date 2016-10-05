@@ -5,7 +5,6 @@ import warnings
 
 import django
 
-
 if __name__ == '__main__':
     tests = sys.argv[1:] or ['tests']
     warnings.simplefilter('always', DeprecationWarning)
