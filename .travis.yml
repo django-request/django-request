@@ -17,10 +17,6 @@ env:
   - TOXENV=py34-isort
   - TOXENV=py27-flake
   - TOXENV=py34-flake
-matrix:
-  allow_failures:
-    - env: TOXENV=py27-flake
-    - env: TOXENV=py34-flake
 install:
   - pip install coveralls tox>=2.1
 script:

@@ -5,18 +5,12 @@ from setuptools import setup
 setup(
     name='django-request',
     version=request.__version__,
-    description='django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.',
-    long_description="""
-    django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
-
-    .. image:: https://github.com/django-request/django-request/raw/master/docs/graph.png
-
-    As well as a site statistics module, with the active_users template tag and manager method you can also use django-request to show who is online in a certain time.
-    """,
+    description=open('docs/description.txt').read(),
+    long_description=open('docs/long_description.txt').read(),
     author='Kyle Fuller',
     author_email='kyle@fuller.li',
     url=request.__URL__,
-    download_url='https://github.com/django-request/django-request/archive/%s.zip' % request.__version__,
+    download_url='https://github.com/django-request/django-request/archive/{0}.zip'.format(request.__version__),
     packages=[
         'request',
         'request.migrations',

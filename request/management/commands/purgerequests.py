@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand, CommandError
-from django.utils import six, timezone
+from django.utils import timezone
 from request.models import Request
 
 DURATION_OPTIONS = {
@@ -14,7 +14,11 @@ DURATION_OPTIONS = {
     'years': lambda amount: timezone.now() + relativedelta(years=-amount),
 }
 
-input = raw_input if six.PY2 else input  # @ReservedAssignment
+try:
+    # to keep backward Python 2 compatibility
+    input = raw_input
+except NameError:
+    pass
 
 
 class Command(BaseCommand):

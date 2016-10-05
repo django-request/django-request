@@ -2,11 +2,7 @@
 django-request
 ==============
 
-django-request is a statistics module for django. It stores requests in a database for admins to see, it can also be used to get statistics on who is online etc.
-
-.. image:: https://raw.githubusercontent.com/django-request/django-request/master/docs/graph.png
-    :height: 272 px
-    :width: 480 px
+.. include:: long_description.txt
 
 First steps
 -----------
