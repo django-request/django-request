@@ -3,7 +3,6 @@ import re
 
 from django.db.models import Count
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
 from request import settings
 from request.models import Request
 from request.traffic import modules
@@ -83,7 +82,7 @@ class Plugin(object):
         self.module_name = self.__class__.__name__
 
         if not hasattr(self, 'verbose_name'):
-            self.verbose_name = _(get_verbose_name(self.module_name))
+            self.verbose_name = get_verbose_name(self.module_name)
 
     def template_context(self):
         return {}
