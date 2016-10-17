@@ -31,7 +31,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
-if django.VERSION >= (1, 6):
+if django.VERSION >= (1, 7):
     MIDDLEWARE_CLASSES += [
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     ]
