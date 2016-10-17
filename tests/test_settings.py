@@ -1,3 +1,5 @@
+import django
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -24,10 +26,15 @@ INSTALLED_APPS = [
     'request',
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-)
+]
+
+if django.VERSION >= (1, 6):
+    MIDDLEWARE_CLASSES += [
+        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    ]
 
 STATIC_URL = '/static/'
 
