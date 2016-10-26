@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('referer', models.URLField(max_length=255, null=True, verbose_name='referer', blank=True)),
                 ('user_agent', models.CharField(max_length=255, null=True, verbose_name='user agent', blank=True)),
                 ('language', models.CharField(max_length=255, null=True, verbose_name='language', blank=True)),
-                ('user', models.ForeignKey(verbose_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(verbose_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-time',),

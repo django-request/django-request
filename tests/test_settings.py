@@ -36,6 +36,11 @@ if django.VERSION >= (1, 7):
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     ]
 
+# Old-style middleware using settings.MIDDLEWARE_CLASSES is deprecated since django 1.10
+if django.VERSION >= (1, 10):
+    MIDDLEWARE = MIDDLEWARE_CLASSES
+    del MIDDLEWARE_CLASSES
+
 STATIC_URL = '/static/'
 
 ROOT_URLCONF = 'tests.test_urls'
