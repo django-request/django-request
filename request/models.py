@@ -9,7 +9,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from request import settings as request_settings
 from request.managers import RequestManager
-from request.utils import HTTP_STATUS_CODES, browsers, engines
+from request.utils import HTTP_STATUS_CODES, browsers, engines, transform_http_headers
 
 try:
     from django.contrib.auth import get_user_model
@@ -63,6 +63,9 @@ class Request(models.Model):
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
+        
+        transform_http_headers(request)
+
         self.method = request.method
         self.path = request.path[:255]
 
@@ -70,7 +73,10 @@ class Request(models.Model):
         self.is_ajax = request.is_ajax()
 
         # User infomation
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        # record real ip from header if was set
+        self.ip = request.META.get('HTTP_X_REAL_IP', '')
+        if not self.ip:
+            self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
