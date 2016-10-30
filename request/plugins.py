@@ -3,9 +3,10 @@ import re
 
 from django.db.models import Count
 from django.template.loader import render_to_string
-from request import settings
-from request.models import Request
-from request.traffic import modules
+
+from . import settings
+from .models import Request
+from .traffic import modules
 
 
 def get_verbose_name(class_name):

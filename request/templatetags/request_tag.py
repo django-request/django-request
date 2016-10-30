@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
-from request.models import Request
+
+from ..models import Request
 
 register = template.Library()
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from request.router import patterns
+
+from .router import patterns
 
 HTTP_STATUS_CODES = (
     # Infomational

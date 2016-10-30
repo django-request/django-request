@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from request import settings
-from request.models import Request
-from request.router import patterns
-
+from . import settings
+from .models import Request
+from .router import patterns
 
 try:
     # needed to support Django >= 1.10 MIDDLEWARE

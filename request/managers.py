@@ -5,6 +5,8 @@ import time
 from django.db import models
 from django.db.models import Q
 
+from . import settings
+
 try:  # For python <= 2.3
     set()
 except NameError:
@@ -98,7 +100,6 @@ class RequestQuerySet(models.query.QuerySet):
         return self.week(str(today.year), today.strftime('%U'))
 
     def unique_visits(self):
-        from request import settings
         return self.exclude(referer__startswith=settings.BASE_URL)
 
     def attr_list(self, name):
