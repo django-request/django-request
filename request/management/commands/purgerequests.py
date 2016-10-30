@@ -4,7 +4,8 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
-from request.models import Request
+
+from ...models import Request
 
 DURATION_OPTIONS = {
     'hours': lambda amount: timezone.now() - timedelta(hours=amount),

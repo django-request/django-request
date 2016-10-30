@@ -5,7 +5,8 @@ from time import mktime
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat, ugettext
-from request import settings
+
+from . import settings
 
 
 def get_verbose_name(class_name):

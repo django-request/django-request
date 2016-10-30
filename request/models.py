@@ -7,9 +7,10 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from request import settings as request_settings
-from request.managers import RequestManager
-from request.utils import HTTP_STATUS_CODES, browsers, engines
+
+from . import settings as request_settings
+from .managers import RequestManager
+from .utils import HTTP_STATUS_CODES, browsers, engines
 
 try:
     from django.contrib.auth import get_user_model
