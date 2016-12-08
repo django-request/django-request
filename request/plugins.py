@@ -75,6 +75,7 @@ class Plugins(object):
         return self._plugins
     plugins = property(plugins)
 
+
 plugins = Plugins()
 
 
