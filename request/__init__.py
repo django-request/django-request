@@ -1,5 +1,5 @@
 __version__ = '1.5.1'
-__copyright__ = 'Copyright (c) 2009-2016, Kyle Fuller, Mariusz Felisiak'
+__copyright__ = 'Copyright (c) 2009-2017, Kyle Fuller, Mariusz Felisiak'
 __licence__ = 'BSD'
 __author__ = [
     'Kyle Fuller <kyle@fuller.li>',

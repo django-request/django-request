@@ -10,7 +10,7 @@ setup(
     author='Kyle Fuller',
     author_email='kyle@fuller.li',
     url=request.__URL__,
-    download_url='https://github.com/django-request/django-request/archive/{0}.zip'.format(request.__version__),
+    download_url='https://pypi.python.org/pypi/django-request',
     packages=[
         'request',
         'request.migrations',
@@ -26,7 +26,7 @@ setup(
         'locale/*/LC_MESSAGES/*.*',
     ]},
     install_requires=[
-        'django >= 1.4',
+        'Django>=1.4',
         'python-dateutil',
     ],
     license=request.__licence__,
