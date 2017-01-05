@@ -7,11 +7,6 @@ from django.db.models import Q
 
 from . import settings
 
-try:  # For python <= 2.3
-    set()
-except NameError:
-    from sets import Set as set
-
 QUERYSET_PROXY_METHODS = (
     'year',
     'month',
