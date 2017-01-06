@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
 from time import mktime
 
 from django.core.exceptions import ImproperlyConfigured
@@ -8,18 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat, ugettext
 
 from . import settings
-
-
-def get_verbose_name(class_name):
-    '''
-    Calculate the verbose_name by converting from InitialCaps to
-    "lowercase with spaces".
-    '''
-    return re.sub(
-        '(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))',
-        ' \\1',
-        class_name,
-    ).strip()
+from .utils import get_verbose_name
 
 
 class Modules(object):

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import re
+
 from django.utils.translation import ugettext_lazy as _
 
 from .router import Patterns
@@ -140,3 +142,15 @@ engines = Patterns(
     (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
     (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
 )
+
+
+def get_verbose_name(class_name):
+    '''
+    Calculate the verbose_name by converting from InitialCaps to
+    "lowercase with spaces".
+    '''
+    return re.sub(
+        '(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))',
+        ' \\1',
+        class_name,
+    ).strip()
