@@ -107,13 +107,11 @@ class RequestQuerySet(models.query.QuerySet):
 class RequestManager(models.Manager):
     def __getattr__(self, attr, *args, **kwargs):
         if attr in QUERYSET_PROXY_METHODS:
-            return getattr(self.get_query_set(), attr, None)
+            return getattr(self.get_queryset(), attr, None)
         super(RequestManager, self).__getattr__(*args, **kwargs)
 
     def get_queryset(self):
         return RequestQuerySet(self.model)
-
-    get_query_set = get_queryset  # Django 1.5 compat
 
     def active_users(self, **options):
         '''

@@ -16,6 +16,15 @@ As well as a site statistics module, with the `active_users` template tag and ma
 
 To find the request overview page, please click on Requests inside the admin, then “Overview” on the top right, next to “add request”.
 
+Requirements
+------------
+
+* **Python**: 2.7, 3.4
+* **Django**: 1.7, 1.8, 1.9, 1.10
+* **python-dateutil**
+
+django-request [1.5.1](https://pypi.python.org/pypi/django-request/1.5.1) is the last version that supports Django 1.4, 1.5, 1.6.
+
 Installation
 ------------
 

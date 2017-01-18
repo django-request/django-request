@@ -26,7 +26,7 @@ setup(
         'locale/*/LC_MESSAGES/*.*',
     ]},
     install_requires=[
-        'Django>=1.4',
+        'Django>=1.7',
         'python-dateutil',
     ],
     license=request.__licence__,
