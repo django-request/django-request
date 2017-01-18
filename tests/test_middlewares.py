@@ -32,7 +32,6 @@ class RequestMiddlewareTest(TestCase):
         'request.middleware.RequestMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
     ])
-    @mock.patch('django.conf.settings.MIDDLEWARE_CLASSES', None)
     @skipIf(django.VERSION < (1, 10), 'Django >= 1.10 specific test')
     def test_middleware_functions_supported(self):
         '''

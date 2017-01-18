@@ -3,6 +3,7 @@ from socket import gethostbyaddr
 
 import django
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
@@ -12,14 +13,6 @@ from . import settings as request_settings
 from .managers import RequestManager
 from .utils import HTTP_STATUS_CODES, browsers, engines
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    # to keep backward (Django <= 1.4) compatibility
-    from django.contrib.auth.models import User
-
-    def get_user_model():
-        return User
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
