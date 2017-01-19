@@ -6,7 +6,6 @@ env:
   - TOXENV=py27-django19-test
   - TOXENV=py27-django110-test
   - TOXENV=py27-django111-test
-  - TOXENV=py27-djangomaster-test
   - TOXENV=py34-django17-test
   - TOXENV=py34-django18-test
   - TOXENV=py34-django19-test
@@ -21,7 +20,6 @@ matrix:
   allow_failures:
     - env: TOXENV=py27-django111-test
     - env: TOXENV=py34-django111-test
-    - env: TOXENV=py27-djangomaster-test
     - env: TOXENV=py34-djangomaster-test
 install:
   - pip install coveralls tox>=2.1
