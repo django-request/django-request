@@ -47,10 +47,12 @@ class PurgeRequestsTest(TestCase):
 
     @mock.patch('request.management.commands.purgerequests.input',
                 return_value='no')
-    def test_interactive_non_confirmed(self, *mock):
+    @mock.patch('sys.stdout', new_callable=StringIO)
+    def test_interactive_non_confirmed(self, mock_stdout, mock_input):
         PurgeRequest().handle(amount=1, duration='days', interactive=True)
-        self.assertTrue(mock[0].called)
+        self.assertTrue(mock_input.called)
         self.assertEqual(2, Request.objects.count())
+        self.assertEqual('Purge cancelled\n', mock_stdout.getvalue())
 
     @mock.patch('request.management.commands.purgerequests.input',
                 return_value='yes')
