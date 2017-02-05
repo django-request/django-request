@@ -1,26 +1,47 @@
 sudo: false
 language: python
-env:
-  - TOXENV=py27-django17-test
-  - TOXENV=py27-django18-test
-  - TOXENV=py27-django19-test
-  - TOXENV=py27-django110-test
-  - TOXENV=py27-django111-test
-  - TOXENV=py34-django17-test
-  - TOXENV=py34-django18-test
-  - TOXENV=py34-django19-test
-  - TOXENV=py34-django110-test
-  - TOXENV=py34-django111-test
-  - TOXENV=py34-djangomaster-test
-  - TOXENV=py27-isort
-  - TOXENV=py34-isort
-  - TOXENV=py27-flake
-  - TOXENV=py34-flake
 matrix:
+  include:
+    - python: "2.7"
+      env: TOXENV=py27-django17-test
+    - python: "2.7"
+      env: TOXENV=py27-django18-test
+    - python: "2.7"
+      env: TOXENV=py27-django19-test
+    - python: "2.7"
+      env: TOXENV=py27-django110-test
+    - python: "2.7"
+      env: TOXENV=py27-django111-test
+    - python: "3.4"
+      env: TOXENV=py34-django17-test
+    - python: "3.4"
+      env: TOXENV=py34-django18-test
+    - python: "3.4"
+      env: TOXENV=py34-django19-test
+    - python: "3.4"
+      env: TOXENV=py34-django110-test
+    - python: "3.4"
+      env: TOXENV=py34-django111-test
+    - python: "3.4"
+      env: TOXENV=py34-djangomaster-test
+    - python: "3.6"
+      env: TOXENV=py36-django111-test
+    - python: "3.6"
+      env: TOXENV=py36-djangomaster-test
+    - python: "2.7"
+      env: TOXENV=py27-isort
+    - python: "3.4"
+      env: TOXENV=py34-isort
+    - python: "2.7"
+      env: TOXENV=py27-flake
+    - python: "3.4"
+      env: TOXENV=py34-flake
   allow_failures:
     - env: TOXENV=py27-django111-test
     - env: TOXENV=py34-django111-test
     - env: TOXENV=py34-djangomaster-test
+    - env: TOXENV=py36-django111-test
+    - env: TOXENV=py36-djangomaster-test
 install:
   - pip install coveralls tox>=2.1
 script:
