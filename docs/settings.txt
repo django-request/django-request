@@ -53,6 +53,14 @@ Default: ``None``
 
 Any requests from users in this list will be ignored.
 
+``REQUEST_USER_FIELD``
+===========================
+
+Default: ``username``
+
+This is the user field we will use to log. If you have a customer model that uses, say, ``email`` as the
+``USERNAME_FIELD`` on a custom user Model, this can be set to ``email``.
+
 ``REQUEST_IGNORE_PATHS``
 ===========================
 
