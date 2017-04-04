@@ -20,7 +20,7 @@ Requirements
 ------------
 
 * **Python**: 2.7, 3.4, 3.6
-* **Django**: 1.7, 1.8, 1.9, 1.10
+* **Django**: 1.7, 1.8, 1.9, 1.10, 1.11
 * **python-dateutil**
 
 django-request [1.5.1](https://pypi.python.org/pypi/django-request/1.5.1) is the last version that supports Django 1.4, 1.5, 1.6.
