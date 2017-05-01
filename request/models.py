@@ -36,7 +36,7 @@ class Request(models.Model):
 
     # User infomation
     ip = models.GenericIPAddressField(_('ip address'))
-    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'), on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'), on_delete=models.SET_NULL)
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
