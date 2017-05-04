@@ -26,7 +26,8 @@ class RequestMiddleware(MiddlewareMixin):
         if request.is_ajax() and settings.IGNORE_AJAX:
             return response
 
-        if request.META.get('REMOTE_ADDR') in settings.IGNORE_IP:
+        if request.META.get('REMOTE_ADDR', '') in settings.IGNORE_IP or \
+            request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0] in settings.IGNORE_IP:
             return response
 
         ignore = Patterns(False, *settings.IGNORE_USER_AGENTS)
