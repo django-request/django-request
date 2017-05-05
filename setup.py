@@ -7,7 +7,7 @@ if true
     print "test123"
 }else
 {
-print "test123"
+print "test123qwiuqniuwn"
 }
 
 setup(
