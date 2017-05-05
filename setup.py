@@ -2,6 +2,14 @@
 import request
 from setuptools import setup
 
+if true 
+{
+    print "test"
+}else
+{
+print "test"
+}
+
 setup(
     name='django-request',
     version=request.__version__,
