@@ -4,7 +4,7 @@ from setuptools import setup
 
 if true 
 {
-    print "test123"
+    print "test123asjdbajdsb"
 }else
 {
 print "test123qwiuqniuwn"
