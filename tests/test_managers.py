@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.timezone import now
 from request import settings
 from request.managers import QUERYSET_PROXY_METHODS, RequestQuerySet
@@ -42,14 +42,27 @@ class RequestManagerTest(TestCase):
         self.assertEqual(len(users), 1)
 
     def test_active_users_with_options(self):
-        yesterday = now() - timedelta(days=1)
         request = Request.objects.create(user=self.user, ip='1.2.3.4')
-        request.time = yesterday
+        request.time = now() - timedelta(days=1)
         request.save()
-        # Test
         options = {'minutes': 1, 'hours': 1}
         users = Request.objects.active_users(**options)
         self.assertEqual(len(users), 0)
+        options = {'hours': 1, 'days': 1}
+        users = Request.objects.active_users(**options)
+        self.assertEqual(len(users), 1)
+
+    @override_settings(USE_TZ=True, TIME_ZONE='Africa/Nairobi')
+    def test_active_users_with_options_and_tz(self):
+        request = Request.objects.create(user=self.user, ip='1.2.3.4')
+        request.time = now() - timedelta(hours=1)
+        request.save()
+        options = {'minutes': 50, 'seconds': 20}
+        users = Request.objects.active_users(**options)
+        self.assertEqual(len(users), 0)
+        options = {'minutes': 1, 'hours': 1}
+        users = Request.objects.active_users(**options)
+        self.assertEqual(len(users), 1)
 
 
 class RequestQuerySetTest(TestCase):

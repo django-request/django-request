@@ -4,6 +4,7 @@ import time
 
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 
 from . import settings
 
@@ -85,7 +86,7 @@ class RequestQuerySet(models.query.QuerySet):
         return self.day(date=datetime.date.today())
 
     def this_year(self):
-        return self.year(datetime.datetime.now().year)
+        return self.year(datetime.date.today().year)
 
     def this_month(self):
         return self.month(date=datetime.date.today())
@@ -128,7 +129,7 @@ class RequestManager(models.Manager):
         qs = self.filter(user__isnull=False)
 
         if options:
-            time = datetime.datetime.now() - datetime.timedelta(**options)
+            time = timezone.now() - datetime.timedelta(**options)
             qs = qs.filter(time__gte=time)
 
         requests = qs.select_related('user').only('user')
