@@ -1,4 +1,4 @@
-django-request - Testing
+django-request - Testing - to be completed
 ==============
 
 [![Build Status](http://img.shields.io/travis/kylef/django-request/master.svg?style=flat)](https://travis-ci.org/kylef/django-request)
