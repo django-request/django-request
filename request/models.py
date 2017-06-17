@@ -13,7 +13,6 @@ from . import settings as request_settings
 from .managers import RequestManager
 from .utils import HTTP_STATUS_CODES, browsers, engines
 
-
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
