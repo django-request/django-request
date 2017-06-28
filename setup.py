@@ -9,6 +9,8 @@ setup(
     long_description=open('docs/long_description.txt').read(),
     author='Kyle Fuller',
     author_email='kyle@fuller.li',
+    maintainer='Mariusz Felisiak',
+    maintainer_email='felisiak.mariusz@gmail.com',
     url=request.__URL__,
     download_url='https://pypi.python.org/pypi/django-request',
     packages=[
