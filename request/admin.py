@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
+from . import settings
 from .models import Request
 from .plugins import plugins
 from .traffic import modules
@@ -31,13 +32,16 @@ class RequestAdmin(admin.ModelAdmin):
     readonly_fields = ('time',)
 
     def lookup_allowed(self, key, value):
-        return key == 'user__username' or super(RequestAdmin, self).lookup_allowed(key, value)
+        request_lookup_field = 'user__{0}'.format(settings.USER_FIELD)
+        return key == request_lookup_field or super(RequestAdmin, self).lookup_allowed(key, value)
 
     def request_from(self, obj):
         if obj.user_id:
+            user_field = settings.USER_FIELD
             user = obj.get_user()
-            return '<a href="?user__username={0}" title="{1}">{2}</a>'.format(
-                user.username,
+            return '<a href="?user__{0}={1}" title="{2}">{3}</a>'.format(
+                user_field,
+                getattr(user, user_field),
                 _('Show only requests from this user.'),
                 user,
             )

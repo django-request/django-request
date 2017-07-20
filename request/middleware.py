@@ -34,7 +34,7 @@ class RequestMiddleware(MiddlewareMixin):
             return response
 
         if getattr(request, 'user', False):
-            if request.user.username in settings.IGNORE_USERNAME:
+            if getattr(request.user, settings.USER_FIELD, 'anonymous') in settings.IGNORE_USERNAME:
                 return response
 
         r = Request()
