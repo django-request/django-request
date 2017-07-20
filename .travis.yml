@@ -2,46 +2,54 @@ sudo: false
 language: python
 matrix:
   include:
-    - python: "2.7"
-      env: TOXENV=py27-django17-test
-    - python: "2.7"
-      env: TOXENV=py27-django18-test
-    - python: "2.7"
-      env: TOXENV=py27-django19-test
-    - python: "2.7"
-      env: TOXENV=py27-django110-test
-    - python: "2.7"
-      env: TOXENV=py27-django111-test
-    - python: "3.4"
-      env: TOXENV=py34-django17-test
-    - python: "3.4"
-      env: TOXENV=py34-django18-test
-    - python: "3.4"
-      env: TOXENV=py34-django19-test
-    - python: "3.4"
-      env: TOXENV=py34-django110-test
-    - python: "3.4"
-      env: TOXENV=py34-django111-test
-    - python: "3.4"
-      env: TOXENV=py34-djangomaster-test
-    - python: "3.6"
-      env: TOXENV=py36-django111-test
-    - python: "3.6"
-      env: TOXENV=py36-djangomaster-test
-    - python: "2.7"
-      env: TOXENV=py27-isort
-    - python: "3.4"
-      env: TOXENV=py34-isort
-    - python: "2.7"
-      env: TOXENV=py27-flake
-    - python: "3.4"
-      env: TOXENV=py34-flake
+  - python: '2.7'
+    env: TOXENV=py27-django17-test
+  - python: '2.7'
+    env: TOXENV=py27-django18-test
+  - python: '2.7'
+    env: TOXENV=py27-django19-test
+  - python: '2.7'
+    env: TOXENV=py27-django110-test
+  - python: '2.7'
+    env: TOXENV=py27-django111-test
+  - python: '3.4'
+    env: TOXENV=py34-django17-test
+  - python: '3.4'
+    env: TOXENV=py34-django18-test
+  - python: '3.4'
+    env: TOXENV=py34-django19-test
+  - python: '3.4'
+    env: TOXENV=py34-django110-test
+  - python: '3.4'
+    env: TOXENV=py34-django111-test
+  - python: '3.4'
+    env: TOXENV=py34-djangomaster-test
+  - python: '3.6'
+    env: TOXENV=py36-django111-test
+  - python: '3.6'
+    env: TOXENV=py36-djangomaster-test
+  - python: '2.7'
+    env: TOXENV=py27-isort
+  - python: '3.4'
+    env: TOXENV=py34-isort
+  - python: '2.7'
+    env: TOXENV=py27-flake
+  - python: '3.4'
+    env: TOXENV=py34-flake
   allow_failures:
-    - env: TOXENV=py34-djangomaster-test
-    - env: TOXENV=py36-djangomaster-test
+  - env: TOXENV=py34-djangomaster-test
+  - env: TOXENV=py36-djangomaster-test
 install:
-  - pip install coveralls tox>=2.1
+- pip install coveralls tox>=2.1
 script:
-  - tox
+- tox
 after_script:
-  - coveralls
+- coveralls
+deploy:
+  provider: pypi
+  user: djangorequest
+  password:
+    secure: ihSODos3XjtALjVY8qVDjIeFHfmxjgwABjMmlod4f7IVwf7bST7NLqG0JKPquesNx8mt+1IWdRSTbPKXmhSUqFrgqLts6jKfmj9vtAKKKnKcfNfe548NMC5D5FsYPpRRzX1idUpHxr3O/vo10P2DoQ+b88spmCK/irAtAXvdqd8=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
