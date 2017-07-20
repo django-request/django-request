@@ -7,6 +7,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Request
@@ -36,12 +37,14 @@ class RequestAdmin(admin.ModelAdmin):
     def request_from(self, obj):
         if obj.user_id:
             user = obj.get_user()
-            return '<a href="?user__username={0}" title="{1}">{2}</a>'.format(
+            return format_html(
+                '<a href="?user__username={0}" title="{1}">{2}</a>',
                 user.username,
                 _('Show only requests from this user.'),
                 user,
             )
-        return '<a href="?ip={0}" title="{1}">{0}</a>'.format(
+        return format_html(
+            '<a href="?ip={0}" title="{1}">{0}</a>',
             obj.ip,
             _('Show only requests from this IP address.'),
         )
