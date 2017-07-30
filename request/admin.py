@@ -31,14 +31,16 @@ class RequestAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     readonly_fields = ('time',)
 
+    def get_queryset(self, request):
+        return super(RequestAdmin, self).get_queryset(request).select_related('user')
+
     def request_from(self, obj):
         if obj.user_id:
-            user = obj.get_user()
             return format_html(
                 '<a href="?user={0}" title="{1}">{2}</a>',
-                user.pk,
+                obj.user_id,
                 _('Show only requests from this user.'),
-                user,
+                obj.user,
             )
         return format_html(
             '<a href="?ip={0}" title="{1}">{0}</a>',
