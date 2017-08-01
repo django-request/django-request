@@ -37,6 +37,9 @@ class RequestQuerySet(models.query.QuerySet):
             except ValueError:
                 return
 
+        # Truncate to date.
+        if isinstance(date, datetime.datetime):
+            date = date.date()
         # Calculate first and last day of month, for use in a date-range lookup.
         first_day = date.replace(day=1)
         if first_day.month == 12:

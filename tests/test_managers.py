@@ -79,6 +79,8 @@ class RequestQuerySetTest(TestCase):
     def test_month(self):
         qs = Request.objects.all().month(year=None, month=None, date=now())
         self.assertEqual(qs.count(), 1)
+        qs = Request.objects.all().month(year=None, month=None, date=date.today())
+        self.assertEqual(qs.count(), 1)
         qs = Request.objects.all().month(
             year=None,
             month=None,
