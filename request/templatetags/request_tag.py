@@ -53,7 +53,7 @@ def active_users(parser, token):
         {% load request_tag %}
         {% active_users in 10 minutes as user_list %}
         {% for user in user_list %}
-            {{ user.username }}
+            {{ user.get_username }}
         {% endfor %}
     '''
     return ActiveUserNode(parser, token)

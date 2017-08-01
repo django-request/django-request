@@ -9,7 +9,7 @@
     {% active_users in 5 minutes as user_list %}
     {% for user in user_list %}
         <tr>
-            <td><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></td>
+            <td><a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></td>
         </tr>
     {% endfor %}
 {% endblock %}
