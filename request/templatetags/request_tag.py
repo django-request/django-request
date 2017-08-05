@@ -11,11 +11,12 @@ class ActiveUserNode(template.Node):
         tokens = token.contents.split()
         tag_name = tokens.pop(0)
         self.kwargs = {}
+        self.as_varname = 'user_list'
 
-        if not ((len(tokens) == 5) or (len(tokens) == 2) or (len(tokens) == 0)):
+        if len(tokens) not in (5, 2, 0):
             raise template.TemplateSyntaxError('Incorrect amount of arguments in the tag {0!r}'.format(tag_name))
 
-        if (len(tokens) == 5) and (tokens[0] == 'in'):
+        if len(tokens) == 5 and tokens[0] == 'in':
             tokens.pop(0)  # pop 'in' of tokens
             try:
                 self.kwargs[str(tokens.pop(0))] = int(tokens.pop(0))
@@ -24,10 +25,8 @@ class ActiveUserNode(template.Node):
         else:
             self.kwargs['minutes'] = 15
 
-        if (len(tokens) == 2 and (tokens[0] == 'as')):
+        if len(tokens) == 2 and tokens[0] == 'as':
             self.as_varname = tokens[1]
-        else:
-            self.as_varname = 'user_list'
 
     def render(self, context):
         context[self.as_varname] = Request.objects.active_users(**self.kwargs)
