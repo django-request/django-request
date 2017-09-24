@@ -23,9 +23,11 @@ matrix:
   - python: '3.4'
     env: TOXENV=py34-django111-test
   - python: '3.4'
-    env: TOXENV=py34-djangomaster-test
+    env: TOXENV=py34-django20-test
   - python: '3.6'
     env: TOXENV=py36-django111-test
+  - python: '3.6'
+    env: TOXENV=py36-django20-test
   - python: '3.6'
     env: TOXENV=py36-djangomaster-test
   - python: '2.7'
@@ -37,7 +39,8 @@ matrix:
   - python: '3.4'
     env: TOXENV=py34-flake
   allow_failures:
-  - env: TOXENV=py34-djangomaster-test
+  - env: TOXENV=py34-django20-test
+  - env: TOXENV=py36-django20-test
   - env: TOXENV=py36-djangomaster-test
 install:
 - pip install coveralls tox>=2.1
