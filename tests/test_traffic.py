@@ -69,6 +69,10 @@ class ModuleBaseTest(TestCase):
     def test_init(self):
         traffic.Module()
 
+    def test_verbose_name_plural(self):
+        module = traffic.Module()
+        self.assertEqual(module.verbose_name_plural, 'Modules')
+
 
 class ModuleAjaxTest(TestCase):
     def test_count(self):
