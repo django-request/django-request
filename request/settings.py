@@ -38,5 +38,5 @@ try:
     from django.http import HttpRequest
     from django.contrib.sites.shortcuts import get_current_site
     BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://{0}'.format(get_current_site(HttpRequest()).domain))
-except:
+except Exception:
     BASE_URL = getattr(settings, 'REQUEST_BASE_URL', 'http://127.0.0.1')
