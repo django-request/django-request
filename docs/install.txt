@@ -23,7 +23,7 @@ Once you have downloaded and extracted django-request, you can use the following
 Via git repository
 ==================
 
-Git is one of the best ways to download django-request, it allows you to easily pull the latest version, just by typing ``git pull`` within the django-request directory. To download git or how to use it. See: http://git-scm.com/ .
+Git is one of the best ways to download django-request, it allows you to easily pull the latest version, just by typing ``git pull`` within the django-request directory. To download git or how to use it. See: https://git-scm.com .
 
 You can use the following command to clone the git repository:
 
@@ -59,5 +59,5 @@ Another option is to use easy_install, first you need to install easy_install. Y
 
     $ easy_install django-request
 
-.. _pip itself here: http://pypi.python.org/pypi/pip/
+.. _pip itself here: https://pypi.python.org/pypi/pip/
 .. _easy_install here: http://peak.telecommunity.com/DevCenter/EasyInstall
