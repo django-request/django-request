@@ -14,10 +14,6 @@ class RequestManagerTest(TestCase):
         self.user = get_user_model().objects.create(username='foo')
         self.user_2 = get_user_model().objects.create(username='bar')
 
-    def tearDown(self):
-        self.user.delete()
-        self.user_2.delete()
-
     def test_getattr(self):
         for meth in QUERYSET_PROXY_METHODS:
             Request.objects.__getattr__(meth)
