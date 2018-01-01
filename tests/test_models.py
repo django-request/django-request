@@ -3,17 +3,11 @@ import socket
 from datetime import datetime
 
 import mock
+from django.contrib.auth import get_user_model
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from request import settings
 from request.models import Request
-
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    # to keep backward (Django <= 1.4) compatibility
-    from django.contrib.auth.models import User
 
 
 class RequestTests(TestCase):
@@ -40,7 +34,7 @@ class RequestTests(TestCase):
     def test_from_http_request_with_user(self):
         http_request = HttpRequest()
         http_request.method = 'GET'
-        http_request.user = User.objects.create(username='foo')
+        http_request.user = get_user_model().objects.create(username='foo')
 
         request = Request()
         request.from_http_request(http_request, commit=False)
@@ -122,12 +116,12 @@ class RequestTests(TestCase):
     @mock.patch('request.models.request_settings.LOG_USER',
                 False)
     def test_save_not_log_user(self):
-        user = User.objects.create(username='foo')
+        user = get_user_model().objects.create(username='foo')
         request = Request(ip='1.2.3.4', user=user)
         request.save()
         self.assertIsNone(request.user)
 
     def test_get_user(self):
-        user = User.objects.create(username='foo')
+        user = get_user_model().objects.create(username='foo')
         request = Request.objects.create(ip='1.2.3.4', user=user)
         self.assertEqual(request.get_user(), user)

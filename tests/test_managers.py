@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.utils.timezone import now
 from request import settings
 from request.managers import QUERYSET_PROXY_METHODS, RequestQuerySet
 from request.models import Request
 
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    # to keep backward (Django <= 1.4) compatibility
-    from django.contrib.auth.models import User
-
 
 class RequestManagerTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(username='foo')
-        self.user_2 = User.objects.create(username='bar')
+        self.user = get_user_model().objects.create(username='foo')
+        self.user_2 = get_user_model().objects.create(username='bar')
 
     def tearDown(self):
         self.user.delete()
@@ -67,7 +61,7 @@ class RequestManagerTest(TestCase):
 
 class RequestQuerySetTest(TestCase):
     def setUp(self):
-        user = User.objects.create(username='foo')
+        user = get_user_model().objects.create(username='foo')
         self.request = Request.objects.create(user=user, ip='1.2.3.4')
 
     def test_year(self):
