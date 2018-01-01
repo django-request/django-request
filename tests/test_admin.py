@@ -2,16 +2,11 @@
 import json
 
 from django.contrib.admin import site
+from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
 from request.admin import RequestAdmin
 from request.models import Request
 
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    # to keep backward (Django <= 1.4) compatibility
-    from django.contrib.auth.models import User
 
 try:
     from django.urls import reverse
@@ -30,7 +25,7 @@ class LookupAllowedTest(TestCase):
 class RequestFromTest(TestCase):
     def test_user_id(self):
         admin = RequestAdmin(Request, site)
-        user = User.objects.create(username='foo')
+        user = get_user_model().objects.create(username='foo')
         request = Request.objects.create(user=user, ip='1.2.3.4')
         admin.request_from(request)
 
@@ -78,7 +73,7 @@ class TrafficTest(TestCase):
 
 class RequestAdminViewsTest(TestCase):
     def setUp(self):
-        user = User(username='foo', is_superuser=True, is_staff=True)
+        user = get_user_model()(username='foo', is_superuser=True, is_staff=True)
         user.set_password('bar')
         user.save()
         self.client.login(username=user.username, password='bar')

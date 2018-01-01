@@ -3,17 +3,11 @@ from unittest import skipIf
 
 import django
 import mock
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 from request.middleware import RequestMiddleware
 from request.models import Request
-
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    # to keep backward (Django <= 1.4) compatibility
-    from django.contrib.auth.models import User
 
 
 class RequestMiddlewareTest(TestCase):
@@ -161,10 +155,10 @@ class RequestMiddlewareTest(TestCase):
         # Anonymous
         self.middleware.process_response(request, response)
         # Ignored
-        request.user = User.objects.create(username='foo')
+        request.user = get_user_model().objects.create(username='foo')
         self.middleware.process_response(request, response)
         # Recorded
-        request.user = User.objects.create(username='bar')
+        request.user = get_user_model().objects.create(username='bar')
         self.middleware.process_response(request, response)
 
         self.assertEqual(2, Request.objects.count())
