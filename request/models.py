@@ -73,7 +73,7 @@ class Request(models.Model):
             if django.VERSION < (1, 10):
                 is_authenticated = is_authenticated()
             if is_authenticated:
-                self.user_id = request.user_id
+                self.user_id = request.user.id
 
         if response:
             self.response = response.status_code
