@@ -71,6 +71,7 @@ class RequestAdmin(admin.ModelAdmin):
             request,
             'admin/request/request/overview.html',
             {
+                'request':request,
                 'title': _('Request overview'),
                 'plugins': plugins.plugins,
             }
