@@ -30,6 +30,7 @@ setup(
     install_requires=[
         'Django>=1.7',
         'python-dateutil',
+        'django-ipware>=2.0.1'
     ],
     license=request.__licence__,
     classifiers=[

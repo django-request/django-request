@@ -11,9 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from . import settings as request_settings
 from .managers import RequestManager
 from .utils import HTTP_STATUS_CODES, browsers, engines
-from ipware.ip import get_real_ip
-
->>>>>>> c8e7032... Real remote IP shown while using proxy
+from ipware import get_client_ip
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -67,7 +65,7 @@ class Request(models.Model):
         # User infomation
 
         # @see: https://github.com/kylef/django-request/issues/54
-        self.ip = get_real_ip(request) if not None else ''
+        self.ip, is_routable = get_client_ip(request) if not None else ''
 		
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
