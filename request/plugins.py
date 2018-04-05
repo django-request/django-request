@@ -130,7 +130,7 @@ class TopErrorPaths(TopPaths):
 
 class TopReferrers(Plugin):
     def queryset(self):
-        return self.qs.unique_visits().exclude(referer='')
+        return self.qs.unique_visits().exclude( referer__contains=settings.BASE_URL)
 
     def template_context(self):
         return {
