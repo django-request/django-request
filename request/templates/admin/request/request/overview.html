@@ -1,6 +1,14 @@
 {% extends "admin/base_site.html" %}{% load i18n request_admin staticfiles %}
 {% block extrahead %}
 {{ block.super }}
+<style>
+    .module{
+        margin-bottom:20px;
+    }
+    .module h3{
+        margin-bottom:5px;
+    }
+</style>
 <!--[if IE]><script language="javascript" type="text/javascript" src="{% static "request/js/excanvas.min.js" %}"></script><![endif]-->
 <script type="text/javascript" src="{% static "request/js/jquery-1.4.2.min.js" %}"></script>
 <script type="text/javascript" src="{% static "request/js/jquery.flot.js" %}"></script>
