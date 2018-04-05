@@ -150,7 +150,7 @@ class TopSearchPhrases(Plugin):
 
 class TopBrowsers(Plugin):
     def template_context(self):
-        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL', 'Camino', 'Google Chrome', 'Safari', 'Wget', 'OmniWeb', 'Internet Explorer', 'Netscape']
+        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL', 'Camino', 'Chrome', 'Safari', 'Wget', 'OmniWeb', 'IE', 'Netscape']
        
         return {
             'browsers': set_count(filter(lambda x: browsers_products.__contains__(x) , self.qs.only('user_agent').attr_list('browser')))[:5]
