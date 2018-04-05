@@ -43,13 +43,15 @@ class Plugins(object):
             try:
                 dot = module_path.rindex('.')
             except ValueError:
-                raise exceptions.ImproperlyConfigured('{0} isn\'t a plugin'.format(module_path))
+                raise exceptions.ImproperlyConfigured(
+                    '{0} isn\'t a plugin'.format(module_path))
             plugin, plugin_classname = module_path[:dot], module_path[dot + 1:]
 
             try:
                 mod = import_module(plugin)
             except ImportError as e:
-                raise exceptions.ImproperlyConfigured('Error importing plugin {0}: "{1}"'.format(plugin, e))
+                raise exceptions.ImproperlyConfigured(
+                    'Error importing plugin {0}: "{1}"'.format(plugin, e))
 
             try:
                 plugin_class = getattr(mod, plugin_classname)
@@ -104,7 +106,8 @@ class LatestRequests(Plugin):
 class TrafficInformation(Plugin):
     def template_context(self):
         INFO_TABLE = ('today', 'this_week', 'this_month', 'this_year', 'all')
-        INFO_TABLE_QUERIES = [getattr(Request.objects, query, None)() for query in INFO_TABLE]
+        INFO_TABLE_QUERIES = [
+            getattr(Request.objects, query, None)() for query in INFO_TABLE]
 
         return {
             'traffic': modules.table(INFO_TABLE_QUERIES)
@@ -130,7 +133,7 @@ class TopErrorPaths(TopPaths):
 
 class TopReferrers(Plugin):
     def queryset(self):
-        return self.qs.unique_visits().exclude( referer__contains=settings.BASE_URL)
+        return self.qs.unique_visits().exclude(referer__contains=settings.BASE_URL)
 
     def template_context(self):
         return {
@@ -147,8 +150,10 @@ class TopSearchPhrases(Plugin):
 
 class TopBrowsers(Plugin):
     def template_context(self):
+        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL', 'Camino', 'Google Chrome', 'Safari', 'Wget', 'OmniWeb', 'Internet Explorer', 'Netscape']
+       
         return {
-            'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
+            'browsers': set_count(filter(lambda x: browsers_products.__contains__(x) , self.qs.only('user_agent').attr_list('browser')))[:5]
         }
 
 
