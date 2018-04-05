@@ -166,7 +166,7 @@ class UniqueVisit(Module):
 
     def count(self, qs):
         return qs.exclude(
-            referer__endswith=settings.BASE_URL,
+            referer__contains=settings.BASE_URL,
         ).count()
 
 
