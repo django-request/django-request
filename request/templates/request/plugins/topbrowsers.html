@@ -1,5 +1,33 @@
-{% extends "request/plugins/base.html" %}
-{% block plugin %}
-    {% load request_admin %}
-    <img src="{% pie_chart browsers 440 150 %}" alt=""/>
-{% endblock %}
+{% extends "request/plugins/base.html" %} {% block plugin %} {% load request_admin %} {% comment %}
+<img src="{% pie_chart browsers 440 150 %}" alt="" /> {% endcomment %}
+<div id="browsers" style="width:440px;height:300px;"></div>
+<script>
+    $(document).ready(function () {
+        $.plot('#browsers', {{ browsers| safe }}, {
+            series: {
+                pie: {
+                    show: true,
+                    radius: 3/4,
+                    label: {
+
+                        show: true,
+                        radius: 3 / 4,
+                       
+                        background: {
+                            opacity: 1,
+                            color: '#000'
+                        }
+
+                    }
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
+            legend: {
+                show: true
+            }
+        });
+    });
+</script> {% endblock %}

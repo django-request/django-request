@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Count
 from django.template.loader import render_to_string
-
+import json
 from . import settings
 from .models import Request
 from .traffic import modules
@@ -31,6 +31,30 @@ def set_count(items):
     items.reverse()
 
     return [(k, v) for v, k in items]
+
+def set_count2(items):
+    '''
+    This is similar to "set", but this just creates a list with values.
+    The list will be ordered from most frequent down.
+
+    Example:
+        >>> inventory = ['apple', 'lemon', 'apple', 'orange', 'lemon', 'lemon']
+        >>> set_count(inventory)
+        [('lemon', 3), ('apple', 2), ('orange', 1)]
+    '''
+    item_count = {}
+    for item in items:
+        if not item:
+            continue
+        if item not in item_count:
+            item_count[item] = 0
+        item_count[item] += 1
+
+    items = [(v, k) for k, v in item_count.items()]
+    items.sort()
+    items.reverse()
+
+    return [{"label":k,"data":v} for v, k in items]
 
 
 class Plugins(object):
@@ -153,7 +177,7 @@ class TopBrowsers(Plugin):
         browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL', 'Camino', 'Chrome', 'Safari', 'OmniWeb', 'IE', 'Netscape']
        
         return {
-            'browsers': set_count(filter(lambda x: browsers_products.__contains__(x) , self.qs.only('user_agent').attr_list('browser')))[:5]
+            'browsers': json.dumps(set_count2(filter(lambda x: browsers_products.__contains__(x) , self.qs.only('user_agent').attr_list('browser')))[:5])
         }
 
 
