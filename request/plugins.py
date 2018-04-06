@@ -157,7 +157,9 @@ class TopErrorPaths(TopPaths):
 
 class TopReferrers(Plugin):
     def queryset(self):
+        from django.db.models.expressions import RawSQL
         return self.qs.unique_visits().exclude(referer__contains=settings.BASE_URL)
+        #.exclude(referer__iexact="''")
 
     def template_context(self):
         return {

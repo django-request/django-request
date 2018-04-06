@@ -24,8 +24,11 @@ QUERYSET_PROXY_METHODS = (
 
 
 class RequestQuerySet(models.query.QuerySet):
+    def has_referer(self):
+        return self.exclude(referer__exact='')
+
     def year(self, year):
-        return self.filter(time__year=year)
+        return self.has_referer().filter(time__year=year)
 
     def month(self, year=None, month=None, month_format='%b', date=None):
         if not date:
@@ -52,7 +55,7 @@ class RequestQuerySet(models.query.QuerySet):
             'time__lt': last_day,
         }
 
-        return self.filter(**lookup_kwargs)
+        return self.has_referer().filter(**lookup_kwargs)
 
     def week(self, year, week):
         try:
@@ -68,7 +71,7 @@ class RequestQuerySet(models.query.QuerySet):
             'time__lt': last_day,
         }
 
-        return self.filter(**lookup_kwargs)
+        return self.has_referer().filter(**lookup_kwargs)
 
     def day(self, year=None, month=None, day=None, month_format='%b', day_format='%d', date=None):
         if not date:
@@ -80,7 +83,7 @@ class RequestQuerySet(models.query.QuerySet):
             except ValueError:
                 return
 
-        return self.filter(time__range=(
+        return self.has_referer().filter(time__range=(
             datetime.datetime.combine(date, datetime.time.min),
             datetime.datetime.combine(date, datetime.time.max),
         ))
@@ -99,7 +102,7 @@ class RequestQuerySet(models.query.QuerySet):
         return self.week(str(today.year), today.strftime('%U'))
 
     def unique_visits(self):
-        return self.exclude(referer__startswith=settings.BASE_URL)
+        return self.has_referer().exclude(referer__contains=settings.BASE_URL)
 
     def attr_list(self, name):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]

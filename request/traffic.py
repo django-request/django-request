@@ -133,7 +133,7 @@ class Hit(Module):
     verbose_name_plural = _('Hits')
 
     def count(self, qs):
-        return qs.count()
+        return qs.has_referer().count()
 
 
 class Search(Module):
@@ -166,7 +166,7 @@ class UniqueVisit(Module):
 
     def count(self, qs):
         return qs.exclude(
-            referer__contains=settings.BASE_URL,
+            referer__contains=settings.BASE_URL,referer__exact=""
         ).count()
 
 
