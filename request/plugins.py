@@ -124,7 +124,7 @@ class Plugin(object):
 
 class LatestRequests(Plugin):
     def template_context(self):
-        return {'requests': Request.objects.all()[:5]}
+        return {'requests': Request.objects.exclude(path="/robots.txt")[:5]}
 
 
 class TrafficInformation(Plugin):
