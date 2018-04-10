@@ -37,6 +37,6 @@ PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
 try:
     from django.http import HttpRequest
     from django.contrib.sites.shortcuts import get_current_site
-    BASE_URL = getattr(settings, 'REQUEST_BASE_URL', '{0}'.format(get_current_site(HttpRequest()).domain))
+    BASE_URL = getattr(settings, 'REQUEST_BASE_URL', get_current_site(HttpRequest()).domain)
 except Exception:
     BASE_URL = getattr(settings, 'REQUEST_BASE_URL', '127.0.0.1')
