@@ -124,7 +124,7 @@ class Plugin(object):
 
 class LatestRequests(Plugin):
     def template_context(self):
-        return {'requests': Request.objects.exclude(path="/robots.txt")[:5]}
+        return {'requests': Request.objects.exclude(path="/robots.txt").exclude(path="/favicon.ico")[:5]}
 
 
 class TrafficInformation(Plugin):
@@ -157,9 +157,7 @@ class TopErrorPaths(TopPaths):
 
 class TopReferrers(Plugin):
     def queryset(self):
-        from django.db.models.expressions import RawSQL
-        return self.qs.unique_visits().exclude(referer__contains=settings.BASE_URL)
-        #.exclude(referer__iexact="''")
+        return self.qs.unique_visits().has_referer()
 
     def template_context(self):
         return {
