@@ -20,7 +20,8 @@ class RequestManagerTest(TestCase):
 
     def test_getattr_not_in_proxy_methods(self):
         for meth in ('foo', 'bar'):
-            self.assertRaises(AttributeError, Request.objects.__getattr__, meth)
+            self.assertRaises(
+                AttributeError, Request.objects.__getattr__, meth)
 
     def test_get_queryset(self):
         queryset = Request.objects.get_queryset()
@@ -207,7 +208,8 @@ class RequestQuerySetTest(TestCase):
 
     def test_unique_visits(self):
         # setUp
-        Request.objects.create(ip='1.2.3.4', referer= "http://"+settings.BASE_URL)
+        Request.objects.create(
+            ip='1.2.3.4', referer="http://" + settings.BASE_URL)
         # Test
         qs = Request.objects.all().unique_visits()
         self.assertEqual(1, qs.count())

@@ -19,7 +19,8 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 @python_2_unicode_compatible
 class Request(models.Model):
     # Response infomation
-    response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)
+    response = models.SmallIntegerField(
+        _('response'), choices=HTTP_STATUS_CODES, default=200)
 
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
@@ -35,10 +36,14 @@ class Request(models.Model):
 
     # User infomation
     ip = models.GenericIPAddressField(_('ip address'))
-    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'), on_delete=models.SET_NULL)
-    referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
-    user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
-    language = models.CharField(_('language'), max_length=255, blank=True, null=True)
+    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_(
+        'user'), on_delete=models.SET_NULL)
+    referer = models.URLField(
+        _('referer'), max_length=255, blank=True, null=True)
+    user_agent = models.CharField(
+        _('user agent'), max_length=255, blank=True, null=True)
+    language = models.CharField(
+        _('language'), max_length=255, blank=True, null=True)
 
     objects = RequestManager()
 
@@ -66,7 +71,7 @@ class Request(models.Model):
 
         # @see: https://github.com/kylef/django-request/issues/54
         self.ip, is_routable = get_client_ip(request) if not None else ''
-		
+
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]

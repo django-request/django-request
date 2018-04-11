@@ -32,6 +32,7 @@ def set_count(items):
 
     return [(k, v) for v, k in items]
 
+
 def set_count2(items):
     '''
     This is similar to "set", but this just creates a list with values.
@@ -54,7 +55,7 @@ def set_count2(items):
     items.sort()
     items.reverse()
 
-    return [{"label":k,"data":v} for v, k in items]
+    return [{"label": k, "data": v} for v, k in items]
 
 
 class Plugins(object):
@@ -174,10 +175,11 @@ class TopSearchPhrases(Plugin):
 
 class TopBrowsers(Plugin):
     def template_context(self):
-        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL', 'Camino', 'Chrome', 'Safari', 'OmniWeb', 'IE', 'Netscape']
-       
+        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL',
+                             'Camino', 'Chrome', 'Safari', 'OmniWeb', 'IE', 'Netscape']
+        result = filter(lambda x: browsers_products.__contains__(x), self.qs.only('user_agent').attr_list('browser'))
         return {
-            'browsers': json.dumps(set_count2(filter(lambda x: browsers_products.__contains__(x) , self.qs.only('user_agent').attr_list('browser')))[:5])
+            'browsers': json.dumps(set_count2(result)[:5])
         }
 
 

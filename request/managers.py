@@ -39,9 +39,11 @@ class RequestQuerySet(models.query.QuerySet):
         if not date:
             try:
                 if year and month:
-                    date = datetime.date(*time.strptime(year + month, '%Y' + month_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(year + month, '%Y' + month_format)[:3])
                 else:
-                    raise TypeError('Request.objects.month() takes exactly 2 arguments')
+                    raise TypeError(
+                        'Request.objects.month() takes exactly 2 arguments')
             except ValueError:
                 return
 
@@ -64,7 +66,8 @@ class RequestQuerySet(models.query.QuerySet):
 
     def week(self, year, week):
         try:
-            date = datetime.date(*time.strptime(year + '-0-' + week, '%Y-%w-%U')[:3])
+            date = datetime.date(
+                *time.strptime(year + '-0-' + week, '%Y-%w-%U')[:3])
         except ValueError:
             return
 
@@ -82,9 +85,11 @@ class RequestQuerySet(models.query.QuerySet):
         if not date:
             try:
                 if year and month and day:
-                    date = datetime.date(*time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
                 else:
-                    raise TypeError('Request.objects.day() takes exactly 3 arguments')
+                    raise TypeError(
+                        'Request.objects.day() takes exactly 3 arguments')
             except ValueError:
                 return
 
@@ -119,7 +124,7 @@ class RequestQuerySet(models.query.QuerySet):
             reg = '^https?://(www\\.)?{0}'
         else:
             reg = '^https?://{0}'
-        return self.exclude(referer__regex=reg.format(settings.BASE_URL.replace(".","\\.")))
+        return self.exclude(referer__regex=reg.format(settings.BASE_URL.replace(".", "\\.")))
 
     def unique_visits(self):
         return self.exclude_current_site()
