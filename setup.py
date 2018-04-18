@@ -12,7 +12,7 @@ setup(
     maintainer='Mariusz Felisiak',
     maintainer_email='felisiak.mariusz@gmail.com',
     url=request.__URL__,
-    download_url='https://pypi.python.org/pypi/django-request',
+    download_url='https://pypi.org/project/django-request/',
     packages=[
         'request',
         'request.migrations',
