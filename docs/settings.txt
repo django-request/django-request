@@ -9,14 +9,14 @@ Settings
 
 Default: ``False``
 
-If this is set to True, then ajax requests will be ignored and not added to the database. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
+If this is set to True, then ajax requests will not be recorded. To determine if a request was ajax, we use HttpRequest.is_ajax(), see Django documentation for more information.
 
 ``REQUEST_IGNORE_IP``
 =====================
 
 Default: ``None``
 
-Any requests from a IP Address in this list will be ignored.
+Any requests from a IP Address in this list will not be recorded.
 
 ``REQUEST_LOG_IP``
 =====================
@@ -51,14 +51,14 @@ If set to False, user are not logged (set to None).
 
 Default: ``None``
 
-Any requests from users in this list will be ignored.
+Any requests from users in this list will not be recorded.
 
 ``REQUEST_IGNORE_PATHS``
 ===========================
 
 Default: ``None``
 
-Any requests which match these paths will be ignored. This setting should be a tuple filled with regex paths.
+Any requests which match these paths will not be recorded. This setting should be a tuple filled with regex paths.
 
 Example:
 
@@ -73,7 +73,7 @@ Example:
 
 Default: ``None``
 
-Any request with a user agent that matches any pattern in this list will be ignored.
+Any request with a user agent that matches any pattern in this list will not be recorded.
 
 Example:
 
@@ -153,11 +153,11 @@ This setting should only be set if you use SSL or do not use django.contrib.site
 
 Default: ``False``
 
-If this is set to True, django-request will ONLY store error returning request/responses. This can be useful to use django-request purely as a error detection system.
+If this is set to True, django-request will ONLY record error returning request/responses. This can be useful to use django-request purely as a error detection system.
 
 ``REQUEST_VALID_METHOD_NAMES``
 ==============================
 
 Default: ('get', 'post', 'put', 'delete', 'head', 'options', 'trace')
 
-Any request which is not in this tuple/list will be ignored.
+Any request which is not in this tuple/list will not be recorded.
