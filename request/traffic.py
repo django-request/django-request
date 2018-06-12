@@ -183,7 +183,7 @@ class User(Module):
     verbose_name_plural = _('User')
 
     def count(self, qs):
-        return qs.exclude(user__isnull=False).count()
+        return qs.filter(user__isnull=False).count()
 
 
 class UniqueUser(Module):
