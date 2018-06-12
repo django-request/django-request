@@ -55,14 +55,14 @@ class Request(models.Model):
         return get_user_model().objects.filter(pk=self.user_id).first()
 
     def from_http_request(self, request, response=None, commit=True):
-        # Request infomation
+        # Request information
         self.method = request.method
         self.path = request.path[:255]
 
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
 
-        # User infomation
+        # User information
         self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]

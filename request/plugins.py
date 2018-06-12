@@ -155,3 +155,14 @@ class TopBrowsers(Plugin):
 class ActiveUsers(Plugin):
     def template_context(self):
         return {}
+
+
+class TopUsers(Plugin):
+    def queryset(self):
+        return self.qs.filter(response__lt=400).filter(user__isnull=False)
+
+    def template_context(self):
+        return {
+            'users': self.queryset().values('user', 'user__first_name', 'user__last_name')
+                     .annotate(Count('user')).order_by('-user__count')[:10]
+            }

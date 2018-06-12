@@ -1,0 +1,14 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% block table %}
+    <tr>
+        <th>{% trans "User" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    {% for user in users %}
+        <tr>
+            <td><a href="{% url "admin:request_request_changelist" %}?user={{ user.user }}">{{ user.user__first_name}} {{ user.user__last_name}}</a></td>
+            <td>{{ user.user__count }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
