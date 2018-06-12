@@ -52,7 +52,7 @@ class Request(models.Model):
         return '[{0}] {1} {2} {3}'.format(self.time, self.method, self.path, self.response)
 
     def get_user(self):
-        return get_user_model().objects.get(pk=self.user_id)
+        return get_user_model().objects.filter(pk=self.user_id).first()
 
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
