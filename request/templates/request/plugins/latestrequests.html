@@ -10,7 +10,13 @@
     {% for request in requests %}
         <tr>
             <td><a href="{% url "admin:request_request_changelist" %}?path={{ request.path }}" title="{{ request.path }}">{{ request.path|truncatechars:35 }}</a></td>
-            <td>{% firstof request.get_user request.ip %}</td>
+            <td>
+                {% if request.user_id %}
+                    <a href="{% url "admin:request_request_changelist" %}?user={{ request.user_id }}" target="_blank">{{ request.get_user }}</a>
+                {% else %}
+                    {{ request.ip }}
+                {% endif %}
+            </td>
             <td>{{ request.get_response_display }}</td>
             <td><a href="{% url "admin:request_request_change" request.id %}">
                 <abbr class="timeago" title="{{ request.time|date:"c" }}">{{ request.time|date:"D M d H:i:s O Y" }}</abbr>
