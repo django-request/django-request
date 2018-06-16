@@ -24,6 +24,7 @@ class Request(models.Model):
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
+    query_string = models.CharField(_('query string'), max_length=255, blank=True)
     time = models.DateTimeField(_('time'), default=timezone.now, db_index=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
@@ -55,14 +56,16 @@ class Request(models.Model):
         return get_user_model().objects.get(pk=self.user_id)
 
     def from_http_request(self, request, response=None, commit=True):
-        # Request infomation
+        # Request information
         self.method = request.method
         self.path = request.path[:255]
+        absolute_url = request.build_absolute_uri()
+        self.query_string = absolute_url[absolute_url.find('?'):] if absolute_url.find('?') != -1 else ''
 
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
 
-        # User infomation
+        # User information
         self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
