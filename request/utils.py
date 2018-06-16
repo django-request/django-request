@@ -141,6 +141,7 @@ engines = Patterns(
     (r'^https?:\/\/([\.\w]+)?yahoo.*(?:&|\?)p=(?P<keywords>[\+-_\w]+)', 'Yahoo'),
     (r'^https?:\/\/([\.\w]+)?google.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Google'),
     (r'^https?:\/\/([\.\w]+)?bing.*(?:&|\?)q=(?P<keywords>[\+-_\w]+)', 'Bing'),
+    (r'^https?:\/\/([\.\w]+)?baidu.*(?:&|\?)wd=(?P<keywords>[\+-_\w]+)', 'Baidu'),
 )
 
 

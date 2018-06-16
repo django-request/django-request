@@ -133,7 +133,7 @@ class RequestQuerySet(models.query.QuerySet):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
 
     def search(self):
-        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing'))
+        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing')| Q(referer__contains='baidu'))
 
 
 class RequestManager(models.Manager):
