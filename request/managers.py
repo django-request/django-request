@@ -8,6 +8,11 @@ from django.utils import timezone
 
 from . import settings
 
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
+
 QUERYSET_PROXY_METHODS = (
     'year',
     'month',
@@ -24,6 +29,9 @@ QUERYSET_PROXY_METHODS = (
 
 
 class RequestQuerySet(models.query.QuerySet):
+    def has_referer(self):
+        return self.exclude(referer__exact='')
+
     def year(self, year):
         return self.filter(time__year=year)
 
@@ -31,9 +39,11 @@ class RequestQuerySet(models.query.QuerySet):
         if not date:
             try:
                 if year and month:
-                    date = datetime.date(*time.strptime(year + month, '%Y' + month_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(year + month, '%Y' + month_format)[:3])
                 else:
-                    raise TypeError('Request.objects.month() takes exactly 2 arguments')
+                    raise TypeError(
+                        'Request.objects.month() takes exactly 2 arguments')
             except ValueError:
                 return
 
@@ -56,7 +66,8 @@ class RequestQuerySet(models.query.QuerySet):
 
     def week(self, year, week):
         try:
-            date = datetime.date(*time.strptime(year + '-0-' + week, '%Y-%w-%U')[:3])
+            date = datetime.date(
+                *time.strptime(year + '-0-' + week, '%Y-%w-%U')[:3])
         except ValueError:
             return
 
@@ -74,9 +85,11 @@ class RequestQuerySet(models.query.QuerySet):
         if not date:
             try:
                 if year and month and day:
-                    date = datetime.date(*time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
                 else:
-                    raise TypeError('Request.objects.day() takes exactly 3 arguments')
+                    raise TypeError(
+                        'Request.objects.day() takes exactly 3 arguments')
             except ValueError:
                 return
 
@@ -98,14 +111,29 @@ class RequestQuerySet(models.query.QuerySet):
         today = datetime.date.today()
         return self.week(str(today.year), today.strftime('%U'))
 
+    def exclude_current_site(self):
+        if settings.BASE_URL.startswith("http"):
+            result = urlparse(settings.BASE_URL)
+            if not result.hostname:
+                return self
+            else:
+                isTopDomain = result.hostname.count(".") == 1
+        else:
+            isTopDomain = settings.BASE_URL.count(".") == 1
+        if isTopDomain:
+            reg = '^https?://(www\\.)?{0}'
+        else:
+            reg = '^https?://{0}'
+        return self.exclude(referer__regex=reg.format(settings.BASE_URL.replace(".", "\\.")))
+
     def unique_visits(self):
-        return self.exclude(referer__startswith=settings.BASE_URL)
+        return self.exclude_current_site()
 
     def attr_list(self, name):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
 
     def search(self):
-        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing'))
+        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing')| Q(referer__contains='baidu'))
 
 
 class RequestManager(models.Manager):

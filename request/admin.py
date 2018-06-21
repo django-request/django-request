@@ -58,8 +58,10 @@ class RequestAdmin(admin.ModelAdmin):
 
         info = (self.model._meta.app_label, self.model._meta.model_name)
         return [
-            url(r'^overview/$', wrap(self.overview), name='{0}_{1}_overview'.format(*info)),
-            url(r'^overview/traffic/$', wrap(self.traffic), name='{0}_{1}_traffic'.format(*info)),
+            url(r'^overview/$', wrap(self.overview),
+                name='{0}_{1}_overview'.format(*info)),
+            url(r'^overview/traffic/$', wrap(self.traffic),
+                name='{0}_{1}_traffic'.format(*info)),
         ] + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):
@@ -71,6 +73,7 @@ class RequestAdmin(admin.ModelAdmin):
             request,
             'admin/request/request/overview.html',
             {
+                'request': request,
                 'title': _('Request overview'),
                 'plugins': plugins.plugins,
             }
@@ -89,7 +92,8 @@ class RequestAdmin(admin.ModelAdmin):
         else:
             days_step = 30
 
-        days = [date.today() - timedelta(day) for day in range(0, days_count, days_step)]
+        days = [date.today() - timedelta(day)
+                for day in range(0, days_count, days_step)]
         days_qs = [(day, Request.objects.day(date=day)) for day in days]
         return HttpResponse(json.dumps(modules.graph(days_qs)), content_type='text/javascript')
 

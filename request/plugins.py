@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Count
 from django.template.loader import render_to_string
-
+import json
 from . import settings
 from .models import Request
 from .traffic import modules
@@ -33,6 +33,31 @@ def set_count(items):
     return [(k, v) for v, k in items]
 
 
+def set_count2(items):
+    '''
+    This is similar to "set", but this just creates a list with values.
+    The list will be ordered from most frequent down.
+
+    Example:
+        >>> inventory = ['apple', 'lemon', 'apple', 'orange', 'lemon', 'lemon']
+        >>> set_count(inventory)
+        [('lemon', 3), ('apple', 2), ('orange', 1)]
+    '''
+    item_count = {}
+    for item in items:
+        if not item:
+            continue
+        if item not in item_count:
+            item_count[item] = 0
+        item_count[item] += 1
+
+    items = [(v, k) for k, v in item_count.items()]
+    items.sort()
+    items.reverse()
+
+    return [{"label": k, "data": v} for v, k in items]
+
+
 class Plugins(object):
     def load(self):
         from importlib import import_module
@@ -43,13 +68,15 @@ class Plugins(object):
             try:
                 dot = module_path.rindex('.')
             except ValueError:
-                raise exceptions.ImproperlyConfigured('{0} isn\'t a plugin'.format(module_path))
+                raise exceptions.ImproperlyConfigured(
+                    '{0} isn\'t a plugin'.format(module_path))
             plugin, plugin_classname = module_path[:dot], module_path[dot + 1:]
 
             try:
                 mod = import_module(plugin)
             except ImportError as e:
-                raise exceptions.ImproperlyConfigured('Error importing plugin {0}: "{1}"'.format(plugin, e))
+                raise exceptions.ImproperlyConfigured(
+                    'Error importing plugin {0}: "{1}"'.format(plugin, e))
 
             try:
                 plugin_class = getattr(mod, plugin_classname)
@@ -98,13 +125,14 @@ class Plugin(object):
 
 class LatestRequests(Plugin):
     def template_context(self):
-        return {'requests': Request.objects.all()[:5]}
+        return {'requests': Request.objects.exclude(path="/robots.txt").exclude(path="/favicon.ico")[:5]}
 
 
 class TrafficInformation(Plugin):
     def template_context(self):
         INFO_TABLE = ('today', 'this_week', 'this_month', 'this_year', 'all')
-        INFO_TABLE_QUERIES = [getattr(Request.objects, query, None)() for query in INFO_TABLE]
+        INFO_TABLE_QUERIES = [
+            getattr(Request.objects, query, None)() for query in INFO_TABLE]
 
         return {
             'traffic': modules.table(INFO_TABLE_QUERIES)
@@ -130,7 +158,7 @@ class TopErrorPaths(TopPaths):
 
 class TopReferrers(Plugin):
     def queryset(self):
-        return self.qs.unique_visits().exclude(referer='')
+        return self.qs.unique_visits().has_referer()
 
     def template_context(self):
         return {
@@ -147,8 +175,11 @@ class TopSearchPhrases(Plugin):
 
 class TopBrowsers(Plugin):
     def template_context(self):
+        browsers_products = ['Konqueror', 'Firefox', 'Opera', 'AOL',
+                             'Camino', 'Chrome', 'Safari', 'OmniWeb', 'IE', 'Netscape']
+        result = filter(lambda x: browsers_products.__contains__(x), self.qs.only('user_agent').attr_list('browser'))
         return {
-            'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
+            'browsers': json.dumps(set_count2(result)[:5])
         }
 
 

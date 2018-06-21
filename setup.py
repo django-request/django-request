@@ -28,8 +28,9 @@ setup(
         'locale/*/LC_MESSAGES/*.*',
     ]},
     install_requires=[
-        'Django>=1.7',
+        'Django>=1.8',
         'python-dateutil',
+        'django-ipware>=2.0.1'
     ],
     license=request.__licence__,
     classifiers=[

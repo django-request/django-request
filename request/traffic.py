@@ -165,9 +165,7 @@ class UniqueVisit(Module):
     verbose_name_plural = _('Unique Visits')
 
     def count(self, qs):
-        return qs.exclude(
-            referer__startswith=settings.BASE_URL,
-        ).count()
+        return qs.exclude_current_site().count()
 
 
 class UniqueVisitor(Module):
