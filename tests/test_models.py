@@ -18,6 +18,7 @@ class RequestTests(TestCase):
         http_request.META['REMOTE_ADDR'] = '32.64.128.16'
         http_request.META['HTTP_USER_AGENT'] = 'test user agent'
         http_request.META['HTTP_REFERER'] = 'https://fuller.li/'
+        http_request.META['QUERY_STRING'] = 'name=abc'
 
         http_response = HttpResponse(status=204)
 
@@ -30,6 +31,7 @@ class RequestTests(TestCase):
         self.assertEqual(request.response, 204)
         self.assertEqual(request.user_agent, 'test user agent')
         self.assertEqual(request.referer, 'https://fuller.li/')
+        self.assertEqual(request.query_string, 'name=abc')
 
     def test_from_http_request_with_user(self):
         http_request = HttpRequest()

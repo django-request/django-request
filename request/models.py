@@ -59,8 +59,7 @@ class Request(models.Model):
         # Request information
         self.method = request.method
         self.path = request.path[:255]
-        absolute_url = request.build_absolute_uri()
-        self.query_string = absolute_url[absolute_url.find('?'):] if absolute_url.find('?') != -1 else ''
+        self.query_string = request.META.get('QUERY_STRING', '')[:255]
 
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
