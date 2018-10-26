@@ -18,35 +18,35 @@ Django documentation for more information.
 
 Default: ``None``
 
-Any requests from a IP Address in this list will not be recorded.
+Any requests from an IP address in this list will not be recorded.
 
 ``REQUEST_LOG_IP``
-=====================
+==================
 
 Default: ``True``
 
-If set to False, ip addresses are replaced with REQUEST_IP_DUMMY.
+If set to ``False``, IP addresses are replaced with ``REQUEST_IP_DUMMY``.
 
 ``REQUEST_IP_DUMMY``
-=====================
+====================
 
 Default: ``1.1.1.1``
 
-Used dummy address, if REQUEST_LOG_IP is set to False.
+Used dummy address, if ``REQUEST_LOG_IP`` is set to False.
 
 ``REQUEST_ANONYMOUS_IP``
 ========================
 
 Default: ``False``
 
-If set to True, last octet of the ip is set to 1.
+If set to ``True``, last octet of the IP is set to 1.
 
 ``REQUEST_LOG_USER``
-=====================
+====================
 
 Default: ``True``
 
-If set to False, user are not logged (set to None).
+If set to ``False``, user are not logged (set to ``None``).
 
 ``REQUEST_IGNORE_USERNAME``
 ===========================
@@ -56,7 +56,7 @@ Default: ``None``
 Any requests from users in this list will not be recorded.
 
 ``REQUEST_IGNORE_PATHS``
-===========================
+========================
 
 Default: ``None``
 
@@ -90,7 +90,7 @@ Example:
     )
 
 ``REQUEST_TRAFFIC_MODULES``
-=================================
+===========================
 
 Default:
 
@@ -155,15 +155,17 @@ Default: ``'http://%s' % Site.objects.get_current().domain``
 This setting should only be set if you use SSL or do not use django.contrib.sites. This is the base url for detecting referral from within the same site.
 
 ``REQUEST_ONLY_ERRORS``
-=====================================
+=======================
 
 Default: ``False``
 
-If this is set to True, django-request will ONLY store error returning request/responses. This can be useful to use django-request purely as a error detection system.
+If this is set to ``True``, ``django-request`` will ONLY store error returning
+request/responses. This can be useful to use ``django-request`` purely as an
+error detection system.
 
 ``REQUEST_VALID_METHOD_NAMES``
 ==============================
 
-Default: ('get', 'post', 'put', 'delete', 'head', 'options', 'trace')
+Default: ``('get', 'post', 'put', 'delete', 'head', 'options', 'trace')``
 
 Any request which is not in this tuple/list will not be recorded.
