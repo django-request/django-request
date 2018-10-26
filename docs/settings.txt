@@ -88,15 +88,15 @@ Example:
 ``REQUEST_TRAFFIC_MODULES``
 =================================
 
-Default: 
+Default:
 
 .. code-block:: python
 
-	(
-    	'request.traffic.UniqueVisitor',
-    	'request.traffic.UniqueVisit',
-    	'request.traffic.Hit',
-	)
+    (
+        'request.traffic.UniqueVisitor',
+        'request.traffic.UniqueVisit',
+        'request.traffic.Hit',
+    )
 
 These are all the items in the traffic graph and table on the overview page. If you wish to remove or add a item you can override this setting and set what you want to see. There are also many more options you can add from the following list;
 
@@ -116,19 +116,19 @@ These are all the items in the traffic graph and table on the overview page. If 
 ``REQUEST_PLUGINS``
 ===================
 
-Default: 
+Default:
 
 .. code-block:: python
 
-	(
-	    'request.plugins.TrafficInformation',
-	    'request.plugins.LatestRequests',
-	    'request.plugins.TopPaths',
-	    'request.plugins.TopErrorPaths',
-	    'request.plugins.TopReferrers',
-	    'request.plugins.TopSearchPhrases',
-	    'request.plugins.TopBrowsers',
-	)
+    (
+        'request.plugins.TrafficInformation',
+        'request.plugins.LatestRequests',
+        'request.plugins.TopPaths',
+        'request.plugins.TopErrorPaths',
+        'request.plugins.TopReferrers',
+        'request.plugins.TopSearchPhrases',
+        'request.plugins.TopBrowsers',
+    )
 
 These are all the plugins you can see on the overview page. If you wish to remove or add a plugin you can override this setting and set what you want to see. Here is a list of all the plugins and what they do;
 
