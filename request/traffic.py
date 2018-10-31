@@ -69,7 +69,7 @@ class Modules(object):
         '''
         return tuple([{
             'data': [(mktime(day.timetuple()) * 1000, module.count(qs)) for day, qs in days],
-            'label': ugettext(module.verbose_name_plural)
+            'label': str(ugettext(module.verbose_name_plural)),
         } for module in self.modules])
 
 
