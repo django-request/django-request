@@ -62,13 +62,12 @@ class TrafficTest(TestCase):
         request = self.factory.get('/foo', {'days': 'foo'})
         self.admin.traffic(request)
 
-    def test_days_lt_10(self):
-        request = self.factory.get('/foo', {'days': 9})
-        self.admin.traffic(request)
-
-    def test_days_gt_60(self):
-        request = self.factory.get('/foo', {'days': 61})
-        self.admin.traffic(request)
+    def test_days(self):
+        for days, intervals in ((9, 10), (30, 16), (365, 13)):
+            request = self.factory.get('/foo', {'days': days})
+            data = json.loads(self.admin.traffic(request).content.decode())
+            for single_data in data:
+                self.assertEqual(len(single_data['data']), intervals)
 
 
 class RequestAdminViewsTest(TestCase):
