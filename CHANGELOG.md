@@ -2,6 +2,10 @@
 
 ## 1.5.5.
 
+### Breaking
+
+* Support for Django 1.7-1.8 has been dropped.
+
 ### Bug Fixes
 
 * Fixes series of dates in a _Traffic Graph_ in the admin's requests overview
