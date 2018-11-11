@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
 
+import django
 from django.contrib.admin import site
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
+from django.test.utils import override_settings
+from django.utils.translation import _trans
 from request.admin import RequestAdmin
 from request.models import Request
 
@@ -55,6 +58,15 @@ class TrafficTest(TestCase):
         self.factory = RequestFactory()
 
     def test_traffic(self):
+        request = self.factory.get('/foo')
+        self.admin.traffic(request)
+
+    @override_settings(USE_I18N=False)
+    def test_traffic_without_i18n(self):
+        if django.VERSION >= (2, 0):
+            del _trans.gettext
+        else:
+            del _trans.ugettext
         request = self.factory.get('/foo')
         self.admin.traffic(request)
 

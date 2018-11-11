@@ -10,3 +10,6 @@
 
 * Fixes series of dates in a _Traffic Graph_ in the admin's requests overview
   (#180).
+
+* Fixes crash of ``Modules.graph()`` when Django's translation is disabled i.e.
+  ``USE_I18N = False`` (#168).
