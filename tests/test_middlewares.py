@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from unittest import skipIf
-
-import django
 import mock
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
@@ -26,11 +23,7 @@ class RequestMiddlewareTest(TestCase):
         'request.middleware.RequestMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
     ])
-    @skipIf(django.VERSION < (1, 10), 'Django >= 1.10 specific test')
     def test_middleware_functions_supported(self):
-        '''
-        Test support of a middleware factory that was introduced in Django == 1.10
-        '''
         request = self.factory.get('/foo')
         RequestMiddleware(request)
 

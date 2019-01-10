@@ -4,7 +4,7 @@
 
 ### Breaking
 
-* Support for Django 1.7-1.8 has been dropped.
+* Support for Django 1.7-1.9 has been dropped.
 
 ### Bug Fixes
 
