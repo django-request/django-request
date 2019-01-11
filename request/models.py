@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
-import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -70,8 +69,6 @@ class Request(models.Model):
 
         if hasattr(request, 'user') and hasattr(request.user, 'is_authenticated'):
             is_authenticated = request.user.is_authenticated
-            if django.VERSION < (1, 10):
-                is_authenticated = is_authenticated()
             if is_authenticated:
                 self.user = request.user
 

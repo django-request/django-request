@@ -3,13 +3,9 @@ language: python
 matrix:
   include:
   - python: '2.7'
-    env: TOXENV=py27-django19-test
-  - python: '2.7'
     env: TOXENV=py27-django110-test
   - python: '2.7'
     env: TOXENV=py27-django111-test
-  - python: '3.4'
-    env: TOXENV=py34-django19-test
   - python: '3.4'
     env: TOXENV=py34-django110-test
   - python: '3.4'
