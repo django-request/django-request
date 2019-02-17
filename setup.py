@@ -30,6 +30,7 @@ setup(
     install_requires=[
         'Django>=1.10',
         'python-dateutil',
+        'six',
     ],
     license=request.__licence__,
     classifiers=[

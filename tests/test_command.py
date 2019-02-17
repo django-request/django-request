@@ -4,11 +4,11 @@ from datetime import timedelta
 import mock
 from django.core.management.base import CommandError
 from django.test import TestCase
-from django.utils.six import StringIO
 from django.utils.timezone import now
 from request.management.commands.purgerequests import Command as PurgeRequest
 from request.management.commands.purgerequests import DURATION_OPTIONS
 from request.models import Request
+from six import StringIO
 
 
 class PurgeRequestsTest(TestCase):
