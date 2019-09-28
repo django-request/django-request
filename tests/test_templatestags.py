@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.test import TestCase
+
 from request.templatetags.request_admin import pie_chart
 from request.templatetags.request_tag import ActiveUserNode, active_users
 

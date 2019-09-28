@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.utils.timezone import now
+
 from request import settings
 from request.managers import QUERYSET_PROXY_METHODS, RequestQuerySet
 from request.models import Request

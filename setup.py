@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import request
 from setuptools import setup
+
+import request
 
 setup(
     name='django-request',

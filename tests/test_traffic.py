@@ -2,6 +2,7 @@
 import mock
 from django.core import exceptions
 from django.test import TestCase
+
 from request import traffic
 from request.models import Request
 
