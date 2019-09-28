@@ -7,9 +7,9 @@ from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.utils.translation import _trans
+
 from request.admin import RequestAdmin
 from request.models import Request
-
 
 try:
     from django.urls import reverse
