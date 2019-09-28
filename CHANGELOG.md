@@ -1,5 +1,11 @@
 # Changelog for django-request
 
+## 1.5.6.
+
+### Enhancements
+
+* Confirms support for Django 2.2.
+
 ## 1.5.5.
 
 ### Breaking

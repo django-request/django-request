@@ -19,7 +19,7 @@ Requirements
 ------------
 
 * **Python**: 2.7, 3.4, 3.6
-* **Django**: 1.10, 1.11, 2.0, 2.1
+* **Django**: 1.10, 1.11, 2.0, 2.1, 2.2
 * **python-dateutil**
 * **six**
 
