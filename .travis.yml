@@ -23,6 +23,9 @@ matrix:
     env: TOXENV=py36-django22-test
   - python: '3.6'
     dist: xenial
+    env: TOXENV=py36-django30-test
+  - python: '3.6'
+    dist: xenial
     env: TOXENV=py36-djangomaster-test
   - python: '3.6'
     env: TOXENV=py36-isort

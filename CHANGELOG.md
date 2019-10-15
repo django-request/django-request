@@ -4,6 +4,8 @@
 
 ### Enhancements
 
+* Confirms support for Django 3.0.
+
 * Confirms support for Django 2.2.
 
 ## 1.5.5.
