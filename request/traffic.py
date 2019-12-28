@@ -5,7 +5,7 @@ import django
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Count
 from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from . import settings
 from .utils import get_verbose_name
