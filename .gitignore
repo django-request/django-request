@@ -7,3 +7,7 @@ dist/
 *.sw[pon]
 .coverage
 .tox
+
+# IntelliJ project and module files
+.idea
+*.iml
