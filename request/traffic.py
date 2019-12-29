@@ -4,8 +4,8 @@ from time import mktime
 import django
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Count
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ugettext
 
 from . import settings
 from .utils import get_verbose_name
@@ -69,7 +69,7 @@ class Modules(object):
         '''
         return tuple([{
             'data': [(mktime(day.timetuple()) * 1000, module.count(qs)) for day, qs in days],
-            'label': str(ugettext(module.verbose_name_plural)),
+            'label': str(gettext(module.verbose_name_plural)),
         } for module in self.modules])
 
 
