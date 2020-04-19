@@ -2,6 +2,10 @@
 
 ## 1.5.6.
 
+### Breaking
+
+* Support for Django 1.10 has been dropped.
+
 ### Enhancements
 
 * Confirms support for Python 3.7.

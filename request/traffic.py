@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from time import mktime
 
-import django
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Count
+from django.utils.text import format_lazy
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
@@ -86,12 +86,7 @@ class Module(object):
         if not hasattr(self, 'verbose_name'):
             self.verbose_name = get_verbose_name(self.module_name)
         if not hasattr(self, 'verbose_name_plural'):
-            if django.VERSION < (1, 11):
-                from django.utils.translation import string_concat
-                self.verbose_name_plural = string_concat(self.verbose_name, 's')
-            else:
-                from django.utils.text import format_lazy
-                self.verbose_name_plural = format_lazy('{}{}', self.verbose_name, 's')
+            self.verbose_name_plural = format_lazy('{}{}', self.verbose_name, 's')
 
     def count(self, qs):
         raise NotImplementedError('"count" isn\'t defined.')
