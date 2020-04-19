@@ -1,6 +1,7 @@
-sudo: false
+os: linux
+dist: xenial
 language: python
-matrix:
+jobs:
   include:
   - python: '2.7'
     env: TOXENV=py27-django111-test
@@ -15,13 +16,10 @@ matrix:
   - python: '3.6'
     env: TOXENV=py36-django21-test
   - python: '3.6'
-    dist: xenial
     env: TOXENV=py36-django22-test
   - python: '3.6'
-    dist: xenial
     env: TOXENV=py36-django30-test
   - python: '3.6'
-    dist: xenial
     env: TOXENV=py36-djangomaster-test
   - python: '3.7'
     env: TOXENV=py37-django111-test
@@ -30,13 +28,10 @@ matrix:
   - python: '3.7'
     env: TOXENV=py37-django21-test
   - python: '3.7'
-    dist: xenial
     env: TOXENV=py37-django22-test
   - python: '3.7'
-    dist: xenial
     env: TOXENV=py37-django30-test
   - python: '3.7'
-    dist: xenial
     env: TOXENV=py37-djangomaster-test
   - python: '3.7'
     env: TOXENV=py37-isort
@@ -53,7 +48,7 @@ after_script:
 - coveralls
 deploy:
   provider: pypi
-  user: djangorequest
+  username: djangorequest
   password:
     secure: ihSODos3XjtALjVY8qVDjIeFHfmxjgwABjMmlod4f7IVwf7bST7NLqG0JKPquesNx8mt+1IWdRSTbPKXmhSUqFrgqLts6jKfmj9vtAKKKnKcfNfe548NMC5D5FsYPpRRzX1idUpHxr3O/vo10P2DoQ+b88spmCK/irAtAXvdqd8=
   distributions: sdist bdist_wheel
