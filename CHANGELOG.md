@@ -16,6 +16,10 @@
 
 * Confirms support for Django 2.2.
 
+### Bug Fixes
+
+* Fixes a performance regression in the admin's requests overview (#200).
+
 ## 1.5.5.
 
 ### Breaking
