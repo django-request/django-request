@@ -8,6 +8,8 @@
 
 ### Enhancements
 
+* Confirms support for Python 3.8.
+
 * Confirms support for Python 3.7.
 
 * Confirms support for Django 3.0.
