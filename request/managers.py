@@ -2,6 +2,7 @@
 import datetime
 import time
 
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -39,7 +40,11 @@ class RequestQuerySet(models.query.QuerySet):
         # Truncate to date.
         if isinstance(date, datetime.datetime):
             date = date.date()
-        return self.filter(time__year=date.year, time__month=date.month)
+        # Calculate first and last day of month, for use in a date-range
+        # lookup.
+        first_day = date.replace(day=1)
+        last_day = first_day + relativedelta(months=1)
+        return self.filter(time__gte=first_day, time__lt=last_day)
 
     def week(self, year, week):
         try:
