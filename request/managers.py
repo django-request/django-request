@@ -71,7 +71,10 @@ class RequestQuerySet(models.query.QuerySet):
                     raise TypeError('Request.objects.day() takes exactly 3 arguments')
             except ValueError:
                 return
-        return self.filter(time__date=date)
+        return self.filter(time__range=(
+            datetime.datetime.combine(date, datetime.time.min),
+            datetime.datetime.combine(date, datetime.time.max),
+        ))
 
     def today(self):
         return self.day(date=datetime.date.today())
