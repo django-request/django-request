@@ -1,25 +1,10 @@
-sudo: false
+os: linux
+dist: xenial
 language: python
-matrix:
+jobs:
   include:
   - python: '2.7'
-    env: TOXENV=py27-django17-test
-  - python: '2.7'
-    env: TOXENV=py27-django18-test
-  - python: '2.7'
-    env: TOXENV=py27-django19-test
-  - python: '2.7'
-    env: TOXENV=py27-django110-test
-  - python: '2.7'
     env: TOXENV=py27-django111-test
-  - python: '3.4'
-    env: TOXENV=py34-django17-test
-  - python: '3.4'
-    env: TOXENV=py34-django18-test
-  - python: '3.4'
-    env: TOXENV=py34-django19-test
-  - python: '3.4'
-    env: TOXENV=py34-django110-test
   - python: '3.4'
     env: TOXENV=py34-django111-test
   - python: '3.4'
@@ -31,14 +16,37 @@ matrix:
   - python: '3.6'
     env: TOXENV=py36-django21-test
   - python: '3.6'
+    env: TOXENV=py36-django22-test
+  - python: '3.6'
+    env: TOXENV=py36-django30-test
+  - python: '3.6'
     env: TOXENV=py36-djangomaster-test
-  - python: '3.6'
-    env: TOXENV=py36-isort
-  - python: '3.6'
-    env: TOXENV=py36-flake
+  - python: '3.7'
+    env: TOXENV=py37-django111-test
+  - python: '3.7'
+    env: TOXENV=py37-django20-test
+  - python: '3.7'
+    env: TOXENV=py37-django21-test
+  - python: '3.7'
+    env: TOXENV=py37-django22-test
+  - python: '3.7'
+    env: TOXENV=py37-django30-test
+  - python: '3.7'
+    env: TOXENV=py37-djangomaster-test
+  - python: '3.8'
+    env: TOXENV=py38-django22-test
+  - python: '3.8'
+    env: TOXENV=py38-django30-test
+  - python: '3.8'
+    env: TOXENV=py38-djangomaster-test
+  - python: '3.8'
+    env: TOXENV=py38-isort
+  - python: '3.8'
+    env: TOXENV=py38-flake
   allow_failures:
-  - env: TOXENV=py36-django21-test
   - env: TOXENV=py36-djangomaster-test
+  - env: TOXENV=py37-djangomaster-test
+  - env: TOXENV=py38-djangomaster-test
 install:
 - pip install coveralls tox>=2.1
 script:
@@ -47,7 +55,7 @@ after_script:
 - coveralls
 deploy:
   provider: pypi
-  user: djangorequest
+  username: djangorequest
   password:
     secure: ihSODos3XjtALjVY8qVDjIeFHfmxjgwABjMmlod4f7IVwf7bST7NLqG0JKPquesNx8mt+1IWdRSTbPKXmhSUqFrgqLts6jKfmj9vtAKKKnKcfNfe548NMC5D5FsYPpRRzX1idUpHxr3O/vo10P2DoQ+b88spmCK/irAtAXvdqd8=
   distributions: sdist bdist_wheel

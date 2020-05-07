@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
-import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from six import python_2_unicode_compatible
 
 from . import settings as request_settings
 from .managers import RequestManager
@@ -18,10 +17,10 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 @python_2_unicode_compatible
 class Request(models.Model):
-    # Response infomation
+    # Response information.
     response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)
 
-    # Request infomation
+    # Request information.
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     query_string = models.CharField(_('query string'), max_length=255, blank=True)
@@ -34,7 +33,7 @@ class Request(models.Model):
         help_text=_('Wheather this request was used via javascript.'),
     )
 
-    # User infomation
+    # User information.
     ip = models.GenericIPAddressField(_('ip address'))
     user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'), on_delete=models.SET_NULL)
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
@@ -56,7 +55,7 @@ class Request(models.Model):
         return get_user_model().objects.get(pk=self.user_id)
 
     def from_http_request(self, request, response=None, commit=True):
-        # Request information
+        # Request information.
         self.method = request.method
         self.path = request.path[:255]
         self.query_string = request.META.get('QUERY_STRING', '')[:255]
@@ -64,7 +63,7 @@ class Request(models.Model):
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
 
-        # User information
+        # User information.
         self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
@@ -72,8 +71,6 @@ class Request(models.Model):
 
         if hasattr(request, 'user') and hasattr(request.user, 'is_authenticated'):
             is_authenticated = request.user.is_authenticated
-            if django.VERSION < (1, 10):
-                is_authenticated = is_authenticated()
             if is_authenticated:
                 self.user = request.user
 

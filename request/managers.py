@@ -2,6 +2,7 @@
 import datetime
 import time
 
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -36,23 +37,14 @@ class RequestQuerySet(models.query.QuerySet):
                     raise TypeError('Request.objects.month() takes exactly 2 arguments')
             except ValueError:
                 return
-
         # Truncate to date.
         if isinstance(date, datetime.datetime):
             date = date.date()
-        # Calculate first and last day of month, for use in a date-range lookup.
+        # Calculate first and last day of month, for use in a date-range
+        # lookup.
         first_day = date.replace(day=1)
-        if first_day.month == 12:
-            last_day = first_day.replace(year=first_day.year + 1, month=1)
-        else:
-            last_day = first_day.replace(month=first_day.month + 1)
-
-        lookup_kwargs = {
-            'time__gte': first_day,
-            'time__lt': last_day,
-        }
-
-        return self.filter(**lookup_kwargs)
+        last_day = first_day + relativedelta(months=1)
+        return self.filter(time__gte=first_day, time__lt=last_day)
 
     def week(self, year, week):
         try:
@@ -79,11 +71,7 @@ class RequestQuerySet(models.query.QuerySet):
                     raise TypeError('Request.objects.day() takes exactly 3 arguments')
             except ValueError:
                 return
-
-        return self.filter(time__range=(
-            datetime.datetime.combine(date, datetime.time.min),
-            datetime.datetime.combine(date, datetime.time.max),
-        ))
+        return self.filter(time__date=date)
 
     def today(self):
         return self.day(date=datetime.date.today())

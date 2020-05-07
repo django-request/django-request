@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from django.utils.six import string_types
+from six import string_types
 
 
 class RegexPattern(object):
