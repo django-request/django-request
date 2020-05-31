@@ -154,3 +154,7 @@ def get_verbose_name(class_name):
         ' \\1',
         class_name,
     ).strip()
+
+
+def request_is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
