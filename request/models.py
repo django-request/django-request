@@ -10,7 +10,7 @@ from six import python_2_unicode_compatible
 
 from . import settings as request_settings
 from .managers import RequestManager
-from .utils import HTTP_STATUS_CODES, browsers, engines
+from .utils import HTTP_STATUS_CODES, browsers, engines, request_is_ajax
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -59,7 +59,7 @@ class Request(models.Model):
         self.path = request.path[:255]
 
         self.is_secure = request.is_secure()
-        self.is_ajax = request.is_ajax()
+        self.is_ajax = request_is_ajax(request)
 
         # User information.
         self.ip = request.META.get('REMOTE_ADDR', '')
