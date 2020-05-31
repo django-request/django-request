@@ -20,6 +20,8 @@ jobs:
   - python: '3.6'
     env: TOXENV=py36-django30-test
   - python: '3.6'
+    env: TOXENV=py36-django31-test
+  - python: '3.6'
     env: TOXENV=py36-djangomaster-test
   - python: '3.7'
     env: TOXENV=py37-django111-test
@@ -32,11 +34,15 @@ jobs:
   - python: '3.7'
     env: TOXENV=py37-django30-test
   - python: '3.7'
+    env: TOXENV=py37-django31-test
+  - python: '3.7'
     env: TOXENV=py37-djangomaster-test
   - python: '3.8'
     env: TOXENV=py38-django22-test
   - python: '3.8'
     env: TOXENV=py38-django30-test
+  - python: '3.8'
+    env: TOXENV=py38-django31-test
   - python: '3.8'
     env: TOXENV=py38-djangomaster-test
   - python: '3.8'
