@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
+from django.utils.deprecation import MiddlewareMixin
+
 from . import settings
 from .models import Request
 from .router import Patterns
 from .utils import request_is_ajax
-
-try:
-    # needed to support Django >= 1.10 MIDDLEWARE
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:
-    # needed to keep Django <= 1.9 MIDDLEWARE_CLASSES
-    MiddlewareMixin = object
 
 
 class RequestMiddleware(MiddlewareMixin):
