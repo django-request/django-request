@@ -12,6 +12,8 @@
 
 * Confirms support for Python 3.7.
 
+* Adds support for Django 3.1.
+
 * Confirms support for Django 3.0.
 
 * Confirms support for Django 2.2.
