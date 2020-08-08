@@ -22,6 +22,8 @@
 
 * Fixes a performance regression in the admin's requests overview (#200).
 
+* Fixes handling naive datetimes in the admin's requests overview.
+
 ## 1.5.5.
 
 ### Breaking
