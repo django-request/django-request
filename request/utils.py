@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 
+from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .router import Patterns
@@ -158,3 +160,9 @@ def get_verbose_name(class_name):
 
 def request_is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
+def handle_naive_datetime(value):
+    if settings.USE_TZ and timezone.is_naive(value):
+        return timezone.make_aware(value)
+    return value

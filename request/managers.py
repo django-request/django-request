@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from . import settings
+from .utils import handle_naive_datetime
 
 QUERYSET_PROXY_METHODS = (
     'year',
@@ -42,9 +43,12 @@ class RequestQuerySet(models.query.QuerySet):
             date = date.date()
         # Calculate first and last day of month, for use in a date-range
         # lookup.
-        first_day = date.replace(day=1)
+        first_day = datetime.datetime.combine(date.replace(day=1), datetime.time.min)
         last_day = first_day + relativedelta(months=1)
-        return self.filter(time__gte=first_day, time__lt=last_day)
+        return self.filter(
+            time__gte=handle_naive_datetime(first_day),
+            time__lt=handle_naive_datetime(last_day),
+        )
 
     def week(self, year, week):
         try:
@@ -52,15 +56,12 @@ class RequestQuerySet(models.query.QuerySet):
         except ValueError:
             return
 
-        # Calculate first and last day of week, for use in a date-range lookup.
-        first_day = date
-        last_day = date + datetime.timedelta(days=7)
-        lookup_kwargs = {
-            'time__gte': first_day,
-            'time__lt': last_day,
-        }
-
-        return self.filter(**lookup_kwargs)
+        first_day = datetime.datetime.combine(date, datetime.time.min)
+        last_day = first_day + datetime.timedelta(days=7)
+        return self.filter(
+            time__gte=handle_naive_datetime(first_day),
+            time__lt=handle_naive_datetime(last_day),
+        )
 
     def day(self, year=None, month=None, day=None, month_format='%b', day_format='%d', date=None):
         if not date:
@@ -72,8 +73,8 @@ class RequestQuerySet(models.query.QuerySet):
             except ValueError:
                 return
         return self.filter(time__range=(
-            datetime.datetime.combine(date, datetime.time.min),
-            datetime.datetime.combine(date, datetime.time.max),
+            handle_naive_datetime(datetime.datetime.combine(date, datetime.time.min)),
+            handle_naive_datetime(datetime.datetime.combine(date, datetime.time.max)),
         ))
 
     def today(self):
