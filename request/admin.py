@@ -31,7 +31,7 @@ class RequestAdmin(admin.ModelAdmin):
     readonly_fields = ('time',)
 
     def get_queryset(self, request):
-        return super(RequestAdmin, self).get_queryset(request).select_related('user')
+        return super().get_queryset(request).select_related('user')
 
     def request_from(self, obj):
         if obj.user_id:
@@ -59,7 +59,7 @@ class RequestAdmin(admin.ModelAdmin):
         return [
             url(r'^overview/$', wrap(self.overview), name='{0}_{1}_overview'.format(*info)),
             url(r'^overview/traffic/$', wrap(self.traffic), name='{0}_{1}_traffic'.format(*info)),
-        ] + super(RequestAdmin, self).get_urls()
+        ] + super().get_urls()
 
     def overview(self, request):
         qs = Request.objects.this_month()
