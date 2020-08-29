@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import mock
 from django.core import exceptions
 from django.test import TestCase

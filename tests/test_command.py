@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 from datetime import timedelta
+from io import StringIO
 
 import mock
 from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils.timezone import now
-from six import StringIO
 
 from request.management.commands.purgerequests import DURATION_OPTIONS
 from request.management.commands.purgerequests import Command as PurgeRequest

@@ -18,16 +18,20 @@ To find the request overview page, please click on Requests inside the admin, th
 Requirements
 ------------
 
-* **Python**: 2.7, 3.4, 3.6, 3.7, 3.8
-* **Django**: 1.11, 2.0, 2.1, 2.2, 3.0, 3.1
+* **Python**: 3.6, 3.7, 3.8
+* **Django**: 2.2, 3.0, 3.1
 * **python-dateutil**
-* **six**
 
 django-request [1.5.1](https://pypi.org/project/django-request/1.5.1/) is the last version that supports Django 1.4, 1.5, 1.6.
+
 django-request [1.5.4](https://pypi.org/project/django-request/1.5.4/) is the
 last version that supports Django 1.7, 1.8, 1.9.
+
 django-request [1.5.5](https://pypi.org/project/django-request/1.5.5/) is the
 last version that supports Django 1.10.
+
+django-request [1.5.6](https://pypi.org/project/django-request/1.5.5/) is the
+last version that supports Django 1.11, 2.0, 2.2, and Python 2.7 and 3.4.
 
 Installation
 ------------

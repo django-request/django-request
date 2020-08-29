@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 import re
-
-from six import string_types
 
 
 class RegexPattern(object):
     def __init__(self, regex, name=''):
-        self.regex = re.compile(regex, re.UNICODE)
+        self.regex = re.compile(regex)
         self.name = name
 
     def resolve(self, string):
@@ -21,7 +18,7 @@ class Patterns(object):
         self.unknown = unknown
 
         for pattern in args:
-            if isinstance(pattern, string_types):
+            if isinstance(pattern, str):
                 self.patterns += (RegexPattern(pattern),)
             else:
                 self.patterns += (RegexPattern(*pattern),)
