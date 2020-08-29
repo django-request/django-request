@@ -114,4 +114,4 @@ class Request(models.Model):
         if not request_settings.LOG_USER:
             self.user = None
 
-        super(Request, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
