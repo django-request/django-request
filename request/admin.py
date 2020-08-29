@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 from datetime import date, timedelta
 from functools import update_wrapper

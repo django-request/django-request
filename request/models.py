@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from socket import gethostbyaddr
 
 from django.conf import settings
@@ -6,7 +5,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from six import python_2_unicode_compatible
 
 from . import settings as request_settings
 from .managers import RequestManager
@@ -15,7 +13,6 @@ from .utils import HTTP_STATUS_CODES, browsers, engines, request_is_ajax
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
-@python_2_unicode_compatible
 class Request(models.Model):
     # Response information.
     response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)

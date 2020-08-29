@@ -3,18 +3,6 @@ dist: xenial
 language: python
 jobs:
   include:
-  - python: '2.7'
-    env: TOXENV=py27-django111-test
-  - python: '3.4'
-    env: TOXENV=py34-django111-test
-  - python: '3.4'
-    env: TOXENV=py34-django20-test
-  - python: '3.6'
-    env: TOXENV=py36-django111-test
-  - python: '3.6'
-    env: TOXENV=py36-django20-test
-  - python: '3.6'
-    env: TOXENV=py36-django21-test
   - python: '3.6'
     env: TOXENV=py36-django22-test
   - python: '3.6'
@@ -23,12 +11,6 @@ jobs:
     env: TOXENV=py36-django31-test
   - python: '3.6'
     env: TOXENV=py36-djangomaster-test
-  - python: '3.7'
-    env: TOXENV=py37-django111-test
-  - python: '3.7'
-    env: TOXENV=py37-django20-test
-  - python: '3.7'
-    env: TOXENV=py37-django21-test
   - python: '3.7'
     env: TOXENV=py37-django22-test
   - python: '3.7'

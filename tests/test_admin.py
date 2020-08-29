@@ -1,21 +1,14 @@
-# -*- coding: utf-8 -*-
 import json
 
-import django
 from django.contrib.admin import site
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from django.utils.translation import _trans
 
 from request.admin import RequestAdmin
 from request.models import Request
-
-try:
-    from django.urls import reverse
-except ImportError:
-    # to keep backward (Django < 1.10) compatibility
-    from django.core.urlresolvers import reverse
 
 
 class LookupAllowedTest(TestCase):
@@ -63,10 +56,7 @@ class TrafficTest(TestCase):
 
     @override_settings(USE_I18N=False)
     def test_traffic_without_i18n(self):
-        if django.VERSION >= (2, 0):
-            del _trans.gettext
-        else:
-            del _trans.ugettext
+        del _trans.gettext
         request = self.factory.get('/foo')
         self.admin.traffic(request)
 

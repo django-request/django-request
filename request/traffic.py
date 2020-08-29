@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from time import mktime
 
 from django.core.exceptions import ImproperlyConfigured

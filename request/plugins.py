@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db.models import Count
 from django.template.loader import render_to_string
 
