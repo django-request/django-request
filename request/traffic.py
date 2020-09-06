@@ -10,7 +10,7 @@ from . import settings
 from .utils import get_verbose_name
 
 
-class Modules(object):
+class Modules:
     '''
     Set of :class:`.Module`.
     '''
@@ -75,7 +75,7 @@ class Modules(object):
 modules = Modules()
 
 
-class Module(object):
+class Module:
     '''
     Base module class.
     '''
