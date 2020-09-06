@@ -1,7 +1,7 @@
 import re
 
 
-class RegexPattern(object):
+class RegexPattern:
     def __init__(self, regex, name=''):
         self.regex = re.compile(regex)
         self.name = name
@@ -12,7 +12,7 @@ class RegexPattern(object):
             return self.name, match.groupdict()
 
 
-class Patterns(object):
+class Patterns:
     def __init__(self, unknown, *args):
         self.patterns = ()
         self.unknown = unknown

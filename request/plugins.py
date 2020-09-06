@@ -32,7 +32,7 @@ def set_count(items):
     return [(k, v) for v, k in items]
 
 
-class Plugins(object):
+class Plugins:
     def load(self):
         from importlib import import_module
 
@@ -71,7 +71,7 @@ class Plugins(object):
 plugins = Plugins()
 
 
-class Plugin(object):
+class Plugin:
     def __init__(self):
         self.module_name = self.__class__.__name__
 
