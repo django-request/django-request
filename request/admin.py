@@ -2,10 +2,10 @@ import json
 from datetime import date, timedelta
 from functools import update_wrapper
 
-from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import path
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -57,8 +57,8 @@ class RequestAdmin(admin.ModelAdmin):
 
         info = (self.model._meta.app_label, self.model._meta.model_name)
         return [
-            url(r'^overview/$', wrap(self.overview), name='{0}_{1}_overview'.format(*info)),
-            url(r'^overview/traffic/$', wrap(self.traffic), name='{0}_{1}_traffic'.format(*info)),
+            path('overview/', wrap(self.overview), name='{0}_{1}_overview'.format(*info)),
+            path('overview/traffic/', wrap(self.traffic), name='{0}_{1}_traffic'.format(*info)),
         ] + super().get_urls()
 
     def overview(self, request):
