@@ -8,6 +8,10 @@
 
 * Support for Python 2.7 and 3.4 has been dropped.
 
+### Enhancements
+
+* Confirms support for Python 3.9.
+
 ## 1.5.6.
 
 ### Breaking
