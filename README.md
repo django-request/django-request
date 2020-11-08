@@ -1,7 +1,7 @@
 django-request
 ==============
 
-[![Build Status](http://img.shields.io/travis/django-request/django-request/master.svg?style=flat)](https://travis-ci.org/django-request/django-request)
+[![Build Status](https://github.com/django-request/django-request/workflows/Tests/badge.svg?branch=master)](https://github.com/django-request/django-request/actions)
 [![Coverage Status](https://coveralls.io/repos/github/django-request/django-request/badge.svg?branch=master)](https://coveralls.io/github/django-request/django-request?branch=master)
 [![PyPI Version](https://img.shields.io/pypi/v/django-request.svg)](https://pypi.org/project/django-request/)
 
