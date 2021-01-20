@@ -1,5 +1,6 @@
+from urllib.parse import quote
+
 from django import template
-from django.utils.http import quote
 
 register = template.Library()
 
