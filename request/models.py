@@ -26,7 +26,7 @@ class Request(models.Model):
     is_ajax = models.BooleanField(
         _('is ajax'),
         default=False,
-        help_text=_('Wheather this request was used via javascript.'),
+        help_text=_('Whether this request was used via JavaScript.'),
     )
 
     # User information.
