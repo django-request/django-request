@@ -10,6 +10,8 @@
 
 ### Enhancements
 
+* Confirms support for Django 3.2.
+
 * Confirms support for Python 3.9.
 
 ## 1.5.6.
