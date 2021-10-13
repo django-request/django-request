@@ -4,6 +4,22 @@
 Settings
 ========
 
+The following settings can be used directly inside ``settings.py`` file. For example:
+
+.. code-block:: python
+    REQUEST_LOG_USER = True
+    REQUEST_PLUGINS = (
+    'request.plugins.TrafficInformation',
+    'request.plugins.LatestRequests',
+    'request.plugins.TopPaths',
+    )
+    REQUEST_TRAFFIC_MODULES = (
+    'request.traffic.Ajax',
+    'request.traffic.NotAjax',
+    'request.traffic.Error',
+    )
+
+
 ``REQUEST_IGNORE_AJAX``
 =======================
 
