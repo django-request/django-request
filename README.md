@@ -40,7 +40,10 @@ Installation
 - Put `'request'` in your `INSTALLED_APPS` setting.
 - Run the command `manage.py migrate`.
 - Add `request.middleware.RequestMiddleware` to `MIDDLEWARE`. If you use `django.contrib.auth.middleware.AuthenticationMiddleware`, place the `RequestMiddleware` after it. If you use `django.contrib.flatpages.middleware.FlatpageFallbackMiddleware` place `request.middleware.RequestMiddleware` before it else flatpages will be marked as error pages in the admin panel.
-- Make sure that the domain name in `django.contrib.sites` admin is correct. This is used to calculate unique visitors and top referrers.
+- Add `REQUEST_BASE_URL` to your settings with the base URL of your site (e.g.
+  `https://www.my.site/`). This is used to calculate unique visitors and top
+  referrers. `REQUEST_BASE_URL` defaults to
+  `'http://%s' % Site.objects.get_current().domain`.
 
 Detailed documentation
 ----------------------
