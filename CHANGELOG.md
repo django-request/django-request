@@ -10,6 +10,9 @@
 
 ### Enhancements
 
+* Adds [htmx](https://htmx.org/) support to the ``REQUEST_IGNORE_AJAX``
+  setting.
+
 * Confirms support for Django 4.0.
 
 * Confirms support for Django 3.2.
