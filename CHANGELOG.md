@@ -4,7 +4,7 @@
 
 ### Breaking
 
-* Support for Django 1.11, 2.0, and 2.1 has been dropped.
+* Support for Django 1.11, 2.0, 2.1, 3.0, and 3.1 has been dropped.
 
 * Support for Python 2.7 and 3.4 has been dropped.
 
