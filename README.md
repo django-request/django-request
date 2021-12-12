@@ -18,7 +18,7 @@ To find the request overview page, please click on Requests inside the admin, th
 Requirements
 ------------
 
-* **Python**: 3.6, 3.7, 3.8, 3.9
+* **Python**: 3.6, 3.7, 3.8, 3.9, 3.10
 * **Django**: 2.2, 3.2, 4.0
 * **python-dateutil**
 
