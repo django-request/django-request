@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.utils.deprecation import MiddlewareMixin
 
 from . import settings
@@ -33,6 +34,11 @@ class RequestMiddleware(MiddlewareMixin):
                 return response
 
         r = Request()
-        r.from_http_request(request, response)
-
+        try:
+            r.from_http_request(request, response, commit=False)
+            r.full_clean()
+        except ValidationError:
+            pass
+        else:
+            r.save()
         return response

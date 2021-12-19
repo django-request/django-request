@@ -21,6 +21,10 @@
 
 * Confirms support for Python 3.9.
 
+### Bug Fixes
+
+* Fixes middleware crash on invalid IP addresses in ``REMOTE_ADDR``.
+
 ## 1.5.6.
 
 ### Breaking
