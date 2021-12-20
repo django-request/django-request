@@ -133,6 +133,12 @@ class RequestMiddlewareTest(TestCase):
         self.middleware(request)
         self.assertEqual(1, Request.objects.count())
 
+    def test_invalid_addr(self):
+        request = self.factory.get('/foo')
+        request.META['REMOTE_ADDR'] = 'invalid-addr'
+        self.middleware(request)
+        self.assertEqual(Request.objects.count(), 0)
+
     @mock.patch('request.middleware.settings.IGNORE_USER_AGENTS',
                 (r'^.*Foo.*$',))
     def test_dont_record_ignored_user_agents(self):
