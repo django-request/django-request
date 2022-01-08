@@ -1,5 +1,11 @@
 # Changelog for django-request
 
+## 1.6.1
+
+### Bug Fixes
+
+* Adds a missing migration to change ``help_text`` of ``Request.is_ajax``.
+
 ## 1.6.0
 
 ### Breaking
