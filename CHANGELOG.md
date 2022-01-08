@@ -2,6 +2,11 @@
 
 ## 1.6.1
 
+### Enhancements
+
+* Adds warning logging to middleware on invalid IP addresses in
+  ``REMOTE_ADDR``.
+
 ### Bug Fixes
 
 * Adds a missing migration to change ``help_text`` of ``Request.is_ajax``.

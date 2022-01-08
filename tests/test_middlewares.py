@@ -136,7 +136,12 @@ class RequestMiddlewareTest(TestCase):
     def test_invalid_addr(self):
         request = self.factory.get('/foo')
         request.META['REMOTE_ADDR'] = 'invalid-addr'
-        self.middleware(request)
+        with self.assertLogs('request.security.middleware', 'WARNING') as cm:
+            self.middleware(request)
+        self.assertIn(
+            "Bad request: {'ip': ['Enter a valid IPv4 or IPv6 address.']}",
+            cm.output[0],
+        )
         self.assertEqual(Request.objects.count(), 0)
 
     @mock.patch('request.middleware.settings.IGNORE_USER_AGENTS',
