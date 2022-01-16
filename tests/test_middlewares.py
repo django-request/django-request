@@ -100,6 +100,15 @@ class RequestMiddlewareTest(TestCase):
         self.middleware(request)
         self.assertEqual(Request.objects.count(), 1)
 
+    @mock.patch('request.middleware.settings.IGNORE_AJAX', True)
+    def test_record_boosted_html(self):
+        self.assertEqual(Request.objects.count(), 0)
+        request = self.factory.get('/foo')
+        request.META['HTTP_HX_REQUEST'] = 'true'
+        request.META['HTTP_HX_BOOSTED'] = 'true'
+        self.middleware(request)
+        self.assertEqual(Request.objects.count(), 1)
+
     @mock.patch('request.middleware.settings.IGNORE_AJAX',
                 False)
     def test_record_ajax(self):

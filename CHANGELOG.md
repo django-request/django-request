@@ -1,5 +1,12 @@
 # Changelog for django-request
 
+## 1.6.2
+
+### Enhancements
+
+* Don't ignore [boosted htmx requests](https://htmx.org/attributes/hx-boost/)
+  with ``REQUEST_IGNORE_AJAX``.
+
 ## 1.6.1
 
 ### Enhancements
