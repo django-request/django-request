@@ -15,4 +15,9 @@ class Migration(migrations.Migration):
             name='query_params',
             field=models.JSONField(default={}, verbose_name='query_params'),
         ),
+        migrations.AddField(
+            model_name='request',
+            name='post_body',
+            field=models.JSONField(default={}, verbose_name='post_body'),
+        ),
     ]
