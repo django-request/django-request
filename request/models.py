@@ -1,3 +1,4 @@
+import json
 from socket import gethostbyaddr
 
 from django.conf import settings
@@ -20,6 +21,7 @@ class Request(models.Model):
     # Request information.
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
+    query_params = models.JSONField(_('query_params'), default={})
     time = models.DateTimeField(_('time'), default=timezone.now, db_index=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
@@ -54,6 +56,7 @@ class Request(models.Model):
         # Request information.
         self.method = request.method
         self.path = request.path[:255]
+        self.query_params = json.dumps(request.GET)
 
         self.is_secure = request.is_secure()
         self.is_ajax = request_is_ajax(request)
