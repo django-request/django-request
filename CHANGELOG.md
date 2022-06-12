@@ -4,6 +4,8 @@
 
 ### Enhancements
 
+* Confirms support for Django 4.1.
+
 * Don't ignore [boosted htmx requests](https://htmx.org/attributes/hx-boost/)
   with ``REQUEST_IGNORE_AJAX``.
 
