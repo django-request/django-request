@@ -1,7 +1,7 @@
 from datetime import timedelta
 from io import StringIO
+from unittest import mock
 
-import mock
 from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils.timezone import now
