@@ -83,7 +83,8 @@ browsers = Patterns(
         'AOL',
     ),
     (r'Camino/(?P<version>[-.\w]+)', 'Camino'),
-    (r'Chrome/(?P<version>[-.\w]+)', 'Google Chrome'),
+    (r'Chrome/(?P<version>[-.\w]+)(?!.*Edg).*', 'Google Chrome'),
+    (r'Edg(A|iOS)?/(?P<version>[-.\w]+)', 'Microsoft Edge'),
     (r'Firefox(/(?P<version>[-.\w]+)?)', 'Firefox'),
     (
         r'Mozilla/(?P<mozilla_version>[-.\w]+) \(compatible; ( ?)MSIE (?P<version>[-.\w]+); ' +
