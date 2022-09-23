@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from . import settings as request_settings
 from .managers import RequestManager
-from .utils import HTTP_STATUS_CODES, browsers, engines, request_is_ajax
+from .utils import HTTP_STATUS_CODES, browsers, engines, request_is_ajax,get_client_or_remote_ip
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -59,7 +59,8 @@ class Request(models.Model):
         self.is_ajax = request_is_ajax(request)
 
         # User information.
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        # self.ip = request.META.get('REMOTE_ADDR', '')
+        self.ip = get_client_or_remote_ip(request)
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
@@ -115,3 +116,4 @@ class Request(models.Model):
             self.user = None
 
         super().save(*args, **kwargs)
+
