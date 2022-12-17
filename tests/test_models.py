@@ -1,7 +1,7 @@
 import socket
 from datetime import datetime
+from unittest import mock
 
-import mock
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase

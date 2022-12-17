@@ -1,4 +1,5 @@
-import mock
+from unittest import mock
+
 from django.core import exceptions
 from django.test import TestCase
 

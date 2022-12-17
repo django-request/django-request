@@ -1,4 +1,5 @@
-import mock
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, HttpResponseServerError
 from django.test import RequestFactory, TestCase
