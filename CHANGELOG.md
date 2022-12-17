@@ -4,6 +4,9 @@
 
 ### Enhancements
 
+* Adds support for missing HTTP status codes: 103, 208, 226, 308, 428, 429,
+  431, 451, and 511.
+
 * Confirms support for Python 3.11.
 
 * Confirms support for Django 4.1.
