@@ -4,6 +4,8 @@
 
 ### Enhancements
 
+* Confirms support for Python 3.11.
+
 * Confirms support for Django 4.1.
 
 * Don't ignore [boosted htmx requests](https://htmx.org/attributes/hx-boost/)
