@@ -132,8 +132,6 @@ class Request(models.Model):
             self.user = None
         if request_settings.LOG_COUNTRY:
             if not self.ip_is_local():
-                self.country = requests.get(
-                    f"https://ip2c.org/?ip={self.ip}"
-                ).text.split(';')[-1]
-
+                url = f"https://ip2c.org/?ip={self.ip}"
+                self.country = requests.get(url).text.split(';')[-1]
         super().save(*args, **kwargs)
