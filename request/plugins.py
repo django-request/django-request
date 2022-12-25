@@ -152,6 +152,19 @@ class TopBrowsers(Plugin):
         }
 
 
+class TopCountries(Plugin):
+    template = 'request/plugins/topcountries.html'
+
+    def queryset(self):
+        return self.qs.exclude(country__isnull=True)
+
+    def template_context(self):
+        return {
+            'countries': self.queryset().values('country').annotate(Count('country')).order_by('-country__count')[:10]
+        }
+
+
+
 class ActiveUsers(Plugin):
     def template_context(self):
         return {}

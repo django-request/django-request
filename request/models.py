@@ -1,4 +1,7 @@
+import requests
 from socket import gethostbyaddr
+from struct import unpack
+from socket import AF_INET, inet_pton
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -35,6 +38,7 @@ class Request(models.Model):
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
+    country = models.CharField(_('Country'), max_length=255, blank=True, null=True)
 
     objects = RequestManager()
 
@@ -104,6 +108,19 @@ class Request(models.Model):
         except Exception:  # socket.gaierror, socket.herror, etc
             return self.ip
 
+    def ip_is_local(self):
+        f = unpack('!I', inet_pton(AF_INET, self.ip))[0]
+        private = (
+            [2130706432, 4278190080],  # 127.0.0.0,   255.0.0.0   https://www.rfc-editor.org/rfc/rfc3330
+            [3232235520, 4294901760],  # 192.168.0.0, 255.255.0.0 https://www.rfc-editor.org/rfc/rfc1918
+            [2886729728, 4293918720],  # 172.16.0.0,  255.240.0.0 https://www.rfc-editor.org/rfc/rfc1918
+            [167772160, 4278190080],  # 10.0.0.0,    255.0.0.0   https://www.rfc-editor.org/rfc/rfc1918
+        )
+        for net in private:
+            if (f & net[1]) == net[0]:
+                return True
+        return False
+
     def save(self, *args, **kwargs):
         if not request_settings.LOG_IP:
             self.ip = request_settings.IP_DUMMY
@@ -113,5 +130,10 @@ class Request(models.Model):
             self.ip = '.'.join(parts)
         if not request_settings.LOG_USER:
             self.user = None
+        if request_settings.LOG_COUNTRY:
+            if not self.ip_is_local():
+                self.country = requests.get(
+                    "https://ip2c.org/?ip={self.ip}}"
+                ).text.split(';')[-1]
 
         super().save(*args, **kwargs)

@@ -24,7 +24,7 @@ class RequestAdmin(admin.ModelAdmin):
             'fields': ('response',)
         }),
         (_('User info'), {
-            'fields': ('referer', 'user_agent', 'ip', 'user', 'language')
+            'fields': ('referer', 'user_agent', 'ip', 'user', 'language', 'country')
         })
     )
     raw_id_fields = ('user',)

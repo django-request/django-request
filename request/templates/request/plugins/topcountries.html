@@ -1,0 +1,14 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% block table %}
+    <tr>
+        <th>{% trans "Country" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    {% for country in countries %}
+        <tr>
+            <td><a href="{% url "admin:request_request_changelist" %}?country={{ country.country }}" title="{{ country.country }}">{{ country.country }}</a></td>
+            <td>{{ country.country__count }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
