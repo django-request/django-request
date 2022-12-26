@@ -1,16 +1,12 @@
-import requests
 from django.conf import settings
+
+from request.country import default_get_country_from_id
 
 VALID_METHOD_NAMES = getattr(
     settings,
     'REQUEST_VALID_METHOD_NAMES',
     ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'),
 )
-
-
-def default_get_country_from_id(ip):
-    return requests.get(f"https://ip2c.org/?ip={ip}").text.split(';')[-1]
-
 
 ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)

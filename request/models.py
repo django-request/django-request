@@ -135,5 +135,5 @@ class Request(models.Model):
                 try:
                     self.country = Request.objects.filter(ip=self.ip).first().country
                 except Request.DoesNotExist:
-                    self.country = request_settings.default_get_country_from_id(self.ip)
+                    self.country = request_settings.LOG_COUNTRY_FUNC(self.ip)
         super().save(*args, **kwargs)
