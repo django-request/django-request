@@ -10,12 +10,12 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .models import Request
+from . import settings as request_settings
 from .plugins import plugins
 from .traffic import modules
 
 
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('time', 'path', 'response', 'method', 'request_from')
     fieldsets = (
         (_('Request'), {
             'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax')
@@ -29,6 +29,11 @@ class RequestAdmin(admin.ModelAdmin):
     )
     raw_id_fields = ('user',)
     readonly_fields = ('time',)
+
+    def get_list_display(self, request):
+        if request_settings.LOG_COUNTRY:
+            return ['time', 'path', 'response', 'method', 'request_from', 'country']
+        return ['time', 'path', 'response', 'method', 'request_from']
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('user')
