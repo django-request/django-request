@@ -1,4 +1,3 @@
-import requests
 from socket import gethostbyaddr
 from struct import unpack
 from socket import AF_INET, inet_pton
@@ -132,6 +131,9 @@ class Request(models.Model):
             self.user = None
         if request_settings.LOG_COUNTRY:
             if not self.ip_is_local():
-                url = f"https://ip2c.org/?ip={self.ip}"
-                self.country = requests.get(url).text.split(';')[-1]
+                # To optimize calls, look, if we already have the ip address
+                try:
+                    self.country = Request.objects.filter(ip=self.ip).first().country
+                except Request.DoesNotExist:
+                    self.country = request_settings.default_get_country_from_id(self.ip)
         super().save(*args, **kwargs)

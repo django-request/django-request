@@ -1,3 +1,4 @@
+import requests
 from django.conf import settings
 
 VALID_METHOD_NAMES = getattr(
@@ -6,6 +7,11 @@ VALID_METHOD_NAMES = getattr(
     ('get', 'post', 'put', 'delete', 'head', 'options', 'trace'),
 )
 
+
+def default_get_country_from_id(ip):
+    return requests.get(f"https://ip2c.org/?ip={ip}").text.split(';')[-1]
+
+
 ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)
 IGNORE_IP = getattr(settings, 'REQUEST_IGNORE_IP', tuple())
@@ -13,6 +19,7 @@ LOG_IP = getattr(settings, 'REQUEST_LOG_IP', True)
 IP_DUMMY = getattr(settings, 'REQUEST_IP_DUMMY', '1.1.1.1')
 ANONYMOUS_IP = getattr(settings, 'REQUEST_ANONYMOUS_IP', False)
 LOG_COUNTRY = getattr(settings, 'REQUEST_LOG_COUNTRY', False)
+LOG_COUNTRY_FUNC = getattr(settings, 'REQUEST_LOG_COUNTRY_FUNC', default_get_country_from_id)
 LOG_USER = getattr(settings, 'REQUEST_LOG_USER', True)
 IGNORE_USERNAME = getattr(settings, 'REQUEST_IGNORE_USERNAME', tuple())
 IGNORE_PATHS = getattr(settings, 'REQUEST_IGNORE_PATHS', tuple())
