@@ -107,19 +107,6 @@ class Request(models.Model):
         except Exception:  # socket.gaierror, socket.herror, etc
             return self.ip
 
-    def ip_is_local(self):
-        f = unpack('!I', inet_pton(AF_INET, self.ip))[0]
-        private = (
-            [2130706432, 4278190080],  # 127.0.0.0,   255.0.0.0   https://www.rfc-editor.org/rfc/rfc3330
-            [3232235520, 4294901760],  # 192.168.0.0, 255.255.0.0 https://www.rfc-editor.org/rfc/rfc1918
-            [2886729728, 4293918720],  # 172.16.0.0,  255.240.0.0 https://www.rfc-editor.org/rfc/rfc1918
-            [167772160, 4278190080],  # 10.0.0.0,    255.0.0.0   https://www.rfc-editor.org/rfc/rfc1918
-        )
-        for net in private:
-            if (f & net[1]) == net[0]:
-                return True
-        return False
-
     def save(self, *args, **kwargs):
         if not request_settings.LOG_IP:
             self.ip = request_settings.IP_DUMMY
@@ -130,10 +117,9 @@ class Request(models.Model):
         if not request_settings.LOG_USER:
             self.user = None
         if request_settings.LOG_COUNTRY:
-            if not self.ip_is_local():
-                # To optimize calls, look, if we already have the ip address
-                try:
-                    self.country = Request.objects.filter(ip=self.ip).first().country
-                except Request.DoesNotExist:
-                    self.country = request_settings.LOG_COUNTRY_FUNC(self.ip)
+            # To optimize calls, look, if we already have the ip address
+            try:
+                self.country = Request.objects.filter(ip=self.ip).first().country
+            except Request.DoesNotExist:
+                self.country = request_settings.LOG_COUNTRY_FUNC(self.ip)
         super().save(*args, **kwargs)
