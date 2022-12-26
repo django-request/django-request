@@ -117,9 +117,5 @@ class Request(models.Model):
         if not request_settings.LOG_USER:
             self.user = None
         if request_settings.LOG_COUNTRY:
-            # To optimize calls, look, if we already have the ip address
-            try:
-                self.country = Request.objects.filter(ip=self.ip).first().country
-            except Request.DoesNotExist:
-                self.country = request_settings.LOG_COUNTRY_FUNC(self.ip)
+            self.country = request_settings.LOG_COUNTRY_FUNC(self.ip)
         super().save(*args, **kwargs)
