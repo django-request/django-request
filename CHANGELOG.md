@@ -1,5 +1,11 @@
 # Changelog for django-request
 
+## 1.6.3
+
+### Bug Fixes
+
+* Adds a missing migration with HTTP status codes.
+
 ## 1.6.2
 
 ### Enhancements
