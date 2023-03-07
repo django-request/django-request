@@ -33,7 +33,7 @@ Requirements
 ------------
 
 * **Python**: 3.6, 3.7, 3.8, 3.9, 3.10, 3.11
-* **Django**: 2.2, 3.2, 4.0, 4.1
+* **Django**: 2.2, 3.2, 4.0, 4.1, 4.2
 * **python-dateutil**
 
 django-request 1.5.1_ is the last version that supports Django 1.4, 1.5, 1.6.

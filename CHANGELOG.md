@@ -2,6 +2,10 @@
 
 ## 1.6.3
 
+### Enhancements
+
+* Confirms support for Django 4.2.
+
 ### Bug Fixes
 
 * Adds a missing migration with HTTP status codes.
