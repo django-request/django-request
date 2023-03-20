@@ -1,3 +1,5 @@
+import re
+
 from socket import gethostbyaddr
 
 from django.conf import settings
@@ -11,6 +13,11 @@ from .managers import RequestManager
 from .utils import HTTP_STATUS_CODES, browsers, engines, request_is_ajax
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+
+
+def is_valid_ip(ip):
+    m = re.match(r"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$", ip)
+    return bool(m) and all(map(lambda n: 0 <= int(n) <= 255, m.groups()))
 
 
 class Request(models.Model):
@@ -59,11 +66,20 @@ class Request(models.Model):
         self.is_ajax = request_is_ajax(request)
 
         # User information.
-        self.ip = request.META.get('REMOTE_ADDR', '')
+        ip_addr = [
+            request.META.get('HTTP_REMOTE_ADDR', None),
+            request.META.get('HTTP_X_REAL_IP', None),
+            request.META.get('HTTP_X_FORWARDED_FOR', None),
+            request.META.get('REMOTE_ADDR', None),
+            request.META.get('X_REAL_IP', None),
+            request.META.get('X_FORWARDED_FOR', None),
+        ]
+        self.ip = next((item for item in ip_addr if item is not None), None)
+        if self.ip is None or is_valid_ip(self.ip) is False:
+            self.ip = request_settings.IP_DUMMY
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
         self.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
         self.language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:255]
-
         if hasattr(request, 'user') and hasattr(request.user, 'is_authenticated'):
             is_authenticated = request.user.is_authenticated
             if is_authenticated:
