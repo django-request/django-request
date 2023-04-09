@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 VALID_METHOD_NAMES = getattr(
     settings,
@@ -16,6 +17,10 @@ LOG_USER = getattr(settings, 'REQUEST_LOG_USER', True)
 IGNORE_USERNAME = getattr(settings, 'REQUEST_IGNORE_USERNAME', tuple())
 IGNORE_PATHS = getattr(settings, 'REQUEST_IGNORE_PATHS', tuple())
 IGNORE_USER_AGENTS = getattr(settings, 'REQUEST_IGNORE_USER_AGENTS', tuple())
+CORRELATION_ID = getattr(settings, 'REQUEST_CORRELATION_ID', lambda: '')
+
+if not callable(CORRELATION_ID):
+    raise ImproperlyConfigured('REQUEST_CORRELATION_ID should be callable')
 
 TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
     'request.traffic.UniqueVisitor',

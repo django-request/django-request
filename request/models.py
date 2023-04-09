@@ -21,6 +21,7 @@ class Request(models.Model):
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     time = models.DateTimeField(_('time'), default=timezone.now, db_index=True)
+    cid = models.CharField(_('correlation id'), max_length=36, blank=True, null=True, db_index=True)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
     is_ajax = models.BooleanField(
@@ -45,7 +46,7 @@ class Request(models.Model):
         ordering = ('-time',)
 
     def __str__(self):
-        return '[{0}] {1} {2} {3}'.format(self.time, self.method, self.path, self.response)
+        return '[{0}] {1} {2} {3} {4}'.format(self.time, self.method, self.path, self.response, self.cid)
 
     def get_user(self):
         return get_user_model().objects.get(pk=self.user_id)
@@ -54,6 +55,7 @@ class Request(models.Model):
         # Request information.
         self.method = request.method
         self.path = request.path[:255]
+        self.cid = request_settings.CORRELATION_ID()[:36]
 
         self.is_secure = request.is_secure()
         self.is_ajax = request_is_ajax(request)
