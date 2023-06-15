@@ -7,10 +7,7 @@
   </tr>
   {% for language_code in language_codes %}
     <tr>
-      <td>
-        <a href="{{ language_code.language_code }}"
-           title="{{ language_code.language_code }}">{{ language_code.language_code }}</a>
-      </td>
+      <td>{{ language_code.language_code }}</td>
       <td>{{ language_code.language_code__count }}</td>
     </tr>
   {% endfor %}
