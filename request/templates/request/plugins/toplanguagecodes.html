@@ -1,0 +1,17 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% block table %}
+  <tr>
+    <th>{% trans "Language code" %}</th>
+    <th>{% trans "Visits" %}</th>
+  </tr>
+  {% for language_code in language_codes %}
+    <tr>
+      <td>
+        <a href="{{ language_code.language_code }}"
+           title="{{ language_code.language_code }}">{{ language_code.language_code }}</a>
+      </td>
+      <td>{{ language_code.language_code__count }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}
