@@ -1,4 +1,4 @@
-__version__ = '1.6.2'
+__version__ = '1.6.3'
 __copyright__ = 'Copyright (c) 2009-2023, Kyle Fuller, Mariusz Felisiak'
 __author__ = [
     'Kyle Fuller <kyle@fuller.li>',
