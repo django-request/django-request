@@ -1,4 +1,5 @@
 import logging
+import time
 
 from django.core.exceptions import ValidationError
 from django.utils.deprecation import MiddlewareMixin
@@ -11,8 +12,33 @@ from .utils import request_is_ajax
 logger = logging.getLogger('request.security.middleware')
 
 
-class RequestMiddleware(MiddlewareMixin):
-    def process_response(self, request, response):
+class RequestMiddleware:
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        start_time = time.time()
+        response = self.get_response(request)
+        end_time = time.time()
+        response_time = start_time - end_time
+        self.create_request_instance(request, response, response_time)
+        return response
+
+    def create_request_instance(self, request, response, response_time=None):
+        """
+        Method is repsonsible for creating a request.Request instance.  It also 
+        provides a hook for capturing the generated instance for anyone that may want to 
+        extend this middleware
+
+        Args:
+            request (django.http.HttpRequest): The django HttpRequest instance
+            response (django.http.HttpResponse): The django HttpResponse instance
+            response_time (float, optional): The request/response cycle time. Defaults to None.
+
+        Returns:
+            request.Request: The request.Request instance that was created
+        """        
         if request.method.lower() not in settings.VALID_METHOD_NAMES:
             return response
 
@@ -39,7 +65,7 @@ class RequestMiddleware(MiddlewareMixin):
 
         r = Request()
         try:
-            r.from_http_request(request, response, commit=False)
+            r.from_http_request(request, response, response_time=response_time, commit=False)
             r.full_clean()
         except ValidationError as exc:
             logger.warning(
@@ -48,6 +74,8 @@ class RequestMiddleware(MiddlewareMixin):
                 exc_info=exc,
                 extra={'status_code': 400, 'request': request},
             )
+            return
         else:
             r.save()
-        return response
+            return r
+        
