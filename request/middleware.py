@@ -21,7 +21,7 @@ class RequestMiddleware:
         start_time = time.time()
         response = self.get_response(request)
         end_time = time.time()
-        response_time = start_time - end_time
+        response_time = end_time - start_time
         self.create_request_instance(request, response, response_time)
         return response
 
