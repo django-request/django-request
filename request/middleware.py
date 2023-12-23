@@ -1,5 +1,6 @@
 import logging
 import time
+from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.utils.deprecation import MiddlewareMixin
@@ -18,10 +19,10 @@ class RequestMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        start_time = time.time()
+        start_time = time.monotonic()
         response = self.get_response(request)
-        end_time = time.time()
-        response_time = end_time - start_time
+        end_time = time.monotonic()
+        response_time = timedelta(end_time - start_time)
         self.create_request_instance(request, response, response_time)
         return response
 
@@ -37,31 +38,31 @@ class RequestMiddleware:
             response_time (float, optional): The request/response cycle time. Defaults to None.
 
         Returns:
-            request.Request: The request.Request instance that was created
+            request.Request/None: The request.Request instance that was created or None
         """        
         if request.method.lower() not in settings.VALID_METHOD_NAMES:
-            return response
+            return 
 
         if response.status_code < 400 and settings.ONLY_ERRORS:
-            return response
+            return
 
         ignore = Patterns(False, *settings.IGNORE_PATHS)
         if ignore.resolve(request.path[1:]):
-            return response
+            return
 
         if request_is_ajax(request) and settings.IGNORE_AJAX:
-            return response
+            return 
 
         if request.META.get('REMOTE_ADDR') in settings.IGNORE_IP:
-            return response
+            return 
 
         ignore = Patterns(False, *settings.IGNORE_USER_AGENTS)
         if ignore.resolve(request.META.get('HTTP_USER_AGENT', '')):
-            return response
+            return 
 
         if getattr(request, 'user', False):
             if request.user.get_username() in settings.IGNORE_USERNAME:
-                return response
+                return 
 
         r = Request()
         try:

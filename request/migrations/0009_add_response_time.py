@@ -11,6 +11,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='request',
             name='response_time',
-            field=models.FloatField(null=True, verbose_name='response_time'),
+            field=models.DurationField(null=True, verbose_name='response_time'),
         ),
     ]

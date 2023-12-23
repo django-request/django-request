@@ -16,13 +16,13 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 class Request(models.Model):
     # Response information.
     response = models.SmallIntegerField(_('response'), choices=HTTP_STATUS_CODES, default=200)
+    response_time = models.DurationField(_('response_time'), null=True)
 
     # Request information.
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     time = models.DateTimeField(_('time'), default=timezone.now, db_index=True)
-    response_time = models.FloatField(_('response_time'), null=True)
-
+    
     is_secure = models.BooleanField(_('is secure'), default=False)
     is_ajax = models.BooleanField(
         _('is ajax'),
