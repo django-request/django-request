@@ -1,5 +1,11 @@
 # Changelog for django-request
 
+## 1.7.0
+
+### Breaking
+
+* Support for Django 2.2 has been dropped.
+
 ## 1.6.3
 
 ### Enhancements

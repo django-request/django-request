@@ -33,7 +33,7 @@ Requirements
 ------------
 
 * **Python**: 3.6, 3.7, 3.8, 3.9, 3.10, 3.11
-* **Django**: 2.2, 3.2, 4.0, 4.1, 4.2
+* **Django**: 3.2, 4.0, 4.1, 4.2
 * **python-dateutil**
 
 django-request 1.5.1_ is the last version that supports Django 1.4, 1.5, 1.6.
@@ -45,10 +45,13 @@ django-request 1.5.5_ is the last version that supports Django 1.10.
 django-request 1.5.6_ is the last version that supports Django 1.11, 2.0, 2.1,
 3.0, 3.1, and Python 2.7 and 3.4.
 
+django-request 1.6.3_ is the last version that supports Django 2.2.
+
 .. _`1.5.1`: https://pypi.org/project/django-request/1.5.1/
 .. _`1.5.4`: https://pypi.org/project/django-request/1.5.4/
 .. _`1.5.5`: https://pypi.org/project/django-request/1.5.5/
 .. _`1.5.6`: https://pypi.org/project/django-request/1.5.6/
+.. _`1.6.3`: https://pypi.org/project/django-request/1.6.3/
 
 Installation
 ------------
