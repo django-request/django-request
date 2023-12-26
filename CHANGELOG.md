@@ -6,6 +6,10 @@
 
 * Support for Django 2.2 has been dropped.
 
+### Enhancements
+
+* Confirms support for Django 5.0.
+
 ## 1.6.3
 
 ### Enhancements
