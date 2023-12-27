@@ -32,7 +32,7 @@ then “Overview” on the top right, next to “add request”.
 Requirements
 ------------
 
-* **Python**: 3.6, 3.7, 3.8, 3.9, 3.10, 3.11
+* **Python**: 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12
 * **Django**: 3.2, 4.0, 4.1, 4.2, 5.0
 * **python-dateutil**
 
