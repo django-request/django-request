@@ -56,3 +56,11 @@ jobs:
           python -m pip --version
           python -m tox --version
           python -m tox -e isort,flake
+
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: black
+        uses: psf/black@stable

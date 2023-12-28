@@ -8,6 +8,8 @@
 
 ### Enhancements
 
+* All Python code is now formatted with ``black``.
+
 * Confirms support for Python 3.12.
 
 * Confirms support for Django 5.0.
