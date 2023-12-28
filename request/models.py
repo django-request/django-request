@@ -22,7 +22,7 @@ class Request(models.Model):
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     time = models.DateTimeField(_('time'), default=timezone.now, db_index=True)
-    
+
     is_secure = models.BooleanField(_('is secure'), default=False)
     is_ajax = models.BooleanField(
         _('is ajax'),
