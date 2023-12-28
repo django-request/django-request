@@ -8,7 +8,7 @@ from .models import Request
 from .router import Patterns
 from .utils import request_is_ajax
 
-logger = logging.getLogger('request.security.middleware')
+logger = logging.getLogger("request.security.middleware")
 
 
 class RequestMiddleware(MiddlewareMixin):
@@ -26,14 +26,14 @@ class RequestMiddleware(MiddlewareMixin):
         if request_is_ajax(request) and settings.IGNORE_AJAX:
             return response
 
-        if request.META.get('REMOTE_ADDR') in settings.IGNORE_IP:
+        if request.META.get("REMOTE_ADDR") in settings.IGNORE_IP:
             return response
 
         ignore = Patterns(False, *settings.IGNORE_USER_AGENTS)
-        if ignore.resolve(request.META.get('HTTP_USER_AGENT', '')):
+        if ignore.resolve(request.META.get("HTTP_USER_AGENT", "")):
             return response
 
-        if getattr(request, 'user', False):
+        if getattr(request, "user", False):
             if request.user.get_username() in settings.IGNORE_USERNAME:
                 return response
 
@@ -43,10 +43,10 @@ class RequestMiddleware(MiddlewareMixin):
             r.full_clean()
         except ValidationError as exc:
             logger.warning(
-                'Bad request: %s',
+                "Bad request: %s",
                 str(exc),
                 exc_info=exc,
-                extra={'status_code': 400, 'request': request},
+                extra={"status_code": 400, "request": request},
             )
         else:
             r.save()

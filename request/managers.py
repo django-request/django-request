@@ -10,17 +10,17 @@ from . import settings
 from .utils import handle_naive_datetime
 
 QUERYSET_PROXY_METHODS = (
-    'year',
-    'month',
-    'week',
-    'day',
-    'today',
-    'this_week',
-    'this_month',
-    'this_year',
-    'unique_visits',
-    'attr_list',
-    'search',
+    "year",
+    "month",
+    "week",
+    "day",
+    "today",
+    "this_week",
+    "this_month",
+    "this_year",
+    "unique_visits",
+    "attr_list",
+    "search",
 )
 
 
@@ -28,13 +28,15 @@ class RequestQuerySet(models.query.QuerySet):
     def year(self, year):
         return self.filter(time__year=year)
 
-    def month(self, year=None, month=None, month_format='%b', date=None):
+    def month(self, year=None, month=None, month_format="%b", date=None):
         if not date:
             try:
                 if year and month:
-                    date = datetime.date(*time.strptime(year + month, '%Y' + month_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(year + month, "%Y" + month_format)[:3]
+                    )
                 else:
-                    raise TypeError('Request.objects.month() takes exactly 2 arguments')
+                    raise TypeError("Request.objects.month() takes exactly 2 arguments")
             except ValueError:
                 return
         # Truncate to date.
@@ -51,7 +53,7 @@ class RequestQuerySet(models.query.QuerySet):
 
     def week(self, year, week):
         try:
-            date = datetime.date(*time.strptime(year + '-0-' + week, '%Y-%w-%U')[:3])
+            date = datetime.date(*time.strptime(year + "-0-" + week, "%Y-%w-%U")[:3])
         except ValueError:
             return
 
@@ -62,19 +64,37 @@ class RequestQuerySet(models.query.QuerySet):
             time__lt=handle_naive_datetime(last_day),
         )
 
-    def day(self, year=None, month=None, day=None, month_format='%b', day_format='%d', date=None):
+    def day(
+        self,
+        year=None,
+        month=None,
+        day=None,
+        month_format="%b",
+        day_format="%d",
+        date=None,
+    ):
         if not date:
             try:
                 if year and month and day:
-                    date = datetime.date(*time.strptime(year + month + day, '%Y' + month_format + day_format)[:3])
+                    date = datetime.date(
+                        *time.strptime(
+                            year + month + day, "%Y" + month_format + day_format
+                        )[:3]
+                    )
                 else:
-                    raise TypeError('Request.objects.day() takes exactly 3 arguments')
+                    raise TypeError("Request.objects.day() takes exactly 3 arguments")
             except ValueError:
                 return
-        return self.filter(time__range=(
-            handle_naive_datetime(datetime.datetime.combine(date, datetime.time.min)),
-            handle_naive_datetime(datetime.datetime.combine(date, datetime.time.max)),
-        ))
+        return self.filter(
+            time__range=(
+                handle_naive_datetime(
+                    datetime.datetime.combine(date, datetime.time.min)
+                ),
+                handle_naive_datetime(
+                    datetime.datetime.combine(date, datetime.time.max)
+                ),
+            )
+        )
 
     def today(self):
         return self.day(date=datetime.date.today())
@@ -87,7 +107,7 @@ class RequestQuerySet(models.query.QuerySet):
 
     def this_week(self):
         today = datetime.date.today()
-        return self.week(str(today.year), today.strftime('%U'))
+        return self.week(str(today.year), today.strftime("%U"))
 
     def unique_visits(self):
         return self.exclude(referer__startswith=settings.BASE_URL)
@@ -96,7 +116,11 @@ class RequestQuerySet(models.query.QuerySet):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
 
     def search(self):
-        return self.filter(Q(referer__contains='google') | Q(referer__contains='yahoo') | Q(referer__contains='bing'))
+        return self.filter(
+            Q(referer__contains="google")
+            | Q(referer__contains="yahoo")
+            | Q(referer__contains="bing")
+        )
 
 
 class RequestManager(models.Manager):
@@ -109,7 +133,7 @@ class RequestManager(models.Manager):
         return RequestQuerySet(self.model)
 
     def active_users(self, **options):
-        '''
+        """
         Returns a list of active users.
 
         Any arguments passed to this method will be
@@ -118,7 +142,7 @@ class RequestManager(models.Manager):
         Example:
         >>> Request.object.active_users(minutes=15)
         [<User: kylef>, <User: krisje8>]
-        '''
+        """
 
         qs = self.filter(user__isnull=False)
 
@@ -126,6 +150,6 @@ class RequestManager(models.Manager):
             time = timezone.now() - datetime.timedelta(**options)
             qs = qs.filter(time__gte=time)
 
-        requests = qs.select_related('user').only('user')
+        requests = qs.select_related("user").only("user")
 
         return set([request.user for request in requests])

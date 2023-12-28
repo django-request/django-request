@@ -2,7 +2,7 @@ import re
 
 
 class RegexPattern:
-    def __init__(self, regex, name=''):
+    def __init__(self, regex, name=""):
         self.regex = re.compile(regex)
         self.name = name
 

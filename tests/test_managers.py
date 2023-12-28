@@ -11,15 +11,15 @@ from request.models import Request
 
 class RequestManagerTest(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create(username='foo')
-        self.user_2 = get_user_model().objects.create(username='bar')
+        self.user = get_user_model().objects.create(username="foo")
+        self.user_2 = get_user_model().objects.create(username="bar")
 
     def test_getattr(self):
         for meth in QUERYSET_PROXY_METHODS:
             Request.objects.__getattr__(meth)
 
     def test_getattr_not_in_proxy_methods(self):
-        for meth in ('foo', 'bar'):
+        for meth in ("foo", "bar"):
             self.assertRaises(AttributeError, Request.objects.__getattr__, meth)
 
     def test_get_queryset(self):
@@ -27,38 +27,38 @@ class RequestManagerTest(TestCase):
         self.assertIsInstance(queryset, RequestQuerySet)
 
     def test_active_users(self):
-        Request.objects.create(user=self.user, ip='1.2.3.4')
+        Request.objects.create(user=self.user, ip="1.2.3.4")
         users = Request.objects.active_users()
         self.assertEqual(len(users), 1)
 
     def test_active_users_with_options(self):
-        request = Request.objects.create(user=self.user, ip='1.2.3.4')
+        request = Request.objects.create(user=self.user, ip="1.2.3.4")
         request.time = now() - timedelta(days=1)
         request.save()
-        options = {'minutes': 1, 'hours': 1}
+        options = {"minutes": 1, "hours": 1}
         users = Request.objects.active_users(**options)
         self.assertEqual(len(users), 0)
-        options = {'hours': 1, 'days': 1}
+        options = {"hours": 1, "days": 1}
         users = Request.objects.active_users(**options)
         self.assertEqual(len(users), 1)
 
-    @override_settings(USE_TZ=True, TIME_ZONE='Africa/Nairobi')
+    @override_settings(USE_TZ=True, TIME_ZONE="Africa/Nairobi")
     def test_active_users_with_options_and_tz(self):
-        request = Request.objects.create(user=self.user, ip='1.2.3.4')
+        request = Request.objects.create(user=self.user, ip="1.2.3.4")
         request.time = now() - timedelta(hours=1)
         request.save()
-        options = {'minutes': 50, 'seconds': 20}
+        options = {"minutes": 50, "seconds": 20}
         users = Request.objects.active_users(**options)
         self.assertEqual(len(users), 0)
-        options = {'minutes': 1, 'hours': 1}
+        options = {"minutes": 1, "hours": 1}
         users = Request.objects.active_users(**options)
         self.assertEqual(len(users), 1)
 
 
 class RequestQuerySetTest(TestCase):
     def setUp(self):
-        user = get_user_model().objects.create(username='foo')
-        self.request = Request.objects.create(user=user, ip='1.2.3.4')
+        user = get_user_model().objects.create(username="foo")
+        self.request = Request.objects.create(user=user, ip="1.2.3.4")
 
     def test_year(self):
         qs = Request.objects.all().year(self.request.time.year)
@@ -79,16 +79,14 @@ class RequestQuerySetTest(TestCase):
         self.assertEqual(qs.count(), 0)
 
     def test_month_without_date(self):
-        now_month = now().strftime('%b')
+        now_month = now().strftime("%b")
         qs = Request.objects.all().month(
-            year=str(self.request.time.year),
-            month=now_month
+            year=str(self.request.time.year), month=now_month
         )
         self.assertEqual(qs.count(), 1)
-        previous_month = (now() - timedelta(days=31)).strftime('%b')
+        previous_month = (now() - timedelta(days=31)).strftime("%b")
         qs = Request.objects.all().month(
-            year=str(self.request.time.year),
-            month=previous_month
+            year=str(self.request.time.year), month=previous_month
         )
         self.assertEqual(qs.count(), 0)
 
@@ -96,9 +94,9 @@ class RequestQuerySetTest(TestCase):
         self.assertRaises(TypeError, Request.objects.all().month)
 
     def test_month_without_date_invalid_year_or_month(self):
-        qs = Request.objects.all().month(year='foo', month='Jan')
+        qs = Request.objects.all().month(year="foo", month="Jan")
         self.assertIsNone(qs)
-        qs = Request.objects.all().month(year='12', month='bar')
+        qs = Request.objects.all().month(year="12", month="bar")
         self.assertIsNone(qs)
 
     def test_month_is_december(self):
@@ -125,13 +123,13 @@ class RequestQuerySetTest(TestCase):
         self.request.time = january_time
         self.request.save()
         # Test
-        qs = Request.objects.all().week(year=str(january_time.year), week='1')
+        qs = Request.objects.all().week(year=str(january_time.year), week="1")
         self.assertEqual(qs.count(), 1)
 
     def test_week_invalid_year_or_week(self):
-        qs = Request.objects.all().week(year='2015', week='foo')
+        qs = Request.objects.all().week(year="2015", week="foo")
         self.assertIsNone(qs)
-        qs = Request.objects.all().week(year='foo', week='1')
+        qs = Request.objects.all().week(year="foo", week="1")
         self.assertIsNone(qs)
 
     def test_day(self):
@@ -143,7 +141,7 @@ class RequestQuerySetTest(TestCase):
     def test_day_without_date(self):
         qs = Request.objects.all().day(
             year=str(now().year),
-            month=now().strftime('%b'),
+            month=now().strftime("%b"),
             day=str(now().day),
         )
         self.assertEqual(1, qs.count())
@@ -152,16 +150,16 @@ class RequestQuerySetTest(TestCase):
         self.assertRaises(TypeError, Request.objects.all().day)
 
     def test_month_without_date_invalid_year_month_or_day(self):
-        qs = Request.objects.all().day(year='foo', month='Jan', day='1')
+        qs = Request.objects.all().day(year="foo", month="Jan", day="1")
         self.assertIsNone(qs)
-        qs = Request.objects.all().day(year='12', month='bar', day='1')
+        qs = Request.objects.all().day(year="12", month="bar", day="1")
         self.assertIsNone(qs)
-        qs = Request.objects.all().day(year='12', month='Jan', day='foo')
+        qs = Request.objects.all().day(year="12", month="Jan", day="foo")
         self.assertIsNone(qs)
 
     def test_today(self):
         # setUp
-        request = Request.objects.create(ip='1.2.3.4')
+        request = Request.objects.create(ip="1.2.3.4")
         request.time = request.time - timedelta(days=3)
         request.save()
         # Test
@@ -170,7 +168,7 @@ class RequestQuerySetTest(TestCase):
 
     def test_this_year(self):
         # setUp
-        request = Request.objects.create(ip='1.2.3.4')
+        request = Request.objects.create(ip="1.2.3.4")
         request.time = request.time - timedelta(days=700)
         request.save()
         # Test
@@ -179,7 +177,7 @@ class RequestQuerySetTest(TestCase):
 
     def test_this_month(self):
         # setUp
-        request = Request.objects.create(ip='1.2.3.4')
+        request = Request.objects.create(ip="1.2.3.4")
         request.time = request.time - timedelta(days=60)
         request.save()
         # Test
@@ -197,23 +195,23 @@ class RequestQuerySetTest(TestCase):
 
     def test_this_week(self):
         # setUp
-        request = Request.objects.create(ip='1.2.3.4')
+        request = Request.objects.create(ip="1.2.3.4")
         request.time = request.time - timedelta(days=21)
         request.save()
         # Test
-        self.skipTest('Real error here before tests')
+        self.skipTest("Real error here before tests")
         qs = Request.objects.all().this_week()
         self.assertEqual(1, qs.count())
 
     def test_unique_visits(self):
         # setUp
-        Request.objects.create(ip='1.2.3.4', referer=settings.BASE_URL)
+        Request.objects.create(ip="1.2.3.4", referer=settings.BASE_URL)
         # Test
         qs = Request.objects.all().unique_visits()
         self.assertEqual(1, qs.count())
 
     def test_attr_list(self):
-        attrs = Request.objects.all().attr_list('time')
+        attrs = Request.objects.all().attr_list("time")
         self.assertEqual(self.request.time, attrs[0])
 
     def test_search(self):
