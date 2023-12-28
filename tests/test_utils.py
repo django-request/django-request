@@ -16,12 +16,12 @@ class UtilsTests(SimpleTestCase):
         naive_datetime = datetime.datetime(2017, 10, 15, 0, 0, 0, 0)
         self.assertEqual(handle_naive_datetime(naive_datetime), naive_datetime)
 
-    @override_settings(USE_TZ=True, TIME_ZONE='Africa/Nairobi')
+    @override_settings(USE_TZ=True, TIME_ZONE="Africa/Nairobi")
     def test_handle_naive_datetime_tz_aware(self):
         aware_datetime = datetime.datetime(2017, 10, 15, 0, 0, 0, 0, tzinfo=ICT)
         self.assertEqual(handle_naive_datetime(aware_datetime), aware_datetime)
 
-    @override_settings(USE_TZ=True, TIME_ZONE='Africa/Nairobi')
+    @override_settings(USE_TZ=True, TIME_ZONE="Africa/Nairobi")
     def test_handle_naive_datetime_tz_naive(self):
         naive_datetime = datetime.datetime(2017, 10, 15, 0, 0, 0, 0)
         self.assertEqual(
