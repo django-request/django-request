@@ -32,6 +32,7 @@ PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
     'request.plugins.TopReferrers',
     'request.plugins.TopSearchPhrases',
     'request.plugins.TopBrowsers',
+    "request.plugins.TopLanguageCodes",
 ))
 
 try:

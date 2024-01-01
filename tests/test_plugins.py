@@ -155,3 +155,16 @@ class ActiveUsersTest(TestCase):
     def test_template_context(self):
         self.plugin = plugins.ActiveUsers()
         self.plugin.template_context()
+
+
+class LanguageCodesTest(TestCase):
+    def setUp(self):
+        self.plugin = plugins.TopLanguageCodes()
+        self.plugin.qs = Request.objects.all()
+
+    def test_queryset(self):
+        self.plugin.queryset()
+
+    def test_template_context(self):
+        context = self.plugin.template_context()
+        self.assertIn('language_codes', context)

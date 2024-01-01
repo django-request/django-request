@@ -155,3 +155,16 @@ class TopBrowsers(Plugin):
 class ActiveUsers(Plugin):
     def template_context(self):
         return {}
+
+
+class TopLanguageCodes(Plugin):
+    def queryset(self):
+        return self.qs.unique_visits().exclude(language_code=None)
+
+    def template_context(self):
+        return {
+            "language_codes": self.queryset()
+            .values("language_code")
+            .annotate(Count("language_code"))
+            .order_by("-language_code__count")[:20]
+        }

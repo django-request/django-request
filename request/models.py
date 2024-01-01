@@ -35,6 +35,7 @@ class Request(models.Model):
     referer = models.URLField(_('referer'), max_length=255, blank=True, null=True)
     user_agent = models.CharField(_('user agent'), max_length=255, blank=True, null=True)
     language = models.CharField(_('language'), max_length=255, blank=True, null=True)
+    language_code = models.CharField(_("language code"), max_length=255, blank=True, null=True)
 
     objects = RequestManager()
 
@@ -69,6 +70,9 @@ class Request(models.Model):
             if is_authenticated:
                 self.user = request.user
 
+        if  hasattr(request, "LANGUAGE_CODE"):
+            self.language_code = request.LANGUAGE_CODE
+            
         if response:
             self.response = response.status_code
 
