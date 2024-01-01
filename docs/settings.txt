@@ -175,3 +175,11 @@ error detection system.
 Default: ``('get', 'post', 'put', 'delete', 'head', 'options', 'trace')``
 
 Any request which is not in this tuple/list will not be recorded.
+
+``REQUEST_CORRELATION_ID``
+==========================
+
+Default: ``lambda: ''``
+
+Function that return a string to uniquely identify request
+See packages: ``django-guid`` (``django_guid.api.get_guid``) or ``django-cid``
