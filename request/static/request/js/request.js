@@ -23,8 +23,11 @@ function showTooltip(x, y, contents) {
 var previousPoint = null;
 var date = new Date();
 
-function trafficGraph(placeholder, data) {
+var DAYS_PERIOD = null;
+
+function trafficGraph(placeholder, data, days=null) {
     var plot = $.plot(placeholder, data, {xaxis:{mode:'time'}, points:{show:true}, lines:{show:true}, grid:{hoverable:true}});
+    DAYS_PERIOD = days
     
     placeholder.bind("plothover", function (event, pos, item) {
         if (item) {
@@ -32,7 +35,10 @@ function trafficGraph(placeholder, data) {
                 previousPoint = item.datapoint;
                 
                 date.setTime(item.datapoint[0]).toString;
-                showTooltip(item.pageX, item.pageY, item.series.label + ' on ' + monthNames[date.getMonth()] + ' ' + date.getDate() + ' is ' + item.datapoint[1]);
+                if(DAYS_PERIOD==365)
+                    showTooltip(item.pageX, item.pageY, item.series.label + ' on ' + monthNames[date.getMonth()] + ' is ' + item.datapoint[1]);
+                else
+                    showTooltip(item.pageX, item.pageY, item.series.label + ' on ' + monthNames[date.getMonth()] + ' ' + date.getDate() + ' is ' + item.datapoint[1]);
             }
         } else {
             $("#tooltip").remove();
