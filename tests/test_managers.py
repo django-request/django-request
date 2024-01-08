@@ -1,5 +1,7 @@
+import calendar
 from datetime import date, timedelta
 
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.utils.timezone import now
@@ -119,7 +121,9 @@ class RequestQuerySetTest(TestCase):
 
     def test_week(self):
         # setUp
-        january_time = now().replace(month=1, day=6)
+        january_time = now().replace(month=1, day=1)
+        # Move to the first week starting on the first Sunday of the year.
+        january_time += relativedelta(weekday=calendar.SUNDAY)
         self.request.time = january_time
         self.request.save()
         # Test
