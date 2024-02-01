@@ -14,11 +14,11 @@ You can download the latest version in a archive created directly from the git r
     * tar.gz: https://github.com/django-request/django-request/tarball/master
     * zip: https://github.com/django-request/django-request/zipball/master
 
-Once you have downloaded and extracted django-request, you can use the following command to install.
+Once you have downloaded, you can use the following command to install.
 
 .. code-block:: bash
 
-    $ python setup.py install
+    $ python -m pip install <<ARCHIVE_FILE>>
 
 Via git repository
 ==================
