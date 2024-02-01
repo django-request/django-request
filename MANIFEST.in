@@ -1,7 +1,3 @@
-include LICENSE
-include CHANGELOG.md
-include README.rst
-include docs/description.txt
-include docs/long_description.txt
 recursive-include request/media *
+recursive-include request/static/request/js/ *
 recursive-include request/templates *
