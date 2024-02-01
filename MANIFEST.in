@@ -1,6 +1,6 @@
 include LICENSE
 include CHANGELOG.md
-include README.md
+include README.rst
 include docs/description.txt
 include docs/long_description.txt
 recursive-include request/media *
