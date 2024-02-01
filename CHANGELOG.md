@@ -4,7 +4,7 @@
 
 ### Breaking
 
-* Support for Django 2.2 has been dropped.
+* Support for Django 2.2, 4.0, and 4.1 has been dropped.
 
 ### Enhancements
 

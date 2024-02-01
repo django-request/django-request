@@ -45,7 +45,8 @@ django-request 1.5.5_ is the last version that supports Django 1.10.
 django-request 1.5.6_ is the last version that supports Django 1.11, 2.0, 2.1,
 3.0, 3.1, and Python 2.7 and 3.4.
 
-django-request 1.6.3_ is the last version that supports Django 2.2.
+django-request 1.6.3_ is the last version that supports Django 2.2, 4.0, and
+4.1.
 
 .. _`1.5.1`: https://pypi.org/project/django-request/1.5.1/
 .. _`1.5.4`: https://pypi.org/project/django-request/1.5.4/
