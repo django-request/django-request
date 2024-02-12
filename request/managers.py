@@ -6,8 +6,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 
-from . import settings
-from .utils import handle_naive_datetime
+from .utils import BASE_URL, handle_naive_datetime
 
 QUERYSET_PROXY_METHODS = (
     "year",
@@ -110,7 +109,7 @@ class RequestQuerySet(models.query.QuerySet):
         return self.week(str(today.year), today.strftime("%U"))
 
     def unique_visits(self):
-        return self.exclude(referer__startswith=settings.BASE_URL)
+        return self.exclude(referer__startswith=BASE_URL)
 
     def attr_list(self, name):
         return [getattr(item, name, None) for item in self if hasattr(item, name)]
