@@ -7,7 +7,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from . import settings
-from .utils import get_verbose_name
+from .utils import BASE_URL, get_verbose_name
 
 
 class Modules:
@@ -179,7 +179,7 @@ class UniqueVisit(Module):
 
     def count(self, qs):
         return qs.exclude(
-            referer__startswith=settings.BASE_URL,
+            referer__startswith=BASE_URL,
         ).count()
 
 

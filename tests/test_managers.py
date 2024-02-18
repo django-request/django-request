@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.utils.timezone import now
 
-from request import settings
 from request.managers import QUERYSET_PROXY_METHODS, RequestQuerySet
 from request.models import Request
+from request.utils import BASE_URL
 
 
 class RequestManagerTest(TestCase):
@@ -209,7 +209,7 @@ class RequestQuerySetTest(TestCase):
 
     def test_unique_visits(self):
         # setUp
-        Request.objects.create(ip="1.2.3.4", referer=settings.BASE_URL)
+        Request.objects.create(ip="1.2.3.4", referer=str(BASE_URL))
         # Test
         qs = Request.objects.all().unique_visits()
         self.assertEqual(1, qs.count())

@@ -2,6 +2,7 @@ import re
 
 from django.conf import settings
 from django.utils import timezone
+from django.utils.functional import SimpleLazyObject
 from django.utils.translation import gettext_lazy as _
 
 from .router import Patterns
@@ -178,3 +179,20 @@ def handle_naive_datetime(value):
     if settings.USE_TZ and timezone.is_naive(value):
         return timezone.make_aware(value)
     return value
+
+
+def get_base_url():
+    try:
+        from django.contrib.sites.shortcuts import get_current_site
+        from django.http import HttpRequest
+
+        return getattr(
+            settings,
+            "REQUEST_BASE_URL",
+            "http://{0}".format(get_current_site(HttpRequest()).domain),
+        )
+    except Exception:
+        return getattr(settings, "REQUEST_BASE_URL", "http://127.0.0.1")
+
+
+BASE_URL = SimpleLazyObject(get_base_url)
