@@ -1,7 +1,8 @@
 {% extends "admin/base_site.html" %}{% load i18n request_admin static %}
 {% block extrahead %}
 {{ block.super }}
-<!--[if IE]><script language="javascript" type="text/javascript" src="{% static "request/js/excanvas.min.js" %}"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static "request/css/overview.css" %}" />
+<!--[if IE]><script type="text/javascript" src="{% static "request/js/excanvas.min.js" %}"></script><![endif]-->
 <script type="text/javascript" src="{% static "request/js/jquery-1.4.2.min.js" %}"></script>
 <script type="text/javascript" src="{% static "request/js/jquery.flot.js" %}"></script>
 <script type="text/javascript" src="{% static "request/js/jquery.timeago.js" %}"></script>
@@ -22,6 +23,9 @@
 
         $(document).ready(function(){
             loadTrafficGraph();
+            window.onresize = function(event) {
+                loadTrafficGraph()
+            };
         });
         </script>
     {% endif %}
@@ -39,19 +43,19 @@
 {% endblock %}
 
 {% block content %}
-<div style="width:920px;">
-    <div class="module" style="clear: both;">
+<div>
+    <div class="module">
         <table style="width: 100%;">
             <caption>{% trans "Traffic graph" %} ( <a href="javascript:loadTrafficGraph(7);">{% trans "Week" %}</a> | <a href="javascript:loadTrafficGraph(30);">{% trans "Month" %}</a> | <a href="javascript:loadTrafficGraph(365);">{% trans "Year" %}</a> )</caption>
         </table>
         
-        <div style="padding: 15px;">
-            <div id="trafficgraph" style="width: 900px; height: 250px;"></div>
+        <div style="padding: 10px;">
+            <div id="trafficgraph"></div>
         </div>
     </div>
     
     {% for plugin in plugins %}
-      <div class="module" style="float: left; width: 450px; {% cycle 'clear: both;' 'margin-left: 16px;' %}">
+      <div class="module {% cycle 'left' 'right' %}">
          {{ plugin.render }}
       </div>
     {% endfor %}

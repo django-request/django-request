@@ -1,0 +1,21 @@
+#trafficgraph {
+    width: 100%;
+    height: 250px;
+}
+
+.plugin {
+    width: 100%;
+}
+
+@media (min-width: 960px) {
+    .left {
+        float: left;
+        clear: both;
+        width: calc(50% - 10px);
+    }
+    .right {
+        float: left;
+        width: calc(50% - 10px);
+        margin-left: 20px;
+    }
+}
