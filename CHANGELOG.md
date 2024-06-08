@@ -16,6 +16,8 @@
 
 * Adds support for Django 5.0.
 
+* Confirms support for Django 5.1.
+
 ## 1.6.3
 
 ### Enhancements
