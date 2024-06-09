@@ -140,15 +140,15 @@ msgstr "Gráfico de tráfico"
 
 #: request/templates/admin/request/request/overview.html:45
 msgid "Week"
-msgstr ""
+msgstr "Semana"
 
 #: request/templates/admin/request/request/overview.html:45
 msgid "Month"
-msgstr ""
+msgstr "Mes"
 
 #: request/templates/admin/request/request/overview.html:45
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: request/templates/request/plugins/activeusers.html:6 request/traffic.py:176
 #: request/traffic.py:177
@@ -517,30 +517,3 @@ msgstr "No extendido"
 #: request/utils.py:81
 msgid "Network Authentication Required"
 msgstr ""
-
-#~ msgid "Last 5 requests"
-#~ msgstr "Ultimas 5 solicitudes"
-
-#~ msgid "Traffic information"
-#~ msgstr "Información de tráfico"
-
-#~ msgid "Top paths"
-#~ msgstr "Principales rutas"
-
-#~ msgid "this month"
-#~ msgstr "este mes"
-
-#~ msgid "Top error-returning paths"
-#~ msgstr "Principales rutas que devuelven error"
-
-#~ msgid "more"
-#~ msgstr "más"
-
-#~ msgid "Top referrers"
-#~ msgstr "Principales referrers"
-
-#~ msgid "Top search phrases"
-#~ msgstr "Principales frases de búsqueda"
-
-#~ msgid "Top browsers"
-#~ msgstr "Principales navegadores"
