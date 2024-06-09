@@ -3,7 +3,7 @@
 
 {% block table %}
     <tr>
-        <th>{% trans "User" %}</th>
+        <th>{% translate "User" %}</th>
     </tr>
     {% load request_tag %}
     {% active_users in 5 minutes as user_list %}
