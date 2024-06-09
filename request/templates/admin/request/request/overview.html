@@ -30,10 +30,10 @@
 {% block breadcrumbs %}
     {% if request and request.user %}
         <div class="breadcrumbs">
-            <a href="{% url "admin:index" %}">{% trans "Home" %}</a> &rsaquo;
-            <a href="{% url "admin:app_list" "request" %}">{% trans "Request" %}</a> &rsaquo;
-            <a href="{% url "admin:request_request_changelist" %}">{% trans "Requests" %}</a> &rsaquo;
-            {% trans "Overview" %}
+            <a href="{% url "admin:index" %}">{% translate "Home" %}</a> &rsaquo;
+            <a href="{% url "admin:app_list" "request" %}">{% translate "Request" %}</a> &rsaquo;
+            <a href="{% url "admin:request_request_changelist" %}">{% translate "Requests" %}</a> &rsaquo;
+            {% translate "Overview" %}
         </div>
     {% endif %}
 {% endblock %}
@@ -43,10 +43,10 @@
     <div class="module" style="clear: both;">
         <table style="width: 100%;">
             <caption>
-                {% trans "Traffic graph" %} (
-                <a class="section" href="javascript:loadTrafficGraph(7);">{% trans "Week" %}</a> |
-                <a class="section" href="javascript:loadTrafficGraph(30);">{% trans "Month" %}</a> |
-                <a class="section" href="javascript:loadTrafficGraph(365);">{% trans "Year" %}</a> )
+                {% translate "Traffic graph" %} (
+                <a class="section" href="javascript:loadTrafficGraph(7);">{% translate "Week" %}</a> |
+                <a class="section" href="javascript:loadTrafficGraph(30);">{% translate "Month" %}</a> |
+                <a class="section" href="javascript:loadTrafficGraph(365);">{% translate "Year" %}</a> )
             </caption>
         </table>
         

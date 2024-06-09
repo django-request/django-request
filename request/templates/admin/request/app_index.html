@@ -7,8 +7,8 @@
 {% if app_list %}
     {% for app in app_list %}
         <div class="module">
-        <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
-        <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</a></caption>
+        <table summary="{% blocktranslate with app.name as name %}Models available in the {{ name }} application.{% endblocktranslate %}">
+        <caption><a href="{{ app.app_url }}" class="section">{% blocktranslate with app.name as name %}{{ name }}{% endblocktranslate %}</a></caption>
         {% for model in app.models %}
             <tr>
             {% if model.perms.change %}
@@ -18,13 +18,13 @@
             {% endif %}
 
             {% if model.perms.add %}
-                <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+                <td><a href="{{ model.admin_url }}add/" class="addlink">{% translate 'Add' %}</a></td>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
 
             {% if model.perms.change %}
-                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                <td><a href="{{ model.admin_url }}" class="changelink">{% translate 'Change' %}</a></td>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
@@ -32,7 +32,7 @@
             
             {% if model.perms.change %}
                 <tr>
-                    <th scope="row"><a href="{{ model.admin_url }}overview/">{% trans 'Overview' %}</a></th>
+                    <th scope="row"><a href="{{ model.admin_url }}overview/">{% translate 'Overview' %}</a></th>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
@@ -42,7 +42,7 @@
         </div>
     {% endfor %}
 {% else %}
-    <p>{% trans "You don't have permission to edit anything." %}</p>
+    <p>{% translate "You don't have permission to edit anything." %}</p>
 {% endif %}
 </div>
 {% endblock %}

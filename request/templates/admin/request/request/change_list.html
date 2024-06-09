@@ -3,11 +3,11 @@
 
 {% block object-tools %}
   <ul class="object-tools">
-      <li><a href="{% url "admin:request_request_overview" %}">{% trans "Overview" %}</a></li>
+      <li><a href="{% url "admin:request_request_overview" %}">{% translate "Overview" %}</a></li>
     {% if has_add_permission %}
       <li>
         <a href="{% url "admin:request_request_add" %}{% if is_popup %}?_popup=1{% endif %}" class="addlink">
-          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+          {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
         </a>
       </li>
     {% endif %}
