@@ -1,5 +1,14 @@
-{% extends "request/plugins/base.html" %}
-{% block plugin %}
-    {% load request_admin %}
-    <img src="{% pie_chart browsers 440 150 %}" alt=""/>
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% block table %}
+    <tr>
+        <th>{% translate "Browser" %}</th>
+        <th>{% translate "Visits" %}</th>
+    </tr>
+    {% for browser, visits in browsers %}
+        <tr>
+            <td>{{ browser }}</td>
+            <td>{{ visits }}</td>
+        </tr>
+    {% endfor %}
 {% endblock %}
