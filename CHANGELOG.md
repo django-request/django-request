@@ -18,6 +18,8 @@
 
 * Confirms support for Django 5.1.
 
+* Improves Spanish (``es``) translations.
+
 ## 1.6.3
 
 ### Enhancements
