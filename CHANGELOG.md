@@ -22,6 +22,9 @@
 
 * Changes the pie chart with top browsers to a table.
 
+* Upgrades [jQuery timeago plugin](https://timeago.yarp.com/) from version
+  1.5.3 to 1.6.7.
+
 ## 1.6.3
 
 ### Enhancements
