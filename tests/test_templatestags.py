@@ -1,20 +1,7 @@
 from django import template
 from django.test import TestCase
 
-from request.templatetags.request_admin import pie_chart
 from request.templatetags.request_tag import ActiveUserNode, active_users
-
-
-class RequestAdminPieChart(TestCase):
-    def test_pie_chart(self):
-        inventory = ["apple", "lemon", "apple", "orange", "lemon", "lemon"]
-        result = pie_chart(inventory)
-        self.assertTrue(result.startswith("//chart.googleapis.com/chart?"))
-        self.assertIn("chs=440x190", result)
-
-        result = pie_chart(inventory, width=100, height=100)
-        self.assertTrue(result.startswith("//chart.googleapis.com/chart?"))
-        self.assertIn("chs=100x100", result)
 
 
 # TODO: It's unused but add a parser: template.debug.DebugParser

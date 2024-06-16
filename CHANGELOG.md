@@ -20,6 +20,8 @@
 
 * Improves Spanish (``es``) translations.
 
+* Changes the pie chart with top browsers to a table.
+
 ## 1.6.3
 
 ### Enhancements
