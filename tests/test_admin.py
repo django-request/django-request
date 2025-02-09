@@ -1,5 +1,6 @@
 import json
 
+import django
 from django.contrib.admin import site
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
@@ -14,8 +15,14 @@ from request.models import Request
 class LookupAllowedTest(TestCase):
     def test_lookup_allowed(self):
         admin = RequestAdmin(Request, site)
-        admin.lookup_allowed("user__username", "foo")
-        admin.lookup_allowed("response", 200)
+        if django.VERSION < (5, 0):
+            admin.lookup_allowed("user__username", "foo")
+            admin.lookup_allowed("response", 200)
+        else:
+            factory = RequestFactory()
+            request = factory.get("/")
+            admin.lookup_allowed("user__username", "foo", request)
+            admin.lookup_allowed("response", 200, request)
 
 
 class RequestFromTest(TestCase):
