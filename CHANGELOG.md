@@ -1,5 +1,11 @@
 # Changelog for django-request
 
+## 1.7.1
+
+### Enhancements
+
+* Confirms support for Django 5.2 and 6.0.
+
 ## 1.7.0
 
 ### Breaking
