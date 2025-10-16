@@ -4,6 +4,8 @@
 
 ### Enhancements
 
+* Confirms support for Python 3.12 and 3.14.
+
 * Confirms support for Django 5.2 and 6.0.
 
 ## 1.7.0
