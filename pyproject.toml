@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-request"
-version = "1.7.0"
+version = "1.7.1"
 dependencies = [
     "Django>=4.2",
     "python-dateutil",
